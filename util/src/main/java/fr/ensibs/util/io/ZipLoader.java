@@ -13,10 +13,10 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipLoader implements IZipLoader {
 
-    JsonLoader jsonloader;
-    TextLoader textloader;
+    IJsonLoader jsonloader;
+    ITextLoader textloader;
 
-    public ZipLoader(JsonLoader jsonloader, TextLoader textloader)
+    public ZipLoader(IJsonLoader jsonloader, ITextLoader textloader)
     {
         this.jsonloader = jsonloader;
         this.textloader = textloader;
@@ -36,26 +36,28 @@ public class ZipLoader implements IZipLoader {
     @Override
     public Map<String, Object> load(ZipInputStream in) throws IOException, ParseException {
         Map<String,Object> res = new HashMap<>();
-        ZipInputStream zipIn = new ZipInputStream(in);
+        ZipInputStream zipIn = in;
         ZipEntry entry;
         String name, type;
         while ((entry = zipIn.getNextEntry()) != null) {
             name = entry.getName();
             // Check what is the file type
+            System.out.println("Call to getExtensionFileName");
             type = getExtensionFromFileName(name);
             if (type.equals("json"))
             { // call to Json Loader
-                JSONObject jsonObj = jsonloader.load(zipIn);
+                JSONObject jsonObj = jsonloader.load(in);
                 res.put(name,jsonObj);
             }else if (type.equals("txt"))
             { // call to Text Loader
-                String text = textloader.load(zipIn);
+                String text = textloader.load(in);
                 res.put(name,text);
             }else{ // in case we can't recognize the format used
                 throw new IOException("ZipLoaderException : unrecognized format");
             }
             zipIn.closeEntry(); // close the input stream
         }
+
         return res;
     }
 
@@ -90,6 +92,7 @@ public class ZipLoader implements IZipLoader {
 
     private String getExtensionFromFileName(String filename)
     {
+        System.out.println(filename.substring(filename.indexOf(".")+1));
         return filename.substring(filename.indexOf(".")+1);
     }
 
