@@ -85,8 +85,7 @@ public class JsonLoaderImplTest
     @BeforeEach
     public void initialize()
     {
-        // TODO initialize the instance to be tested
-        this.instance = null; // new JsonLoaderImpl();
+        this.instance = new JsonLoader();
     }
 
     //------------------------------------------------------------------------
