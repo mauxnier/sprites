@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * Unit test for the class that implements the {@link IJsonLoader} interface
  *
  * @author Pascale Launay
+ * @deprecated
  */
 public class JsonLoaderImplTest
 {

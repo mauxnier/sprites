@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Unit test for the class that implements the {@link ITextLoader} interface
  *
  * @author Pascale Launay
+ * @deprecated
  */
 public class TextLoaderImplTest
 {
