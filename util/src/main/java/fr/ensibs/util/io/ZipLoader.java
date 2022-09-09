@@ -81,9 +81,14 @@ public class ZipLoader implements IZipLoader {
             out.putNextEntry(new ZipEntry(entryName));
 
             switch (type) {
-                case "json" -> jsonloader.save((JSONObject) entryValue, out);
-                case "txt" -> textloader.save((String) entryValue, out);
-                default -> throw new IOException("Error: file type unknown");
+                case "json":
+                    jsonloader.save((JSONObject) entryValue, out);
+                    break;
+                case "txt":
+                    textloader.save((String) entryValue, out);
+                    break;
+                default:
+                    throw new IOException("Error: file type unknown");
             }
 
             out.closeEntry();
