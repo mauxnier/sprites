@@ -97,7 +97,7 @@ public class TextLoaderImplTest
     public void initialize()
     {
         // TODO initialize the instance to be tested
-        this.instance = null; // new TextLoaderImpl();
+        this.instance = new TextLoader();
     }
 
     //------------------------------------------------------------------------

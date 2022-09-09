@@ -18,13 +18,12 @@ public class TextLoader implements ITextLoader {
      */
     @Override
     public String load(InputStream in) throws IOException {
-        String res = "";
-        try {
-            res = in.toString();
-        }catch(Exception e){
-            e.printStackTrace();
+        StringBuilder textBuilder = new StringBuilder();
+        int c = 0;
+        while ((c = in.read()) != -1) {
+            textBuilder.append((char) c);
         }
-        return res;
+       return textBuilder.toString();
     }
 
     /**
@@ -38,10 +37,7 @@ public class TextLoader implements ITextLoader {
      */
     @Override
     public void save(String text, OutputStream out) throws IOException {
-        try{
-            out = new FileOutputStream(text);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        out.write(text.getBytes());
+
     }
 }
