@@ -17,8 +17,8 @@ import java.util.zip.ZipOutputStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit test for the class that implements the {@link IZipLoader} interface
- * that relies on mocks for the {@link IJsonLoader} and {@link ITextLoader}
+ * Unit test for the class that implements the {@link ZipLoader} interface
+ * that relies on mocks for the {@link JsonLoader} and {@link TextLoader}
  * implementations
  *
  * @author Pascale Launay
@@ -43,7 +43,7 @@ public class ZipLoaderImplTest
     /**
      * The instance to be tested
      */
-    private IZipLoader instance;
+    private ZipLoader instance;
 
     //------------------------------------------------------------------------
     // Initializations
@@ -75,9 +75,9 @@ public class ZipLoaderImplTest
     public void initialize()
     {
         // TODO initialize the instance to be tested
-        JsonLoader jsonLoader = new JsonLoader();
-        TextLoader textLoader = new TextLoader();
-        this.instance = new ZipLoader(jsonLoader,textLoader); // new ZipLoaderImpl(jsonLoader, textLoader);
+        JsonLoaderMock jsonLoader = new JsonLoaderMock();
+        TextLoaderMock textLoader = new TextLoaderMock();
+        this.instance = new ZipLoader(jsonLoader, textLoader);
     }
 
     //------------------------------------------------------------------------
@@ -85,7 +85,7 @@ public class ZipLoaderImplTest
     //------------------------------------------------------------------------
 
     /**
-     * Test the {@link IZipLoader#load(ZipInputStream)} method with an empty map
+     * Test the {@link ZipLoader#load(ZipInputStream)} method with an empty map
      */
     @Test
     public void testLoadEmpty()
@@ -94,7 +94,7 @@ public class ZipLoaderImplTest
     }
 
     /**
-     * Test the {@link IZipLoader#load(ZipInputStream)} method with a simple map
+     * Test the {@link ZipLoader#load(ZipInputStream)} method with a simple map
      */
     @Test
     public void testLoadSimple()
@@ -103,7 +103,7 @@ public class ZipLoaderImplTest
     }
 
     /**
-     * Test the {@link IZipLoader#load(ZipInputStream)} method with a simple map
+     * Test the {@link ZipLoader#load(ZipInputStream)} method with a simple map
      */
     @Test
     public void testLoadComplex()
@@ -112,7 +112,7 @@ public class ZipLoaderImplTest
     }
 
     /**
-     * Test the {@link IZipLoader#load(ZipInputStream)} method with the given arguments
+     * Test the {@link ZipLoader#load(ZipInputStream)} method with the given arguments
      *
      * @param inFile   the name of the input file in the test resources
      * @param expected the expected result
@@ -140,7 +140,7 @@ public class ZipLoaderImplTest
     //------------------------------------------------------------------------
 
     /**
-     * Test the {@link IZipLoader#save(Map, ZipOutputStream)} method with an empty map
+     * Test the {@link ZipLoader#save(Map, ZipOutputStream)} method with an empty map
      */
     @Test
     public void testSaveEmpty()
@@ -149,7 +149,7 @@ public class ZipLoaderImplTest
     }
 
     /**
-     * Test the {@link IZipLoader#save(Map, ZipOutputStream)} method with a simple map
+     * Test the {@link ZipLoader#save(Map, ZipOutputStream)} method with a simple map
      */
     @Test
     public void testSaveSimple()
@@ -158,7 +158,7 @@ public class ZipLoaderImplTest
     }
 
     /**
-     * Test the {@link IZipLoader#save(Map, ZipOutputStream)} method with a complex map
+     * Test the {@link ZipLoader#save(Map, ZipOutputStream)} method with a complex map
      */
     @Test
     public void testSaveComplex()
@@ -167,7 +167,7 @@ public class ZipLoaderImplTest
     }
 
     /**
-     * Test the {@link IZipLoader#save(Map, ZipOutputStream)} method with the given argument
+     * Test the {@link ZipLoader#save(Map, ZipOutputStream)} method with the given argument
      *
      * @param resources the object to be saved and then reloaded
      */
@@ -225,3 +225,44 @@ public class ZipLoaderImplTest
 // Mock classes
 //----------------------------------------------------------------------------
 
+/**
+ * A class that implements the {@link JsonLoader} interface for tests purposes
+ * and returns arbitrary results
+ *
+ * @author Pascale Launay
+ */
+class JsonLoaderMock implements IJsonLoader
+{
+    @Override
+    public JSONObject load(InputStream in)
+    {
+        return new JSONObject();
+    }
+
+    @Override
+    public void save(JSONObject obj, OutputStream out) throws IOException
+    {
+        out.write("{}".getBytes());
+    }
+}
+
+/**
+ * A class that implements the {@link TextLoader} interface for tests purposes
+ * and returns arbitrary results
+ *
+ * @author Pascale Launay
+ */
+class TextLoaderMock implements ITextLoader
+{
+    @Override
+    public String load(InputStream in) throws IOException
+    {
+        return "mockText";
+    }
+
+    @Override
+    public void save(String text, OutputStream out) throws IOException
+    {
+        out.write("mockText".getBytes());
+    }
+}
