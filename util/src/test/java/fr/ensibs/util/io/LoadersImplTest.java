@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * checks the integration of those classes
  *
  * @author Pascale Launay
- * @deprecated
+ *
  */
 public class LoadersImplTest
 {
