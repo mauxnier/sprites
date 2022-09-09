@@ -109,9 +109,9 @@ public class LoadersImplTest
     public void initialize()
     {
         // TODO initialize the instances to be tested
-        IJsonLoader jsonLoader = null; // new JsonLoaderImpl();
-        ITextLoader textLoader = null; // new TextLoaderImpl();
-        this.instance = null; // new ZipLoaderImpl(jsonLoader, textLoader);
+        IJsonLoader jsonLoader = new JsonLoader();
+        ITextLoader textLoader = new TextLoader();
+        this.instance = new ZipLoader(jsonLoader, textLoader);
     }
 
     //------------------------------------------------------------------------
