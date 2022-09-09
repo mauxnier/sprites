@@ -1,3 +1,2 @@
-**/**/*.class
-**/**/*.lock
-**/**/.DS_Store
+.gradle
+.idea
