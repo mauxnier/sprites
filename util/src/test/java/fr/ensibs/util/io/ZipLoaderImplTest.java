@@ -75,9 +75,9 @@ public class ZipLoaderImplTest
     public void initialize()
     {
         // TODO initialize the instance to be tested
-        IJsonLoader jsonLoader = new JsonLoaderMock();
-        ITextLoader textLoader = new TextLoaderMock();
-        this.instance = null; // new ZipLoaderImpl(jsonLoader, textLoader);
+        JsonLoader jsonLoader = new JsonLoader();
+        TextLoader textLoader = new TextLoader();
+        this.instance = new ZipLoader(jsonLoader,textLoader); // new ZipLoaderImpl(jsonLoader, textLoader);
     }
 
     //------------------------------------------------------------------------
@@ -225,44 +225,3 @@ public class ZipLoaderImplTest
 // Mock classes
 //----------------------------------------------------------------------------
 
-/**
- * A class that implements the {@link IJsonLoader} interface for tests purposes
- * and returns arbitrary results
- *
- * @author Pascale Launay
- */
-class JsonLoaderMock implements IJsonLoader
-{
-    @Override
-    public JSONObject load(InputStream in)
-    {
-        return new JSONObject();
-    }
-
-    @Override
-    public void save(JSONObject obj, OutputStream out) throws IOException
-    {
-        out.write("{}".getBytes());
-    }
-}
-
-/**
- * A class that implements the {@link ITextLoader} interface for tests purposes
- * and returns arbitrary results
- *
- * @author Pascale Launay
- */
-class TextLoaderMock implements ITextLoader
-{
-    @Override
-    public String load(InputStream in) throws IOException
-    {
-        return "mockText";
-    }
-
-    @Override
-    public void save(String text, OutputStream out) throws IOException
-    {
-        out.write("mockText".getBytes());
-    }
-}
