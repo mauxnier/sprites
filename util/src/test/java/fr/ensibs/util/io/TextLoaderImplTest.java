@@ -8,7 +8,7 @@ import java.io.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit test for the class that implements the {@link TextLoader} interface
+ * Unit test for the class that implements the {@link ITextLoader} interface
  *
  * @author Pascale Launay
  */
@@ -83,7 +83,7 @@ public class TextLoaderImplTest
     /**
      * The instance to be tested
      */
-    private TextLoader instance;
+    private ITextLoader instance;
 
     //------------------------------------------------------------------------
     // Initializations
@@ -104,7 +104,7 @@ public class TextLoaderImplTest
     //------------------------------------------------------------------------
 
     /**
-     * Test the {@link TextLoader#load(InputStream)} method with an empty text
+     * Test the {@link ITextLoader#load(InputStream)} method with an empty text
      */
     @Test
     public void testLoadEmpty()
@@ -113,7 +113,7 @@ public class TextLoaderImplTest
     }
 
     /**
-     * Test the {@link TextLoader#load(InputStream)} method with a short text
+     * Test the {@link ITextLoader#load(InputStream)} method with a short text
      */
     @Test
     public void testLoadShort()
@@ -122,7 +122,7 @@ public class TextLoaderImplTest
     }
 
     /**
-     * Test the {@link TextLoader#load(InputStream)} method with a long text
+     * Test the {@link ITextLoader#load(InputStream)} method with a long text
      */
     @Test
     public void testLoadLong()
@@ -131,7 +131,7 @@ public class TextLoaderImplTest
     }
 
     /**
-     * Test the {@link TextLoader#load(InputStream)} method with the given arguments
+     * Test the {@link ITextLoader#load(InputStream)} method with the given arguments
      *
      * @param inFile   the name of the input file in the test resources
      * @param expected the expected result
@@ -160,7 +160,7 @@ public class TextLoaderImplTest
     //------------------------------------------------------------------------
 
     /**
-     * Test the {@link TextLoader#save(String, OutputStream)} method with an empty text
+     * Test the {@link ITextLoader#save(String, OutputStream)} method with an empty text
      */
     @Test
     public void testSaveEmpty()
@@ -169,7 +169,7 @@ public class TextLoaderImplTest
     }
 
     /**
-     * Test the {@link TextLoader#save(String, OutputStream)} method with a short text
+     * Test the {@link ITextLoader#save(String, OutputStream)} method with a short text
      */
     @Test
     public void testSaveShort()
@@ -178,7 +178,7 @@ public class TextLoaderImplTest
     }
 
     /**
-     * Test the {@link TextLoader#save(String, OutputStream)} method with a long text
+     * Test the {@link ITextLoader#save(String, OutputStream)} method with a long text
      */
     @Test
     public void testSaveLong()
@@ -187,7 +187,7 @@ public class TextLoaderImplTest
     }
 
     /**
-     * Test the {@link TextLoader#save(String, OutputStream)} method with the given argument
+     * Test the {@link ITextLoader#save(String, OutputStream)} method with the given argument
      *
      * @param text the text to be saved and then reloaded
      */

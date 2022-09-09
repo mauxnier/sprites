@@ -20,8 +20,8 @@ import java.util.zip.ZipOutputStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Test for the classes that implements the {@link ZipLoader}, {@link JsonLoader}
- * and {@link TextLoader} interfaces. After the unit tests of each class, this test
+ * Test for the classes that implements the {@link IZipLoader}, {@link IJsonLoader}
+ * and {@link ITextLoader} interfaces. After the unit tests of each class, this test
  * checks the integration of those classes
  *
  * @author Pascale Launay
@@ -59,9 +59,9 @@ public class LoadersImplTest
     private static JSONObject ARRAY_OBJ;
 
     /**
-     * The {@link ZipLoader} instance to be tested
+     * The {@link IZipLoader} instance to be tested
      */
-    private ZipLoader instance;
+    private IZipLoader instance;
 
     //------------------------------------------------------------------------
     // Initializations
@@ -108,8 +108,8 @@ public class LoadersImplTest
     public void initialize()
     {
         // TODO initialize the instances to be tested
-        JsonLoader jsonLoader = null; // new JsonLoaderImpl();
-        TextLoader textLoader = null; // new TextLoaderImpl();
+        IJsonLoader jsonLoader = null; // new JsonLoaderImpl();
+        ITextLoader textLoader = null; // new TextLoaderImpl();
         this.instance = null; // new ZipLoaderImpl(jsonLoader, textLoader);
     }
 
@@ -118,7 +118,7 @@ public class LoadersImplTest
     //------------------------------------------------------------------------
 
     /**
-     * Test the {@link ZipLoader#load(ZipInputStream)} method with a simple map
+     * Test the {@link IZipLoader#load(ZipInputStream)} method with a simple map
      */
     @Test
     public void testLoadSimple()
@@ -127,7 +127,7 @@ public class LoadersImplTest
     }
 
     /**
-     * Test the {@link ZipLoader#load(ZipInputStream)} method with a simple map
+     * Test the {@link IZipLoader#load(ZipInputStream)} method with a simple map
      */
     @Test
     public void testLoadComplex()
@@ -136,7 +136,7 @@ public class LoadersImplTest
     }
 
     /**
-     * Test the {@link ZipLoader#load(ZipInputStream)} method with the given arguments
+     * Test the {@link IZipLoader#load(ZipInputStream)} method with the given arguments
      *
      * @param inFile   the name of the input file in the test resources
      * @param expected the expected result
@@ -164,7 +164,7 @@ public class LoadersImplTest
     //------------------------------------------------------------------------
 
     /**
-     * Test the {@link ZipLoader#save(Map, ZipOutputStream)} method with a simple map
+     * Test the {@link IZipLoader#save(Map, ZipOutputStream)} method with a simple map
      */
     @Test
     public void testSaveSimple()
@@ -173,7 +173,7 @@ public class LoadersImplTest
     }
 
     /**
-     * Test the {@link ZipLoader#save(Map, ZipOutputStream)} method with a complex map
+     * Test the {@link IZipLoader#save(Map, ZipOutputStream)} method with a complex map
      */
     @Test
     public void testSaveComplex()
@@ -182,7 +182,7 @@ public class LoadersImplTest
     }
 
     /**
-     * Test the {@link ZipLoader#save(Map, ZipOutputStream)} method with the given argument
+     * Test the {@link IZipLoader#save(Map, ZipOutputStream)} method with the given argument
      *
      * @param resources the object to be saved and then reloaded
      */
