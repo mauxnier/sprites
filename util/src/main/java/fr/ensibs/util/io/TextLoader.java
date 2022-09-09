@@ -12,13 +12,11 @@ public class TextLoader implements ITextLoader {
      * @param in input stream
      * @return the text read from the input stream
      * @throws IOException if an error occurs while reading from the input stream
-     * @pre {@code in != null}
-     * @post {@code result != null}
      */
     @Override
     public String load(InputStream in) throws IOException {
         StringBuilder textBuilder = new StringBuilder();
-        int c = 0;
+        int c;
         while ((c = in.read()) != -1) {
             textBuilder.append((char) c);
         }
@@ -31,12 +29,9 @@ public class TextLoader implements ITextLoader {
      * @param text the text to be written to the output stream
      * @param out  the output stream
      * @throws IOException if an error occurs while writing to the output stream
-     * @pre {@code text != null}
-     * @pre {@code out != null}
      */
     @Override
     public void save(String text, OutputStream out) throws IOException {
         out.write(text.getBytes());
-
     }
 }

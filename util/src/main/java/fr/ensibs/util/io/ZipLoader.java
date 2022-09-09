@@ -72,7 +72,19 @@ public class ZipLoader implements IZipLoader {
     @Override
     public void save(Map<String, Object> resources, ZipOutputStream out) throws IOException {
         for (Map.Entry<String, Object> entry : resources.entrySet()) {
-            
+            String entryName = entry.getKey();
+            Object entryValue = entry.getValue();
+
+            String type = getExtensionFromFileName(entryName);
+            out.putNextEntry(new ZipEntry(entryName));
+
+            switch (type) {
+                case "json" -> jsonloader.save((JSONObject) entryValue, out);
+                case "txt" -> textloader.save((String) entryValue, out);
+                default -> throw new IOException("Error: file type unknown");
+            }
+
+            out.closeEntry();
         }
     }
 
