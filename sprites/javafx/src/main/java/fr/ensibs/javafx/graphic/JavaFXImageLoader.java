@@ -6,19 +6,20 @@ import java.io.OutputStream;
 
 import fr.ensibs.util.graphic.IImage;
 import fr.ensibs.util.io.IImageLoader;
+import javafx.scene.image.Image;
 
 public class JavaFXImageLoader implements IImageLoader {
 
     @Override
     public JavaFXImage load(InputStream in) throws IOException {
-
-        return ;
+        Image img = new Image(in);
+        JavaFXImage res = new JavaFXImage(img);
+        return res;
     }
 
     @Override
-    public void save(IImage img, OutputStream out) throws IOException {
-        // TODO Auto-generated method stub
-        
+    public void save(JavaFXImage img, OutputStream out) throws IOException {
+
     }
     
 }
