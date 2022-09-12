@@ -3,5 +3,7 @@
 **/**/.DS_Store
 .gradle
 .idea
-gradlew.bat
+
+util/bin
 gradlew
+gradlew.bat

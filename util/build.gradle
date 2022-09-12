@@ -1,6 +1,12 @@
 // java plugin
 plugins {
     id 'java-library'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+}
+
+javafx {
+    version = "18.0.2"
+    modules = [ 'javafx.controls' ]
 }
 
 // sub-project description
