@@ -1,5 +1,6 @@
 package fr.ensibs.util.io;
 
+import fr.ensibs.util.graphic.IImage;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -14,11 +15,19 @@ public class ZipLoader implements IZipLoader {
 
     private IJsonLoader jsonloader;
     private ITextLoader textloader;
+    private IImageLoader imageLoader;
 
     public ZipLoader(IJsonLoader jsonloader, ITextLoader textloader)
     {
         this.jsonloader = jsonloader;
         this.textloader = textloader;
+    }
+
+    public ZipLoader(IJsonLoader jsonloader, ITextLoader textloader, IImageLoader imageLoader)
+    {
+        this.jsonloader = jsonloader;
+        this.textloader = textloader;
+        this.imageLoader = imageLoader;
     }
 
     /**
@@ -84,6 +93,11 @@ public class ZipLoader implements IZipLoader {
                     break;
                 case "txt":
                     textloader.save((String) entryValue, out);
+                    break;
+                case "jpg":
+                case "jpeg":
+                case "png":
+                    imageLoader.save((IImage) entryValue, out);
                     break;
                 default:
                     throw new IOException("Error: file type unknown");
