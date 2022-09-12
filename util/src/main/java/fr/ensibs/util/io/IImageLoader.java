@@ -1,12 +1,12 @@
 package fr.ensibs.util.io;
 
-import fr.ensibs.javafx.graphic.Image;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import fr.ensibs.util.graphic.IImage;
+
 public interface IImageLoader {
-    Image load(InputStream in) throws IOException;
-    void save(Image img, OutputStream out) throws IOException;
+    IImage load(InputStream in) throws IOException;
+    void save(IImage img, OutputStream out) throws IOException;
 }
