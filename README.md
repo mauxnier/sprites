@@ -11,7 +11,7 @@ This version is a preliminary version that provides only classes and interfaces 
 ## Team
 
 - Martin Bazire <bazire.e1905621@etud.univ-ubs.fr>
-- Raphaël Heurlin <e2105233@etud.univ-ubs.fr>
+- Raphaël Heurlin <heurlin.e2105233@etud.univ-ubs.fr>
 - Killian Monnier <monnier.e2103743@etud.univ-ubs.fr>
 - Ikrame Bakkari <bakkari.e2104594@etud.univ-ubs.fr>
 - Matisse Pedron <pedron.e1901069@etud.univ-ubs.fr>
