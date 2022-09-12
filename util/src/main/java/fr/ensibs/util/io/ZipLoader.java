@@ -3,7 +3,6 @@ package fr.ensibs.util.io;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
