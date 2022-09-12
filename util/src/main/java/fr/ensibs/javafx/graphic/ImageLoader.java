@@ -1,15 +1,17 @@
-package fr.ensibs.util.io;
+package fr.ensibs.javafx.graphic;
 
+import fr.ensibs.util.io.IImageLoader;
+
+import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.ParseException;
 
 public class ImageLoader implements IImageLoader {
     @Override
     public Image load(InputStream in) throws IOException {
         //todo
-        return null;
+        return ImageIO.read(in);
     }
 
     @Override
