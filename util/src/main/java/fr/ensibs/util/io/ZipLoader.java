@@ -12,8 +12,8 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipLoader implements IZipLoader {
 
-    IJsonLoader jsonloader;
-    ITextLoader textloader;
+    private IJsonLoader jsonloader;
+    private ITextLoader textloader;
 
     public ZipLoader(IJsonLoader jsonloader, ITextLoader textloader)
     {
