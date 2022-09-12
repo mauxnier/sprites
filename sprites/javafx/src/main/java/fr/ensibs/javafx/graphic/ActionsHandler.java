@@ -1,4 +1,4 @@
-package fr.ensibs.mvc;
+package fr.ensibs.javafx.graphic;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
