@@ -10,9 +10,9 @@ import fr.ensibs.util.io.IImageLoader;
 public class JavaFXImageLoader implements IImageLoader {
 
     @Override
-    public IImage load(InputStream in) throws IOException {
-        // TODO Auto-generated method stub
-        return null;
+    public JavaFXImage load(InputStream in) throws IOException {
+
+        return ;
     }
 
     @Override
