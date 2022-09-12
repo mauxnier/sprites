@@ -35,10 +35,9 @@ public class ZipLoader implements IZipLoader {
     @Override
     public Map<String, Object> load(ZipInputStream in) throws IOException, ParseException {
         Map<String,Object> res = new HashMap<>();
-        ZipInputStream zipIn = in;
         ZipEntry entry;
         String name, type;
-        while ((entry = zipIn.getNextEntry()) != null) {
+        while ((entry = in.getNextEntry()) != null) {
             name = entry.getName();
             // Check what is the file type
             System.out.println("Call to getExtensionFileName");
@@ -54,7 +53,7 @@ public class ZipLoader implements IZipLoader {
             }else{ // in case we can't recognize the format used
                 throw new IOException("ZipLoaderException : unrecognized format");
             }
-            zipIn.closeEntry(); // close the input stream
+            in.closeEntry(); // close the input stream
         }
 
         return res;
@@ -94,12 +93,15 @@ public class ZipLoader implements IZipLoader {
         }
     }
 
-    private String getExtensionFromFileName(String filename)
-    {
+    /**
+     * Return the extension of a filename.
+     * @param filename the name of file
+     * @return the extension
+     */
+    private String getExtensionFromFileName(String filename) {
         System.out.println(filename.substring(filename.indexOf(".")+1));
         return filename.substring(filename.indexOf(".")+1);
     }
-
 }
 
 
