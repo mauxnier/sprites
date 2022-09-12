@@ -1,4 +1,4 @@
 
 rootProject.name = 'Sprites'
 
-include 'util', 'app'
+include 'util', 'sprites:javafx'

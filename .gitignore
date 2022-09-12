@@ -4,6 +4,8 @@
 .gradle
 .idea
 
-util/bin
+**/**/bin
+**/**/build
 gradlew
 gradlew.bat
+.vscode
