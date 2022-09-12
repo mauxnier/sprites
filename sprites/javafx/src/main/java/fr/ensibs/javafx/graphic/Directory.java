@@ -1,4 +1,4 @@
-package fr.ensibs.mvc;
+package fr.ensibs.javafx.graphic;
 
 import java.util.ArrayList;
 import java.util.List;
