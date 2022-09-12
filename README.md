@@ -7,3 +7,5 @@ The Sprites project is composed of Java FX and Android applications:
 * a platform game: a game is composed of levels; a level is composed of a background and several sprites of different types. The player is represented by a mobile sprite. The game is described using a JSON format.
 
 This version is a preliminary version that provides only classes and interfaces to load/save Zip files that contain JSON objects descriptions and other resource files (text files)
+
+Martin : bazire.e1905621@etud.univ-ubs.fr
