@@ -1,9 +1,7 @@
 **/**/*.class
 **/**/*.lock
 **/**/.DS_Store
-.gradle
 .idea
-gradle
 
 **/**/bin
 **/**/build
