@@ -11,14 +11,14 @@ import javafx.scene.image.Image;
 public class JavaFXImageLoader implements IImageLoader {
 
     @Override
-    public JavaFXImage load(InputStream in) throws IOException {
+    public IImage load(InputStream in) throws IOException {
         Image img = new Image(in);
         JavaFXImage res = new JavaFXImage(img);
         return res;
     }
 
     @Override
-    public void save(JavaFXImage img, OutputStream out) throws IOException {
+    public void save(IImage img, OutputStream out) throws IOException {
         Image i = img.get_image();
 
     }
