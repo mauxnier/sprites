@@ -1,4 +1,3 @@
-
 rootProject.name = 'Sprites'
 
 include 'util', 'sprites.javafx'
