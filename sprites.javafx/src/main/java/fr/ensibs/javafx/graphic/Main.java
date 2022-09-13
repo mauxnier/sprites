@@ -33,7 +33,7 @@ public class Main extends Application
     public void start(Stage stage) throws Exception
     {
         // init the scene from the FXML description
-        URL resource = Main.class.getResource("fr/ensibs/javafx/graphic/main.fxml");
+        URL resource = getClass().getResource("/fxml/main.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(resource);
         Scene scene = new Scene(fxmlLoader.load());
 
