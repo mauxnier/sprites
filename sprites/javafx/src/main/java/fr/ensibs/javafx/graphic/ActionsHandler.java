@@ -1,11 +1,24 @@
 package fr.ensibs.javafx.graphic;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.Map;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
+
+import fr.ensibs.util.io.JsonLoader;
+import fr.ensibs.util.io.TextLoader;
+import fr.ensibs.util.io.ZipLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -13,8 +26,7 @@ import javafx.scene.input.MouseEvent;
  *
  * @author Pascale Launay
  */
-public class ActionsHandler
-{
+public class ActionsHandler {
     /**
      * component that displays the list
      */
@@ -38,28 +50,48 @@ public class ActionsHandler
      */
     private Directory directory;
 
-    /**
-     * Method called after the application has been displayed and the components have
-     * been initialized
-     */
-    public void initialize()
-    {
-        directory = new Directory();
-        listView.getItems().addAll(directory.getNames());
-    }
+    private JsonLoader jsonloader = new JsonLoader();
+
+    private TextLoader textloader = new TextLoader();
+
+    private ZipLoader zipLoader = new ZipLoader(jsonloader, textloader);
 
     /**
-     * Reset the list of names to its initial values
-     *
-     * @param actionEvent the event that triggered this action
-     * @post the list contains the directory initial default elements
+     * Method called after the application has been displayed and the components
+     * have
+     * been initialized
      */
+    public void initialize() {
+        directory = new Directory();
+        listView.getItems().addAll(directory.getFiles().keySet());
+    }
+
     @FXML
-    public void handleResetAction(ActionEvent actionEvent)
-    {
-        directory.reset();
-        listView.getItems().clear();
-        listView.getItems().addAll(directory.getNames());
+    public void handleLoadFile(ActionEvent actionEvent) {
+        try {
+            InputStream is = new FileInputStream(FileExplorer.chooseFile());
+            ZipInputStream zis = new ZipInputStream(is);
+
+            Map<String, Object> content = this.zipLoader.load(zis);
+
+            directory.reset();
+            directory.addAllFile(content);
+            listView.getItems().clear();
+            listView.getItems().addAll(content.keySet());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void handleSaveFile(ActionEvent actionEvent) {
+        try {
+            OutputStream is = new FileOutputStream(FileExplorer.saveFileChooser());
+            ZipOutputStream zis = new ZipOutputStream(is);
+            this.zipLoader.save(directory.getFiles(), zis);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -70,11 +102,10 @@ public class ActionsHandler
      * @post the textArea content matches the selected item in the list
      */
     @FXML
-    public void handleListClicked(MouseEvent mouseEvent)
-    {
+    public void handleListClicked(MouseEvent mouseEvent) {
         String item = listView.getSelectionModel().getSelectedItem();
         if (item != null) {
-            textArea.setText(item);
+            textArea.setText(directory.getFile(item).toString());
         } else {
             textArea.setText("");
         }
@@ -87,18 +118,22 @@ public class ActionsHandler
      * @post the name entered by the user, if any, is displayed in the list
      */
     @FXML
-    public void handleAddItem(ActionEvent actionEvent)
-    {
-        TextInputDialog inputDialog = new TextInputDialog();
-        inputDialog.setContentText("Name: ");
-        inputDialog.setHeaderText("Enter the name to be added");
-        inputDialog.showAndWait();
-        String name = inputDialog.getEditor().getText();
-        if (name != null && !name.equals("")) {
-            directory.addName(name);
-            listView.getItems().add(name);
-        } else {
-            messageLabel.setText("No name entered");
+    public void handleAddItem(ActionEvent actionEvent) {
+
+        try {
+            File file = FileExplorer.chooseFile();
+            String fileName = file.getName();
+
+            TextLoader textloader = new TextLoader();
+            String content = textloader.load(new FileInputStream(file));
+
+            directory.addFile(fileName, content);
+            listView.getItems().add(fileName);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

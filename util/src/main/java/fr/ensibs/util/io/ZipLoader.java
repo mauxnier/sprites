@@ -76,6 +76,7 @@ public class ZipLoader implements IZipLoader {
      *
      * @param resources the resources to be written to the output stream
      * @param out the output stream
+     * @return 
      * @throws IOException if an error occurs while writing to the output stream
      */
     @Override
@@ -83,6 +84,9 @@ public class ZipLoader implements IZipLoader {
         for (Map.Entry<String, Object> entry : resources.entrySet()) {
             String entryName = entry.getKey();
             Object entryValue = entry.getValue();
+
+            System.out.println(entryName);
+            System.out.println(entryValue);
 
             String type = getExtensionFromFileName(entryName);
             out.putNextEntry(new ZipEntry(entryName));

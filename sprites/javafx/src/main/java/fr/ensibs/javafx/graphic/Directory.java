@@ -1,36 +1,29 @@
 package fr.ensibs.javafx.graphic;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * A simple directory composed of a list of names
+ * A simple directory composed of a list of files
  *
  * @author Pascale Launay
  *
- * @inv getNames() != null
+ * @inv getFiles() != null
  */
 public class Directory
 {
-    /**
-     * The directory default initial values
-     */
-    private static final String[] DEFAULT_VALUES = {"Alice", "Bob", "Carol", "David"};
 
     /**
-     * The names in the directory
+     * The files in the directory
      */
-    private List<String> names;
+    private Map<String, Object> files;
 
     /**
      * Constructor. Initialize the default values
      */
     public Directory()
     {
-        names = new ArrayList<>();
-        for (String name : DEFAULT_VALUES) {
-            names.add(name);
-        }
+        files = new HashMap<>();
     }
 
     /**
@@ -38,30 +31,48 @@ public class Directory
      */
     public void reset()
     {
-        names.clear();
-        for (String name : DEFAULT_VALUES) {
-            names.add(name);
-        }
+        files.clear();
     }
 
     /**
-     * Add a new name to the directory
+     * Add a new file to the directory
      *
-     * @param name the new name
+     * @param file the new file
      *
-     * @pre name != null
+     * @pre file != null
      */
-    public void addName(String name)
+    public void addFile(String fileName, Object content)
     {
-        names.add(name);
+        files.put(fileName, content.toString());
     }
 
     /**
-     * Give the names in the directory
-     * @return the directory names
+     * Add a new file to the directory
+     *
+     * @param file the new file
+     *
+     * @pre file != null
      */
-    public List<String> getNames()
+    public void addAllFile(Map<String, Object> filesList)
     {
-        return names;
+        files.putAll(filesList);
+    }
+
+    /**
+     * Give the files in the directory
+     * @return the directory files
+     */
+    public Map<String, Object> getFiles()
+    {
+        return files;
+    }
+
+    /**
+     * Give the file in the directory from its name
+     * @return the directory file
+     */
+    public Object getFile(String key)
+    {
+        return files.get(key);
     }
 }

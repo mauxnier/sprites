@@ -11,7 +11,7 @@ public class JavaFXImage implements IImage {
     }
 
 
-    public Image get_image(){
+    public Image getImage(){
         return this.img;
     }
 

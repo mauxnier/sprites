@@ -14,6 +14,8 @@ import java.net.URL;
  */
 public class Main extends Application
 {
+
+    public Stage stage;
     /**
      * The main entry point for all JavaFX applications.
      * The start method is called after the init method has returned,
@@ -32,6 +34,7 @@ public class Main extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
+        this.stage = stage;
         // init the scene from the FXML description
         URL resource = getClass().getResource("main.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(resource);
@@ -39,7 +42,7 @@ public class Main extends Application
 
         // init the stage
         stage.setScene(scene);
-        stage.setTitle("MVC example");
+        stage.setTitle("Sprites");
 
         // display the frame
         stage.show();

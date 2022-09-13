@@ -13,7 +13,8 @@
     <top>
         <MenuBar>
             <Menu text="File">
-                <MenuItem text="Reset" onAction="#handleResetAction"/>
+                <MenuItem text="Load" onAction="#handleLoadFile"/>
+                <MenuItem text="Save" onAction="#handleSaveFile"/>
             </Menu>
         </MenuBar>
     </top>

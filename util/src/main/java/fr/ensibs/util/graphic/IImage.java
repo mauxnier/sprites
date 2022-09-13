@@ -5,5 +5,5 @@ import javafx.scene.image.Image;
 import java.awt.*;
 
 public interface IImage {
-    Image get_image();
+    Image getImage();
 }

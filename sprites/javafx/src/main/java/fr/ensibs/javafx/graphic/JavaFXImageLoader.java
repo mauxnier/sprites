@@ -19,7 +19,7 @@ public class JavaFXImageLoader implements IImageLoader {
 
     @Override
     public void save(IImage img, OutputStream out) throws IOException {
-        Image i = img.get_image();
+        Image i = img.getImage();
 
     }
     
