@@ -23,5 +23,5 @@ javafx {
 
 // application main class for the run task
 application {
-    mainClass = 'fr.ensibs.mvc.Main'
+    mainClass = 'fr.ensibs.javafx.graphic.Main'
 }
