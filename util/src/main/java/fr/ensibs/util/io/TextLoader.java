@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class TextLoader implements ITextLoader {
+public class TextLoader implements Loader<String> {
 
     /**
      * Read a text from an input stream.
