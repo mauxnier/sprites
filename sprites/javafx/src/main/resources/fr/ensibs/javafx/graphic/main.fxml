@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?><?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.Canvas?>
 
 <!-- ===================================================================== -->
 <!-- The application content                                               -->
 <!-- author: Pascale Launay                                                -->
 <!-- ===================================================================== -->
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-    fx:controller="fr.ensibs.javafx.graphic.ActionsHandler" prefHeight="400.0" prefWidth="600.0">
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="fr.ensibs.javafx.graphic.ActionsHandler" prefHeight="400.0" prefWidth="600.0">
 
     <!-- Top component: menu bar -->
     <top>
         <MenuBar>
             <Menu text="File">
-                <MenuItem text="Load" onAction="#handleLoadFile"/>
-                <MenuItem text="Save" onAction="#handleSaveFile"/>
+                <MenuItem text="Load" onAction="#handleLoadFile" />
+                <MenuItem text="Save" onAction="#handleSaveFile" />
             </Menu>
         </MenuBar>
     </top>
@@ -23,21 +25,28 @@
     <left>
         <BorderPane>
             <center>
-                <ListView fx:id="listView" onMouseClicked="#handleListClicked"/>
+                <ListView fx:id="listView" onMouseClicked="#handleListClicked" />
             </center>
             <bottom>
-                <Button fx:id="addButton" text="Add" onAction="#handleAddItem" prefWidth="${addButton.parent.width}"/>
+                <Button fx:id="addButton" text="Add" onAction="#handleAddItem" prefWidth="${addButton.parent.width}" />
             </bottom>
         </BorderPane>
     </left>
 
     <!-- center component: text area -->
     <center>
-        <TextArea fx:id="textArea" prefHeight="${textArea.parent.height}"/>
+        <StackPane>
+            <Group fx:id="groupTextArea">
+                <TextArea fx:id="textArea" prefHeight="${textArea.parent.height}" />
+            </Group>
+            <Group fx:id="groupCanvas">
+                <Canvas fx:id="imageCanvas" width="${imageCanvas.parent.parent.width}" height="${imageCanvas.parent.parent.height}" />
+            </Group>
+        </StackPane>
     </center>
 
     <!-- bottom component: label to show a message -->
     <bottom>
-        <Label fx:id="messageLabel"/>
+        <Label fx:id="messageLabel" />
     </bottom>
 </BorderPane>

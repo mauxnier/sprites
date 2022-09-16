@@ -43,7 +43,7 @@ public class Directory
      */
     public void addFile(String fileName, Object content)
     {
-        files.put(fileName, content.toString());
+        files.put(fileName, content);
     }
 
     /**

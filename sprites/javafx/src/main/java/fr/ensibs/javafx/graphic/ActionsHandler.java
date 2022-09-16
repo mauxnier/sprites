@@ -11,14 +11,18 @@ import java.util.Map;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import fr.ensibs.util.io.ILoader;
 import fr.ensibs.util.io.JsonLoader;
 import fr.ensibs.util.io.TextLoader;
 import fr.ensibs.util.io.ZipLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -44,6 +48,15 @@ public class ActionsHandler {
      */
     @FXML
     private TextArea textArea;
+
+    @FXML
+    private Canvas imageCanvas;
+
+    @FXML
+    private Group groupTextArea;
+
+    @FXML
+    private Group groupCanvas;
 
     /**
      * The directory that contains the names to be displayed in the list
@@ -105,7 +118,22 @@ public class ActionsHandler {
     public void handleListClicked(MouseEvent mouseEvent) {
         String item = listView.getSelectionModel().getSelectedItem();
         if (item != null) {
-            textArea.setText(directory.getFile(item).toString());
+            Object file = directory.getFile(item);
+
+            if (file.getClass().getName().equals("fr.ensibs.javafx.graphic.JavaFXImage")) {
+                groupTextArea.setVisible(false);
+                groupCanvas.setVisible(true);
+
+                JavaFXImage javaFXImage = (JavaFXImage) file;
+
+                imageCanvas.getGraphicsContext2D().drawImage(javaFXImage.getImage(), 0, 0);
+                
+            } else {
+                groupCanvas.setVisible(false);
+                groupTextArea.setVisible(true);
+                textArea.setText(directory.getFile(item).toString());
+            }
+
         } else {
             textArea.setText("");
         }
@@ -123,9 +151,25 @@ public class ActionsHandler {
         try {
             File file = FileExplorer.chooseFile();
             String fileName = file.getName();
+            String extension = fileName.substring(fileName.indexOf(".") + 1).toLowerCase();
 
-            TextLoader textloader = new TextLoader();
-            String content = textloader.load(new FileInputStream(file));
+            ILoader loader;
+
+            switch (extension) {
+                case "png":
+                case "jpg":
+                case "jpeg":
+                    loader = new JavaFXImageLoader();
+                    break;
+                case "json":
+                    loader = new JsonLoader();
+                    break;
+                default:
+                    loader = new TextLoader();
+                    break;
+            }
+
+            Object content = loader.load(new FileInputStream(file));
 
             directory.addFile(fileName, content);
             listView.getItems().add(fileName);
@@ -133,6 +177,8 @@ public class ActionsHandler {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
