@@ -1,11 +1,9 @@
 package fr.ensibs.util.io;
 
-import fr.ensibs.util.graphic.IImage;
 import org.json.JSONObject;
 
 import java.awt.*;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.ZipEntry;
@@ -14,21 +12,21 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipLoader implements IZipLoader {
 
-    private Loader<JSONObject> jsonloader;
-    private Loader<String> textloader;
-    private Loader<Image> imageLoader;
+    private ILoader<JSONObject> jsonloader;
+    private ILoader<String> textloader;
+    private ILoader<Image> imageILoader;
 
-    public ZipLoader(Loader<JSONObject> jsonloader, Loader<String> textloader)
+    public ZipLoader(ILoader<JSONObject> jsonloader, ILoader<String> textloader)
     {
         this.jsonloader = jsonloader;
         this.textloader = textloader;
     }
 
-    public ZipLoader(Loader<JSONObject> jsonloader, Loader<String> textloader, Loader<Image> imageLoader)
+    public ZipLoader(ILoader<JSONObject> jsonloader, ILoader<String> textloader, ILoader<Image> imageILoader)
     {
         this.jsonloader = jsonloader;
         this.textloader = textloader;
-        this.imageLoader = imageLoader;
+        this.imageILoader = imageILoader;
     }
 
     /**
@@ -51,15 +49,15 @@ public class ZipLoader implements IZipLoader {
             System.out.println("Call to getExtensionFileName");
             type = getExtensionFromFileName(name);
             if (type.equals("json"))
-            { // call to Json Loader
+            { // call to Json ILoader
                 JSONObject jsonObj = jsonloader.load(in);
                 res.put(name,jsonObj);
             }else if (type.equals("txt"))
-            { // call to Text Loader
+            { // call to Text ILoader
                 String text = textloader.load(in);
                 res.put(name,text);
             }else{ // in case we can't recognize the format used
-                throw new IOException("ZipLoaderException : unrecognized format");
+                throw new IOException("ZipILoaderException : unrecognized format");
             }
             in.closeEntry(); // close the input stream
         }
@@ -100,7 +98,7 @@ public class ZipLoader implements IZipLoader {
                 case "jpg":
                 case "jpeg":
                 case "png":
-                    imageLoader.save((Image) entryValue, out);
+                    imageILoader.save((Image) entryValue, out);
                     break;
                 default:
                     throw new IOException("Error: file type unknown");

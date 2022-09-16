@@ -5,10 +5,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import fr.ensibs.util.graphic.IImage;
-import fr.ensibs.util.io.Loader;
+import fr.ensibs.util.io.ILoader;
 import javafx.scene.image.Image;
 
-public class JavaFXImageLoader implements Loader<IImage> {
+public class JavaFXImageLoader implements ILoader<IImage> {
 
     @Override
     public IImage load(InputStream in) {
