@@ -48,4 +48,9 @@ public class SnapshotLayer implements ISnapshotLayer {
         this.y = y;
     }
 
+    public boolean equals(SnapshotLayer o)
+    {
+        return this.x == o.getX() && this.y == o.getY() && this.img == o.getImage();
+    }
+
 }
