@@ -9,6 +9,7 @@ package fr.ensibs.util.graphic;
  */
 public interface ISnapshotLayer<I extends IImage>
 {
+
     /**
      * Give the image drawn on the layer.
      *
@@ -43,4 +44,7 @@ public interface ISnapshotLayer<I extends IImage>
      * @return the height of the area used to display the image
      */
     int getHeight();
+
+    public boolean equals(Object o);
+
 }

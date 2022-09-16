@@ -10,4 +10,7 @@ import java.util.List;
  */
 public interface ISnapshot<I extends IImage> extends List<ISnapshotLayer<I>>
 {
+    @Override
+    public boolean equals(Object o);
+
 }
