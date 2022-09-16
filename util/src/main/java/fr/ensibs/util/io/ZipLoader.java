@@ -12,19 +12,19 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-public class ZipLoader implements Loader<Map<String,Object>> {
+public class ZipLoader implements ILoader<Map<String,Object>> {
 
-    private Loader<JSONObject> jsonloader;
-    private Loader<String> textloader;
-    private Loader<Image> imageLoader;
+    private ILoader<JSONObject> jsonloader;
+    private ILoader<String> textloader;
+    private ILoader<Image> imageLoader;
 
-    public ZipLoader(Loader<JSONObject> jsonloader, Loader<String> textloader)
+    public ZipLoader(ILoader<JSONObject> jsonloader, ILoader<String> textloader)
     {
         this.jsonloader = jsonloader;
         this.textloader = textloader;
     }
 
-    public ZipLoader(Loader<JSONObject> jsonloader, Loader<String> textloader, Loader<Image> imageLoader)
+    public ZipLoader(ILoader<JSONObject> jsonloader, ILoader<String> textloader, ILoader<Image> imageLoader)
     {
         this.jsonloader = jsonloader;
         this.textloader = textloader;

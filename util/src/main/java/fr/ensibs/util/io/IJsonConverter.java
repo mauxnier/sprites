@@ -10,7 +10,7 @@ import java.text.ParseException;
  * @param <T> the type of Java objects converted from/to JSON objects
  * @author Pascale Launay
  */
-public interface JsonConverter<T>
+public interface IJsonConverter<T>
 {
     /**
      * Give a Java object from a JSON object.
