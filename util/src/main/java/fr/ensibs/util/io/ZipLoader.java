@@ -3,6 +3,7 @@ package fr.ensibs.util.io;
 import fr.ensibs.util.graphic.IImage;
 import org.json.JSONObject;
 
+import java.awt.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashMap;
@@ -11,19 +12,19 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-public class ZipLoader implements IZipLoader {
+public class ZipLoader implements Loader<Map<String,Object>> {
 
-    private IJsonLoader jsonloader;
-    private ITextLoader textloader;
-    private IImageLoader imageLoader;
+    private Loader<JSONObject> jsonloader;
+    private Loader<String> textloader;
+    private Loader<Image> imageLoader;
 
-    public ZipLoader(IJsonLoader jsonloader, ITextLoader textloader)
+    public ZipLoader(Loader<JSONObject> jsonloader, Loader<String> textloader)
     {
         this.jsonloader = jsonloader;
         this.textloader = textloader;
     }
 
-    public ZipLoader(IJsonLoader jsonloader, ITextLoader textloader, IImageLoader imageLoader)
+    public ZipLoader(Loader<JSONObject> jsonloader, Loader<String> textloader, Loader<Image> imageLoader)
     {
         this.jsonloader = jsonloader;
         this.textloader = textloader;
@@ -42,7 +43,7 @@ public class ZipLoader implements IZipLoader {
      * @throws ParseException if an error occurs while making the JSON objects
      */
     @Override
-    public Map<String, Object> load(ZipInputStream in) throws IOException, ParseException {
+    public Map<String, Object> load(ZipInputStream in) throws Exception {
         Map<String,Object> res = new HashMap<>();
         ZipEntry entry;
         String name, type;

@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import fr.ensibs.util.graphic.IImage;
-import fr.ensibs.util.io.IImageLoader;
 import javafx.scene.image.Image;
 
 public class JavaFXImageLoader implements IImageLoader {

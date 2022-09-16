@@ -7,7 +7,7 @@ import java.text.ParseException;
 
 import org.json.JSONObject;
 
-public class JsonLoader implements IJsonLoader {
+public class JsonLoader implements Loader<JSONObject> {
 
     @Override
     public JSONObject load(InputStream in) throws IOException, ParseException {
