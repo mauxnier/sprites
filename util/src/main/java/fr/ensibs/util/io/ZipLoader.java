@@ -12,7 +12,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-public class ZipLoader implements Loader<Map<String,Object>> {
+public class ZipLoader implements IZipLoader {
 
     private Loader<JSONObject> jsonloader;
     private Loader<String> textloader;
@@ -34,13 +34,11 @@ public class ZipLoader implements Loader<Map<String,Object>> {
     /**
      * Read a list of JSON objects and texts from a ZIP input stream. Each resource is
      * give as a pair (key, value) where the key is the name of the entry in the zip
-     * input and the value its content loaded using the appropriate loader ({@link IJsonLoader}
-     * or {@link ITextLoader}) given the extension of the entry name
+     * input and the value its content loaded using the appropriate loader ({@link }
+     * or {@link }) given the extension of the entry name
      *
      * @param in input stream
      * @return the resources read from the input stream
-     * @throws IOException    if an error occurs while reading from the input stream
-     * @throws ParseException if an error occurs while making the JSON objects
      */
     @Override
     public Map<String, Object> load(ZipInputStream in) throws Exception {
@@ -72,7 +70,7 @@ public class ZipLoader implements Loader<Map<String,Object>> {
     /**
      * Save a list of JSON objects and texts to a ZIP output stream. Each given resource
      * is written to the ZIP output stream with its key as entry name and its value is written
-     * using the appropriate loader ({@link IJsonLoader} or {@link ITextLoader}) given the
+     * using the appropriate loader ({@link } or {@link }) given the
      * type of the resource
      *
      * @param resources the resources to be written to the output stream
@@ -81,7 +79,7 @@ public class ZipLoader implements Loader<Map<String,Object>> {
      * @throws IOException if an error occurs while writing to the output stream
      */
     @Override
-    public void save(Map<String, Object> resources, ZipOutputStream out) throws IOException {
+    public void save(Map<String, Object> resources, ZipOutputStream out) throws Exception {
         for (Map.Entry<String, Object> entry : resources.entrySet()) {
             String entryName = entry.getKey();
             Object entryValue = entry.getValue();
@@ -102,7 +100,7 @@ public class ZipLoader implements Loader<Map<String,Object>> {
                 case "jpg":
                 case "jpeg":
                 case "png":
-                    imageLoader.save((IImage) entryValue, out);
+                    imageLoader.save((Image) entryValue, out);
                     break;
                 default:
                     throw new IOException("Error: file type unknown");
