@@ -1,9 +1,40 @@
 package fr.ensibs.util.graphic;
 
-import javafx.scene.image.Image;
+/**
+ * An image representation for any graphic system.
+ *
+ * @author Pascale Launay
+ * @inv {@code getWidth() >= 0 && getHeight() >= 0}
+ */
+public interface IImage
+{
+    /**
+     * Give the name of the image.
+     *
+     * @return the name of the image
+     */
+    String getName();
 
-import java.awt.*;
+    /**
+     * Set the name of the image.
+     *
+     * @param name the new name of the image
+     */
+    void setName(String name);
 
-public interface IImage {
-    Image getImage();
+    /**
+     * Give the width of the image in pixels.
+     *
+     * @return the width of the image
+     */
+    int getWidth();
+
+    /**
+     * Give the height of the image in pixels.
+     *
+     * @return the height of the image
+     */
+    int getHeight();
 }
+
+
