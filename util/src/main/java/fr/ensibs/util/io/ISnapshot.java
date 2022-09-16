@@ -1,6 +1,4 @@
 package fr.ensibs.util.io;
 
-public class Snapshot {
-
-
+public interface ISnapshot {
 }
