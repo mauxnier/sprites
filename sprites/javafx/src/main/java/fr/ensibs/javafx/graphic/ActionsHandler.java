@@ -126,8 +126,7 @@ public class ActionsHandler {
 
                 JavaFXImage javaFXImage = (JavaFXImage) file;
 
-                imageCanvas.getGraphicsContext2D().drawImage(javaFXImage.getImage(), 0, 0);
-                
+                imageCanvas.getGraphicsContext2D().drawImage(javaFXImage.getImage(), 0, 0, 350, 350);
             } else {
                 groupCanvas.setVisible(false);
                 groupTextArea.setVisible(true);
