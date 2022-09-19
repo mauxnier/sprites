@@ -37,7 +37,7 @@
     <center>
         <StackPane>
             <Group fx:id="groupTextArea">
-                <TextArea fx:id="textArea" prefHeight="${textArea.parent.height}" />
+                <TextArea fx:id="textArea" prefHeight="${textArea.parent.parent.height}" />
             </Group>
             <Group fx:id="groupCanvas">
                 <Canvas fx:id="imageCanvas" width="${imageCanvas.parent.parent.width}" height="${imageCanvas.parent.parent.height}" />
