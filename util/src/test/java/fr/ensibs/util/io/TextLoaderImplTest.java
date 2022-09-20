@@ -84,7 +84,7 @@ public class TextLoaderImplTest
     /**
      * The instance to be tested
      */
-    private ITextLoader instance;
+    private TextLoader instance;
 
     //------------------------------------------------------------------------
     // Initializations

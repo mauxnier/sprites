@@ -1,19 +1,19 @@
 package fr.ensibs.util.graphic;
 
-public class SnapshotLayer implements ISnapshotLayer {
+public class SnapshotLayer<T extends IImage> implements ISnapshotLayer<T> {
 
     private int x, y;
 
-    private IImage img;
+    private T img;
 
-    public SnapshotLayer(int x, int y, IImage img) {
+    public SnapshotLayer(int x, int y, T img) {
         this.x = x;
         this.y = y;
         this.img = img;
     }
 
     @Override
-    public IImage getImage() {
+    public T getImage() {
         return this.img;
     }
 
@@ -45,8 +45,9 @@ public class SnapshotLayer implements ISnapshotLayer {
         this.y = y;
     }
 
-    public boolean equals(SnapshotLayer o) {
-        return this.x == o.getX() && this.y == o.getY() && this.img == o.getImage();
+    @Override
+    public boolean equals(Object o) {
+        SnapshotLayer<T> obj = (SnapshotLayer<T>) o;
+        return this.x == obj.x && this.y == obj.y;
     }
-
 }

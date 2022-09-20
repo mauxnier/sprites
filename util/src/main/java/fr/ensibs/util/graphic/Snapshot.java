@@ -1,15 +1,19 @@
 package fr.ensibs.util.graphic;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
 public class Snapshot<I extends IImage> implements ISnapshot {
+    private List<SnapshotLayer<I>> snapshotList;
 
-    private List<SnapshotLayer> snapshotList;
+    public Snapshot() {
+        this.snapshotList = new ArrayList<SnapshotLayer<I>>();
+    }
 
-    public List<SnapshotLayer> getList() {
+    public List<SnapshotLayer<I>> getList() {
         return (this.snapshotList);
     }
 
@@ -29,7 +33,7 @@ public class Snapshot<I extends IImage> implements ISnapshot {
     }
 
     @Override
-    public Iterator<SnapshotLayer> iterator() {
+    public Iterator<SnapshotLayer<I>> iterator() {
         return (this.snapshotList.iterator());
     }
 
@@ -40,7 +44,7 @@ public class Snapshot<I extends IImage> implements ISnapshot {
 
     @Override
     public boolean add(Object o) {
-        return (this.snapshotList.add((SnapshotLayer) o));
+        return (this.snapshotList.add((SnapshotLayer<I>) o));
     }
 
     @Override
@@ -70,7 +74,7 @@ public class Snapshot<I extends IImage> implements ISnapshot {
 
     @Override
     public Object set(int i, Object o) {
-        return (this.snapshotList.set(i, (SnapshotLayer) o));
+        return (this.snapshotList.set(i, (SnapshotLayer<I>) o));
     }
 
     @Override
@@ -94,17 +98,17 @@ public class Snapshot<I extends IImage> implements ISnapshot {
     }
 
     @Override
-    public ListIterator<SnapshotLayer> listIterator() {
+    public ListIterator<SnapshotLayer<I>> listIterator() {
         return this.snapshotList.listIterator();
     }
 
     @Override
-    public ListIterator<SnapshotLayer> listIterator(int i) {
+    public ListIterator<SnapshotLayer<I>> listIterator(int i) {
         return this.snapshotList.listIterator(i);
     }
 
     @Override
-    public List<SnapshotLayer> subList(int i, int i1) {
+    public List<SnapshotLayer<I>> subList(int i, int i1) {
         return this.snapshotList.subList(i, i1);
     }
 
@@ -128,7 +132,8 @@ public class Snapshot<I extends IImage> implements ISnapshot {
         return this.snapshotList.toArray(objects);
     }
 
-    public boolean equals(Snapshot obj) {
-        return snapshotList.equals(obj.getList());
+    @Override
+    public boolean equals(Object obj) {
+        return snapshotList.equals(((Snapshot<I>) obj).getList());
     }
 }
