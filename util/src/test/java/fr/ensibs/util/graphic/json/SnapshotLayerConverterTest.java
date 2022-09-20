@@ -1,7 +1,8 @@
 package fr.ensibs.util.graphic.json;
 
+import fr.ensibs.util.graphic.ISnapshotLayer;
 import fr.ensibs.util.graphic.SnapshotLayer;
-import fr.ensibs.util.io.JsonConverter;
+import fr.ensibs.util.io.IJsonConverter;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,17 +51,17 @@ public class SnapshotLayerConverterTest
     /**
      * A snapshot layer
      */
-    private static SnapshotLayer<ImageMock> LAYER;
+    private static ISnapshotLayer<ImageMock> LAYER;
 
     /**
      * Another snapshot layer
      */
-    private static SnapshotLayer<ImageMock> OTHER_LAYER;
+    private static ISnapshotLayer<ImageMock> OTHER_LAYER;
 
     /**
      * The instance to be tested
      */
-    private JsonConverter<SnapshotLayer<ImageMock>> instance;
+    private IJsonConverter<ISnapshotLayer<ImageMock>> instance;
 
     //------------------------------------------------------------------------
     // Initializations
@@ -112,11 +113,11 @@ public class SnapshotLayerConverterTest
         testFromJson(new JSONObject(OTHER_LAYER_OBJ), OTHER_LAYER);
     }
 
-    private void testFromJson(JSONObject obj, SnapshotLayer<ImageMock> expected)
+    private void testFromJson(JSONObject obj, ISnapshotLayer<ImageMock> expected)
     {
         try {
             // invoke the method to be tested
-            SnapshotLayer<ImageMock> actual = instance.fromJson(obj);
+            ISnapshotLayer<ImageMock> actual = instance.fromJson(obj);
 
             // check the method results
             assertNotNull(actual);

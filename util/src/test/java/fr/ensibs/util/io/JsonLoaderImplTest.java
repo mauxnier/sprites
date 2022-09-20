@@ -45,7 +45,7 @@ public class JsonLoaderImplTest
     /**
      * The instance to be tested
      */
-    private IJsonLoader instance;
+    private JsonLoader instance;
 
     //------------------------------------------------------------------------
     // Initializations

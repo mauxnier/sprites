@@ -1,7 +1,7 @@
 package fr.ensibs.util.graphic.json;
 
 import fr.ensibs.util.graphic.Snapshot;
-import fr.ensibs.util.io.JsonConverter;
+import fr.ensibs.util.io.IJsonConverter;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,7 +59,7 @@ public class SnapshotConverterTest
     /**
      * The instance to be tested
      */
-    private JsonConverter<Snapshot<ImageMock>> instance;
+    private IJsonConverter<Snapshot<ImageMock>> instance;
 
     //------------------------------------------------------------------------
     // Initializations
