@@ -8,7 +8,6 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.io.*;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.ZipInputStream;
@@ -74,7 +73,6 @@ public class ZipLoaderImplTest
     @BeforeEach
     public void initialize()
     {
-        // TODO initialize the instance to be tested
         JsonLoaderMock jsonLoader = new JsonLoaderMock();
         TextLoaderMock textLoader = new TextLoaderMock();
         this.instance = new ZipLoader(jsonLoader, textLoader);
@@ -130,7 +128,7 @@ public class ZipLoaderImplTest
             assertNotNull(actual);
             compareMaps(expected, actual);
 
-        } catch (IOException | ParseException e) {
+        } catch (Exception e) {
             fail("Exception " + e.getClass() + " should not occur: " + e.getMessage());
         }
     }
@@ -191,7 +189,7 @@ public class ZipLoaderImplTest
                 compareMaps(resources, actual);
             }
 
-        } catch (IOException | ParseException e) {
+        } catch (Exception e) {
             fail("Exception " + e.getClass() + " should not occur: " + e.getMessage());
         }
     }
@@ -231,7 +229,7 @@ public class ZipLoaderImplTest
  *
  * @author Pascale Launay
  */
-class JsonLoaderMock implements IJsonLoader
+class JsonLoaderMock implements ILoader
 {
     @Override
     public JSONObject load(InputStream in)
@@ -240,8 +238,7 @@ class JsonLoaderMock implements IJsonLoader
     }
 
     @Override
-    public void save(JSONObject obj, OutputStream out) throws IOException
-    {
+    public void save(Object obj, OutputStream out) throws Exception {
         out.write("{}".getBytes());
     }
 }
@@ -252,7 +249,7 @@ class JsonLoaderMock implements IJsonLoader
  *
  * @author Pascale Launay
  */
-class TextLoaderMock implements ITextLoader
+class TextLoaderMock implements ILoader
 {
     @Override
     public String load(InputStream in) throws IOException
@@ -261,8 +258,7 @@ class TextLoaderMock implements ITextLoader
     }
 
     @Override
-    public void save(String text, OutputStream out) throws IOException
-    {
+    public void save(Object obj, OutputStream out) throws Exception {
         out.write("mockText".getBytes());
     }
 }

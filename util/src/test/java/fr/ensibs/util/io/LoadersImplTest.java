@@ -109,8 +109,8 @@ public class LoadersImplTest
     public void initialize()
     {
         // TODO initialize the instances to be tested
-        IJsonLoader jsonLoader = new JsonLoader();
-        ITextLoader textLoader = new TextLoader();
+        JsonLoader jsonLoader = new JsonLoader();
+        TextLoader textLoader = new TextLoader();
         this.instance = new ZipLoader(jsonLoader, textLoader);
     }
 
@@ -155,7 +155,7 @@ public class LoadersImplTest
             assertNotNull(actual);
             compareMaps(expected, actual);
 
-        } catch (IOException | ParseException e) {
+        } catch (Exception e) {
             fail("Exception " + e.getClass() + " should not occur: " + e.getMessage());
         }
     }
@@ -207,7 +207,7 @@ public class LoadersImplTest
                 compareMaps(resources, actual);
             }
 
-        } catch (IOException | ParseException e) {
+        } catch (Exception e) {
             fail("Exception " + e.getClass() + " should not occur: " + e.getMessage());
         }
     }

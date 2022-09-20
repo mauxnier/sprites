@@ -1,45 +1,49 @@
 package fr.ensibs.util.io;
 
 import java.text.ParseException;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import fr.ensibs.util.graphic.IImage;
 import fr.ensibs.util.graphic.Snapshot;
 import fr.ensibs.util.graphic.SnapshotLayer;
 
-public class SnapshotConverter implements IJsonConverter<Snapshot> {
+public class SnapshotConverter<T extends IImage> implements IJsonConverter<Snapshot<T>> {
 
-    private HashMap<String, IImage> images;
+    private Map<String, T> images;
 
-    public SnapshotConverter(HashMap<String, IImage> map) {
+    public SnapshotConverter(Map<String, T> map) {
         this.images = map;
     }
 
     @Override
-    public Snapshot fromJson(JSONObject obj) throws ParseException {
+    public Snapshot<T> fromJson(JSONObject obj) throws ParseException {
         JSONArray layers = obj.optJSONArray("layers");
-        SnapshotLayerConverter slc = new SnapshotLayerConverter(this.images);
-        Snapshot snapshot = new Snapshot();
+        SnapshotLayerConverter<T> slc = new SnapshotLayerConverter<T>(this.images);
+        Snapshot<T> snapshot = new Snapshot<T>();
 
-        for (int i = 0; i < layers.length(); i++) {
-            SnapshotLayer layer = slc.fromJson(layers.getJSONObject(i));
-            snapshot.add(layer);
+        if (layers != null) {
+            for (int i = 0; i < layers.length(); i++) {
+                SnapshotLayer<T> layer = slc.fromJson(layers.getJSONObject(i));
+                snapshot.add(layer);
+            }
+        }
+        else {
+            throw new ParseException(null, 0);
         }
 
         return snapshot;
     }
 
     @Override
-    public JSONObject toJson(Snapshot obj) {
-        SnapshotLayerConverter slc = new SnapshotLayerConverter(this.images);
+    public JSONObject toJson(Snapshot<T> obj) {
+        SnapshotLayerConverter<T> slc = new SnapshotLayerConverter<T>(this.images);
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonLayers = new JSONArray();
-        List<SnapshotLayer> layers = obj.getList();
+        List<SnapshotLayer<T>> layers = obj.getList();
 
-        for (SnapshotLayer layer : layers) {
+        for (SnapshotLayer<T> layer : layers) {
             jsonLayers.put(slc.toJson(layer));
         }
 

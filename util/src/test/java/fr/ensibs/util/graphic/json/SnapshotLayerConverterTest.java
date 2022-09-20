@@ -1,7 +1,10 @@
 package fr.ensibs.util.graphic.json;
 
+import fr.ensibs.util.graphic.ISnapshotLayer;
 import fr.ensibs.util.graphic.SnapshotLayer;
 import fr.ensibs.util.io.IJsonConverter;
+import fr.ensibs.util.io.SnapshotLayerConverter;
+
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -81,9 +84,8 @@ public class SnapshotLayerConverterTest
         image.setName("other_image");
         IMAGES.put("other_image", image);
 
-        // TODO initialize layers instances
-        LAYER = null; // new SnapshotLayerImpl<>(IMAGES.get("image"), 0, 0, 100, 100);
-        OTHER_LAYER = null; // new SnapshotLayerImpl<>(IMAGES.get("other_image"), 50, 50, 100, 100);
+        LAYER = new SnapshotLayer<ImageMock>(0, 0, IMAGES.get("image"));
+        OTHER_LAYER = new SnapshotLayer<ImageMock>(50, 50, IMAGES.get("other_image"));
     }
 
     /**
@@ -92,8 +94,7 @@ public class SnapshotLayerConverterTest
     @BeforeEach
     public void initialize()
     {
-        // TODO initialize the converter instance
-        this.instance = null; // new SnapshotLayerConverter<>(IMAGES);
+        this.instance = new SnapshotLayerConverter<ImageMock>(IMAGES);
     }
 
     //------------------------------------------------------------------------
@@ -112,11 +113,11 @@ public class SnapshotLayerConverterTest
         testFromJson(new JSONObject(OTHER_LAYER_OBJ), OTHER_LAYER);
     }
 
-    private void testFromJson(JSONObject obj, SnapshotLayer<ImageMock> expected)
+    private void testFromJson(JSONObject obj, ISnapshotLayer<ImageMock> expected)
     {
         try {
             // invoke the method to be tested
-            SnapshotLayer<ImageMock> actual = instance.fromJson(obj);
+            ISnapshotLayer<ImageMock> actual = instance.fromJson(obj);
 
             // check the method results
             assertNotNull(actual);
@@ -164,6 +165,9 @@ public class SnapshotLayerConverterTest
         JSONObject actual = instance.toJson(LAYER);
 
         // check the method results
+        System.out.println(LAYER_OBJ);
+        System.out.println(actual.toString());
+
         JSONAssert.assertEquals(LAYER_OBJ, actual, JSONCompareMode.STRICT);
     }
 }

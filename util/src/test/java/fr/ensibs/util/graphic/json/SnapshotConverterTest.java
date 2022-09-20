@@ -1,7 +1,10 @@
 package fr.ensibs.util.graphic.json;
 
 import fr.ensibs.util.graphic.Snapshot;
+import fr.ensibs.util.graphic.SnapshotLayer;
 import fr.ensibs.util.io.IJsonConverter;
+import fr.ensibs.util.io.SnapshotConverter;
+
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -80,11 +83,10 @@ public class SnapshotConverterTest
         image.setName("other_image");
         IMAGES.put("other_image", image);
 
-        // TODO initialize snapshot instances
-        SNAPSHOT = null; // new SnapshotImpl<>();
-        // SNAPSHOT.add(new SnapshotLayerImpl<>(IMAGES.get("image"), 0, 0, 100, 100));
-        // SNAPSHOT.add(new SnapshotLayerImpl<>(IMAGES.get("other_image"), 50, 50, 100, 100));
-        EMPTY_SNAPSHOT = null; // new SnapshotImpl<>();
+        SNAPSHOT = new Snapshot<ImageMock>();
+        SNAPSHOT.add(new SnapshotLayer<ImageMock>(0, 0, IMAGES.get("image")));
+        SNAPSHOT.add(new SnapshotLayer<ImageMock>(50, 50, IMAGES.get("other_image")));
+        EMPTY_SNAPSHOT = new Snapshot<ImageMock>();
     }
 
     /**
@@ -93,8 +95,7 @@ public class SnapshotConverterTest
     @BeforeEach
     public void initialize()
     {
-        // TODO initialize the converter instance
-        this.instance = null; // new SnapshotConverter<>(IMAGES);
+        this.instance = new SnapshotConverter<ImageMock>(IMAGES);
     }
 
     //------------------------------------------------------------------------
