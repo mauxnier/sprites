@@ -37,8 +37,6 @@ public interface IImage
      * @return the height of the image
      */
     int getHeight();
-
-    Image getImage();
 }
 
 

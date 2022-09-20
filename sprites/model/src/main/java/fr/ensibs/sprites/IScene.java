@@ -12,7 +12,7 @@ import java.util.List;
  * @author Pascale Launay
  * @inv {@code getBackground() != null}
  */
-public interface IScene<I extends IImage> extends List<Sprite>, Playable<I>
+public interface IScene<I extends IImage> extends List<ISprite>, IPlayable<I>
 {
     /**
      * Give the background of the scene.

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 /**
- * Unit test for the class that implements the {@link Sprite} interface
+ * Unit test for the class that implements the {@link ISprite} interface
  *
  * @author Pascale Launay
  */
@@ -22,7 +22,7 @@ public class SpriteImplTest
     /**
      * The instance to be tested
      */
-    private Sprite<ImageMock> instance;
+    private ISprite<ImageMock> instance;
 
     /**
      * A  list of images

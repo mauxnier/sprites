@@ -1,6 +1,6 @@
 package fr.ensibs.sprites.actions;
 
-import fr.ensibs.sprites.Sprite;
+import fr.ensibs.sprites.ISprite;
 import fr.ensibs.util.graphic.IImage;
 
 /**
@@ -18,7 +18,7 @@ public interface ISpriteAction<I extends IImage>
      *
      * @return the sprite of this action
      */
-    Sprite<I> getSprite();
+    ISprite<I> getSprite();
 
     /**
      * Give the time when this action starts in the sequence
