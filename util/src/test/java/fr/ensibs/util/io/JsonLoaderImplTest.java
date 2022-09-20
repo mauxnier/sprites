@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Unit test for the class that implements the {@link IJsonLoader} interface
+ * Unit test for the class that implements the {@link JsonLoader} interface
  *
  * @author Pascale Launay
  *
@@ -45,7 +45,7 @@ public class JsonLoaderImplTest
     /**
      * The instance to be tested
      */
-    private IJsonLoader instance;
+    private JsonLoader instance;
 
     //------------------------------------------------------------------------
     // Initializations
@@ -93,7 +93,7 @@ public class JsonLoaderImplTest
     //------------------------------------------------------------------------
 
     /**
-     * Test the {@link IJsonLoader#load(InputStream)} method with an empty JSON object
+     * Test the {@link JsonLoader#load(InputStream)} method with an empty JSON object
      */
     @Test
     public void testLoadEmpty()
@@ -102,7 +102,7 @@ public class JsonLoaderImplTest
     }
 
     /**
-     * Test the {@link IJsonLoader#load(InputStream)} method with a simple JSON object
+     * Test the {@link JsonLoader#load(InputStream)} method with a simple JSON object
      */
     @Test
     public void testLoadSimple()
@@ -111,7 +111,7 @@ public class JsonLoaderImplTest
     }
 
     /**
-     * Test the {@link IJsonLoader#load(InputStream)} method with a complex JSON object
+     * Test the {@link JsonLoader#load(InputStream)} method with a complex JSON object
      */
     @Test
     public void testLoadComplex()
@@ -120,7 +120,7 @@ public class JsonLoaderImplTest
     }
 
     /**
-     * Test the {@link IJsonLoader#load(InputStream)} method with a JSON object that contains an array
+     * Test the {@link JsonLoader#load(InputStream)} method with a JSON object that contains an array
      */
     @Test
     public void testLoadArray()
@@ -129,7 +129,7 @@ public class JsonLoaderImplTest
     }
 
     /**
-     * Test the {@link IJsonLoader#load(InputStream)} method with the given arguments
+     * Test the {@link JsonLoader#load(InputStream)} method with the given arguments
      *
      * @param inFile   the name of the input file in the test resources
      * @param expected the expected result
@@ -157,7 +157,7 @@ public class JsonLoaderImplTest
     //------------------------------------------------------------------------
 
     /**
-     * Test the {@link IJsonLoader#save(JSONObject, OutputStream)} method with an empty JSON object
+     * Test the {@link JsonLoader#save(JSONObject, OutputStream)} method with an empty JSON object
      */
     @Test
     public void testSaveEmpty()
@@ -166,7 +166,7 @@ public class JsonLoaderImplTest
     }
 
     /**
-     * Test the {@link IJsonLoader#save(JSONObject, OutputStream)} method with a simple JSON object
+     * Test the {@link JsonLoader#save(JSONObject, OutputStream)} method with a simple JSON object
      */
     @Test
     public void testSaveSimple()
@@ -175,7 +175,7 @@ public class JsonLoaderImplTest
     }
 
     /**
-     * Test the {@link IJsonLoader#save(JSONObject, OutputStream)} method with a complex JSON object
+     * Test the {@link JsonLoader#save(JSONObject, OutputStream)} method with a complex JSON object
      */
     @Test
     public void testSaveComplex()
@@ -184,7 +184,7 @@ public class JsonLoaderImplTest
     }
 
     /**
-     * Test the {@link IJsonLoader#save(JSONObject, OutputStream)} method with a JSON object that contains an array
+     * Test the {@link JsonLoader#save(JSONObject, OutputStream)} method with a JSON object that contains an array
      */
     @Test
     public void testSaveArray()
@@ -193,7 +193,7 @@ public class JsonLoaderImplTest
     }
 
     /**
-     * Test the {@link IJsonLoader#save(JSONObject, OutputStream)} method with the given argument
+     * Test the {@link JsonLoader#save(JSONObject, OutputStream)} method with the given argument
      *
      * @param obj the object to be saved and then reloaded
      */

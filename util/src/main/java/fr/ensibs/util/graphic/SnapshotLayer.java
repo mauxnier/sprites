@@ -1,6 +1,6 @@
 package fr.ensibs.util.graphic;
 
-public class SnapshotLayer implements ISnapshotLayer {
+public class SnapshotLayer<I extends IImage> implements ISnapshotLayer {
 
     private int x, y;
 

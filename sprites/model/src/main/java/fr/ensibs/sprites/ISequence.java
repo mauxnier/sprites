@@ -1,6 +1,6 @@
 package fr.ensibs.sprites;
 
-import fr.ensibs.sprites.actions.SpriteAction;
+import fr.ensibs.sprites.actions.ISpriteAction;
 import fr.ensibs.util.graphic.IImage;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * @inv {@code getDuration() >= 0}
  * @inv {@code getActions() != null}
  */
-public interface ISequence<I extends IImage> extends Scene<I>
+public interface ISequence<I extends IImage> extends IScene<I>
 {
     /**
      * Give the sequence total duration (in ms)
@@ -29,5 +29,5 @@ public interface ISequence<I extends IImage> extends Scene<I>
      *
      * @return the actions
      */
-    List<SpriteAction<I>> getActions();
+    List<ISpriteAction<I>> getActions();
 }
