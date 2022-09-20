@@ -1,7 +1,7 @@
 package fr.ensibs.util.graphic.json;
 
 import fr.ensibs.util.graphic.SnapshotLayer;
-import fr.ensibs.util.io.JsonConverter;
+import fr.ensibs.util.io.IJsonConverter;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +16,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit test for the {@link JsonConverter<SnapshotLayer>} class
+ * Unit test for the {@link IJsonConverter<SnapshotLayer>} class
  *
  * @author Pascale Launay
  */
@@ -60,7 +60,7 @@ public class SnapshotLayerConverterTest
     /**
      * The instance to be tested
      */
-    private JsonConverter<SnapshotLayer<ImageMock>> instance;
+    private IJsonConverter<SnapshotLayer<ImageMock>> instance;
 
     //------------------------------------------------------------------------
     // Initializations
