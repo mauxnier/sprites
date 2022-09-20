@@ -17,6 +17,6 @@ public class JavaFXImageLoader implements ILoader<IImage> {
 
     @Override
     public void save(IImage img, OutputStream out) {
-        // Image i = img.getImage();
+        Image i = img.getImage();
     }
 }
