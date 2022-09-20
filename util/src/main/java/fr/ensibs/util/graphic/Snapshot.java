@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class Snapshot implements ISnapshot {
+public class Snapshot<I extends IImage> implements ISnapshot {
 
     private List<SnapshotLayer> snapshotList;
 
