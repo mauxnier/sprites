@@ -11,7 +11,7 @@ import java.util.List;
  * @author Pascale Launay
  * @inv {@code getDuration() >= 0}
  */
-public interface Movie<I extends IImage> extends List<Sequence<I>>, Playable<I>
+public interface IMovie<I extends IImage> extends List<Sequence<I>>, Playable<I>
 {
     /**
      * Give the movie total duration (in ms). The movie duration is the

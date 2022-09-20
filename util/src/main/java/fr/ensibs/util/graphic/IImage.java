@@ -1,5 +1,7 @@
 package fr.ensibs.util.graphic;
 
+import javafx.scene.image.Image;
+
 /**
  * An image representation for any graphic system.
  *
@@ -35,6 +37,8 @@ public interface IImage
      * @return the height of the image
      */
     int getHeight();
+
+    Image getImage();
 }
 
 

@@ -7,21 +7,20 @@ import java.util.ListIterator;
 
 public class Snapshot<I extends IImage> implements ISnapshot {
 
-    private IImage img;
     private List<SnapshotLayer> snapshotList;
 
-    public List getList() {
-        return(this.snapshotList);
+    public List<SnapshotLayer> getList() {
+        return (this.snapshotList);
     }
 
     @Override
     public int size() {
-        return(this.snapshotList.size());
+        return (this.snapshotList.size());
     }
 
     @Override
     public boolean isEmpty() {
-        return(this.snapshotList.isEmpty());
+        return (this.snapshotList.isEmpty());
     }
 
     @Override
@@ -30,33 +29,33 @@ public class Snapshot<I extends IImage> implements ISnapshot {
     }
 
     @Override
-    public Iterator iterator() {
-        return(this.snapshotList.iterator());
+    public Iterator<SnapshotLayer> iterator() {
+        return (this.snapshotList.iterator());
     }
 
     @Override
     public Object[] toArray() {
-        return(this.snapshotList.toArray());
+        return (this.snapshotList.toArray());
     }
 
     @Override
     public boolean add(Object o) {
-        return(this.snapshotList.add((SnapshotLayer) o));
+        return (this.snapshotList.add((SnapshotLayer) o));
     }
 
     @Override
     public boolean remove(Object o) {
-        return(this.snapshotList.remove(o));
+        return (this.snapshotList.remove(o));
     }
 
     @Override
     public boolean addAll(Collection collection) {
-        return(this.snapshotList.addAll(collection));
+        return (this.snapshotList.addAll(collection));
     }
 
     @Override
     public boolean addAll(int i, Collection collection) {
-        return(this.snapshotList.addAll(collection));
+        return (this.snapshotList.addAll(collection));
     }
 
     @Override
@@ -66,12 +65,12 @@ public class Snapshot<I extends IImage> implements ISnapshot {
 
     @Override
     public Object get(int i) {
-        return(this.snapshotList.get(i));
+        return (this.snapshotList.get(i));
     }
 
     @Override
     public Object set(int i, Object o) {
-        return(this.snapshotList.set(i,(SnapshotLayer)o));
+        return (this.snapshotList.set(i, (SnapshotLayer) o));
     }
 
     @Override
@@ -81,32 +80,32 @@ public class Snapshot<I extends IImage> implements ISnapshot {
 
     @Override
     public Object remove(int i) {
-        return(this.snapshotList.remove(i));
+        return (this.snapshotList.remove(i));
     }
 
     @Override
     public int indexOf(Object o) {
-        return(this.snapshotList.indexOf(o));
+        return (this.snapshotList.indexOf(o));
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        return(this.snapshotList.lastIndexOf(o));
+        return (this.snapshotList.lastIndexOf(o));
     }
 
     @Override
-    public ListIterator listIterator() {
+    public ListIterator<SnapshotLayer> listIterator() {
         return this.snapshotList.listIterator();
     }
 
     @Override
-    public ListIterator listIterator(int i) {
+    public ListIterator<SnapshotLayer> listIterator(int i) {
         return this.snapshotList.listIterator(i);
     }
 
     @Override
-    public List subList(int i, int i1) {
-        return this.snapshotList.subList(i,i1);
+    public List<SnapshotLayer> subList(int i, int i1) {
+        return this.snapshotList.subList(i, i1);
     }
 
     @Override
@@ -129,7 +128,7 @@ public class Snapshot<I extends IImage> implements ISnapshot {
         return this.snapshotList.toArray(objects);
     }
 
-    public boolean equals(Snapshot<IImage> obj) {
-        return this.img == obj.img && snapshotList.equals(obj.getList());
+    public boolean equals(Snapshot obj) {
+        return snapshotList.equals(obj.getList());
     }
 }
