@@ -1,13 +1,11 @@
 package fr.ensibs.util.graphic;
 
-import javafx.scene.image.Image;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class Snapshot implements ISnapshot {
+public class Snapshot<I extends IImage> implements ISnapshot {
 
     private IImage img;
     private List<SnapshotLayer> snapshotList;
@@ -131,8 +129,7 @@ public class Snapshot implements ISnapshot {
         return this.snapshotList.toArray(objects);
     }
 
-
-    public boolean equals(Snapshot obj) {
+    public boolean equals(Snapshot<IImage> obj) {
         return this.img == obj.img && snapshotList.equals(obj.getList());
     }
 }
