@@ -19,6 +19,49 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         this.messageView = findViewById(R.id.messageView);
+        Log.v(TAG, "on create");
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        Log.v(TAG, "on start");
+    }
+
+    @Override
+    protected void onRestart()
+    {
+        super.onRestart();
+        Log.v(TAG, "on restart");
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        Log.v(TAG, "on resume");
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        Log.v(TAG, "on pause");
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        Log.v(TAG, "on stop");
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        Log.v(TAG, "on destroy");
     }
 
     public void start(View view)
