@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import fr.ensibs.util.io.ILoader;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javax.imageio.ImageIO;
 
@@ -20,7 +21,7 @@ public class JavaFXImageLoader implements ILoader<JavaFXImage> {
     public void save(JavaFXImage img, OutputStream out) throws IOException {
         Image image = img.getImage();
         BufferedImage fromFXImage = SwingFXUtils.fromFXImage(image, null);
-        ImageIO.write(fromFXImage, "png", targetImage.toFile());
-        out.write(image.bytes.getBytes());
+        //ImageIO.write(fromFXImage, "png", targetImage.toFile());
+        //out.write(image.bytes.getBytes());
     }
 }
