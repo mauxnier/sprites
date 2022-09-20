@@ -19,7 +19,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit test for the {@link JsonConverter<SnapshotLayer>} class
+ * Unit test for the {@link IJsonConverter<SnapshotLayer>} class
  *
  * @author Pascale Launay
  */

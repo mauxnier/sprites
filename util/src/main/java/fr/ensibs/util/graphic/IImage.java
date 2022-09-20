@@ -1,5 +1,7 @@
 package fr.ensibs.util.graphic;
 
+import javafx.scene.image.Image;
+
 /**
  * An image representation for any graphic system.
  *
