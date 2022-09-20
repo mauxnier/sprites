@@ -13,8 +13,11 @@ public class Sprite<I extends IImage> extends ArrayList<I> implements ISprite<I>
 
     private boolean visible;
 
-    public Sprite(int x, int y, int duration, int time, boolean visible)
+    private String name;
+
+    public Sprite(String name, int x, int y, int duration, int time, boolean visible)
     {
+        this.name = name;
         this.x = x;
         this.y = y;
         this.duration = duration;
@@ -36,7 +39,7 @@ public class Sprite<I extends IImage> extends ArrayList<I> implements ISprite<I>
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override
