@@ -8,9 +8,8 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class SpriteConverter implements IJsonConverter<Sprite> {
+public class SpriteConverter implements IJsonConverter<Sprite<IImage>> {
 
     private HashMap<String, IImage> map;
 
