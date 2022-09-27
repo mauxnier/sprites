@@ -4,4 +4,4 @@
  *
  * @author Pascale Launay
  */
-package fr.ensibs.sprites;
+package fr.ensibs.model;

@@ -1,6 +1,6 @@
-package fr.ensibs.sprites.actions;
+package fr.ensibs.model.actions;
 
-import fr.ensibs.sprites.ISprite;
+import fr.ensibs.model.ISprite;
 import fr.ensibs.util.graphic.IImage;
 
 /**

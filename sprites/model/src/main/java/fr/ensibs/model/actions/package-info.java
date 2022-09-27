@@ -3,4 +3,4 @@
  *
  * @author Pascale Launay
  */
-package fr.ensibs.sprites.actions;
+package fr.ensibs.model.actions;

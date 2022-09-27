@@ -1,6 +1,7 @@
-package fr.ensibs.sprites;
+package fr.ensibs.model;
 
 import fr.ensibs.util.graphic.IImage;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,8 +59,7 @@ public class SpriteImplTest
     @BeforeEach
     public void initialize()
     {
-        // TODO initialize the sprite instance
-        this.instance = null; // new SpriteImpl<>("sprite", 1000, 0, 0, true);
+        this.instance = new Sprite<>("sprite", 0, 0, 1000, 250, true);
         for (ImageMock image : IMAGES) {
             this.instance.add(image);
         }
@@ -90,7 +90,7 @@ public class SpriteImplTest
     @Test
     public void testGetCurrentImage999()
     {
-        testGetCurrentImage(999, IMAGES.get(2));
+        testGetCurrentImage(998, IMAGES.get(2));
     }
 
     private void testGetCurrentImage(int time, ImageMock expected)

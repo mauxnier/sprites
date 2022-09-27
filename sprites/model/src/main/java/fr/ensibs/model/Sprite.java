@@ -1,4 +1,4 @@
-package fr.ensibs.sprites;
+package fr.ensibs.model;
 
 import fr.ensibs.util.graphic.IImage;
 
@@ -27,8 +27,8 @@ public class Sprite<I extends IImage> extends ArrayList<I> implements ISprite<I>
 
     @Override
     public I getCurrentImage() {
-        int step = this.duration / this.size();
-        int n_sprite = this.time / step;
+        float step = this.duration / this.size();
+        int n_sprite = (int) (this.time / step);
         return this.get(n_sprite % this.size());
     }
 

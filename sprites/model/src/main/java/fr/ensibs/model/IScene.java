@@ -1,4 +1,4 @@
-package fr.ensibs.sprites;
+package fr.ensibs.model;
 
 import fr.ensibs.util.graphic.IImage;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * @author Pascale Launay
  * @inv {@code getBackground() != null}
  */
-public interface IScene<I extends IImage> extends List<ISprite>, IPlayable<I>
+public interface IScene<I extends IImage> extends List<ISprite<IImage>>, IPlayable<I>
 {
     /**
      * Give the background of the scene.

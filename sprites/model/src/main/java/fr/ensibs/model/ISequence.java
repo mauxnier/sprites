@@ -1,6 +1,6 @@
-package fr.ensibs.sprites;
+package fr.ensibs.model;
 
-import fr.ensibs.sprites.actions.ISpriteAction;
+import fr.ensibs.model.actions.ISpriteAction;
 import fr.ensibs.util.graphic.IImage;
 
 import java.util.List;
