@@ -118,21 +118,23 @@ public class ActionsHandler {
     public void handleListClicked(MouseEvent mouseEvent) {
         String item = listView.getSelectionModel().getSelectedItem();
         if (item != null) {
+            imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight());
             Object file = directory.getFile(item);
+            String name = file.getClass().getName();
 
-            if (file.getClass().getName().equals("fr.ensibs.javafx.graphic.JavaFXImage")) {
-                groupTextArea.setVisible(false);
-                groupCanvas.setVisible(true);
-
-                JavaFXImage javaFXImage = (JavaFXImage) file;
-
-                imageCanvas.getGraphicsContext2D().drawImage(javaFXImage.getImage(), 0, 0, 350, 350);
-            } else {
-                groupCanvas.setVisible(false);
-                groupTextArea.setVisible(true);
-                textArea.setText(directory.getFile(item).toString());
+            switch (name) {
+                case "fr.ensibs.javafx.graphic.JavaFXImage":
+                    groupTextArea.setVisible(false);
+                    groupCanvas.setVisible(true);
+                    JavaFXImage javaFXImage = (JavaFXImage) file;
+                    imageCanvas.getGraphicsContext2D().drawImage(javaFXImage.getImage(), 0, 0, 350, 350);
+                    break;
+                default:
+                    groupCanvas.setVisible(false);
+                    groupTextArea.setVisible(true);
+                    textArea.setText(directory.getFile(item).toString());
+                    break;
             }
-
         } else {
             textArea.setText("");
         }
