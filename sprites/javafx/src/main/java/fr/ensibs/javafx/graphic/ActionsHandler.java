@@ -130,7 +130,8 @@ public class ActionsHandler {
                     JavaFXImage javaFXImage = (JavaFXImage) file;
                     imageCanvas.getGraphicsContext2D().drawImage(javaFXImage.getImage(), 0, 0, 350, 350);
                     break;
-                case "org.json.JSONObject":
+                case "json":
+                case "org.json.JSONObject": //TODO erreur lors du click sur un json
                     groupTextArea.setVisible(false);
                     groupCanvas.setVisible(true);
                     JSONObject json = (JSONObject) file;
@@ -140,6 +141,7 @@ public class ActionsHandler {
                         Snapshot snapshot = snapshotConverter.fromJson(json);
                         snapshot.draw(imageCanvas);
                     }
+                    break;
                 default:
                     System.out.println(name);
                     groupCanvas.setVisible(false);

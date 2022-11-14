@@ -141,7 +141,7 @@ public class Snapshot<I extends IImage> implements ISnapshot {
     }
 
     public void draw(Canvas imageCanvas) {
-        for (SnapshotLayer layer : snapshotList) {
+        for (SnapshotLayer<I> layer : snapshotList) {
             imageCanvas.getGraphicsContext2D().drawImage((Image) layer.getImage(), 0, 0, 350, 350);
         }
     }
