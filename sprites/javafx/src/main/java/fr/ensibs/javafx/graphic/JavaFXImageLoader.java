@@ -21,6 +21,6 @@ public class JavaFXImageLoader implements ILoader<JavaFXImage> {
     public void save(JavaFXImage img, OutputStream out) throws IOException {
         Image image = img.getImage();
         BufferedImage fromFXImage = SwingFXUtils.fromFXImage(image, null);
-        ImageIO.write(fromFXImage, "jpg", out);
+        ImageIO.write(fromFXImage, "jpg", out); 
     }
 }

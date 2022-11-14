@@ -27,8 +27,8 @@ This version is a preliminary version that provides only classes and interfaces 
 - [x] refactor the previous *Loader interfaces and classes in order to generalize them by using genericity (some interfaces may be removed).
 - [x] in the util subproject, update the Image interface and add the JsonConverter, SnapshotLayer and Snapshot interfaces.
 - [x] implements the SnapshotLayer and Snapshot interfaces. Warning: the provided tests, in order to compare objects, use the equals method. This method should be redefined in some classes in order to compare the objects values (rather than their identities).
-- [x] implement converters for the SnapshotLayer and Snapshot types.
-- [x] inspect the given interfaces in the sprites.model subproject. Implement the Sprite interface and implement a converter for the Sprite type.
+- [ ] implement converters for the SnapshotLayer and Snapshot types.
+- [ ] inspect the given interfaces in the sprites.model subproject. Implement the Sprite interface and implement a converter for the Sprite type.
 - [x] add a unit test for the converter for the Sprite type.
 - [ ] upgrade the JavaFX application in order to load and display a snapshot when a json file starting with "snapshot" is selected.
 ### 4. Android application

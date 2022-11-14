@@ -64,10 +64,10 @@ public class ActionsHandler {
     private Directory directory;
 
     private JsonLoader jsonloader = new JsonLoader();
-
     private TextLoader textloader = new TextLoader();
+    private JavaFXImageLoader imgLoader = new JavaFXImageLoader();
 
-    private ZipLoader zipLoader = new ZipLoader(jsonloader, textloader);
+    private ZipLoader zipLoader = new ZipLoader(jsonloader, textloader, imgLoader);
 
     /**
      * Method called after the application has been displayed and the components
@@ -108,7 +108,7 @@ public class ActionsHandler {
     }
 
     /**
-     * Displays the name selected in the list
+     * Manages actions to perform on an item in the list.
      *
      * @param mouseEvent the event that triggered this action
      *
