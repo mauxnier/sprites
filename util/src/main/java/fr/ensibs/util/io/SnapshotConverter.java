@@ -1,6 +1,7 @@
 package fr.ensibs.util.io;
 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import org.json.JSONArray;
@@ -12,6 +13,10 @@ import fr.ensibs.util.graphic.SnapshotLayer;
 public class SnapshotConverter<T extends IImage> implements IJsonConverter<Snapshot<T>> {
 
     private Map<String, T> images;
+
+    public SnapshotConverter() {
+        this.images = new HashMap<>();
+    }
 
     public SnapshotConverter(Map<String, T> map) {
         this.images = map;

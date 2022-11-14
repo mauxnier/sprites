@@ -7,14 +7,14 @@ import java.io.OutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.sql.SQLOutput;
+import java.text.ParseException;
 import java.util.Map;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import fr.ensibs.util.io.ILoader;
-import fr.ensibs.util.io.JsonLoader;
-import fr.ensibs.util.io.TextLoader;
-import fr.ensibs.util.io.ZipLoader;
+import fr.ensibs.util.graphic.Snapshot;
+import fr.ensibs.util.io.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -24,6 +24,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import org.json.JSONObject;
 
 /**
  * Definitions of methods executed in reaction to user actions
@@ -115,7 +116,7 @@ public class ActionsHandler {
      * @post the textArea content matches the selected item in the list
      */
     @FXML
-    public void handleListClicked(MouseEvent mouseEvent) {
+    public void handleListClicked(MouseEvent mouseEvent) throws ParseException {
         String item = listView.getSelectionModel().getSelectedItem();
         if (item != null) {
             imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight());
@@ -129,7 +130,18 @@ public class ActionsHandler {
                     JavaFXImage javaFXImage = (JavaFXImage) file;
                     imageCanvas.getGraphicsContext2D().drawImage(javaFXImage.getImage(), 0, 0, 350, 350);
                     break;
+                case "org.json.JSONObject":
+                    groupTextArea.setVisible(false);
+                    groupCanvas.setVisible(true);
+                    JSONObject json = (JSONObject) file;
+
+                    if (json.get(name).equals("snapshot")) {
+                        SnapshotConverter snapshotConverter = new SnapshotConverter();
+                        Snapshot snapshot = snapshotConverter.fromJson(json);
+                        snapshot.draw(imageCanvas);
+                    }
                 default:
+                    System.out.println(name);
                     groupCanvas.setVisible(false);
                     groupTextArea.setVisible(true);
                     textArea.setText(directory.getFile(item).toString());
