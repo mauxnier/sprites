@@ -18,9 +18,7 @@ public class SnapshotLayerConverter<T extends IImage> implements IJsonConverter<
     public SnapshotLayer<T> fromJson(JSONObject obj) throws ParseException {
         try {
             T image = this.map.get(obj.getString("image"));
-            System.out.println("image");
-            System.out.println(image);
-            System.out.println(obj.getString("image"));
+            System.out.println("image: " + image);
             if (image == null) throw new ParseException(null, 0);
             return new SnapshotLayer<T>(obj.getInt("x"), obj.getInt("y"), image);
         } catch (Exception e) {

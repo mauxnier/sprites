@@ -14,10 +14,6 @@ public class SnapshotConverter<T extends IImage> implements IJsonConverter<Snaps
 
     private Map<String, T> images;
 
-    public SnapshotConverter() {
-        this.images = new HashMap<>();
-    }
-
     public SnapshotConverter(Map<String, T> map) {
         this.images = map;
     }
@@ -30,15 +26,12 @@ public class SnapshotConverter<T extends IImage> implements IJsonConverter<Snaps
 
         if (layers != null) {
             for (int i = 0; i < layers.length(); i++) {
-                System.out.println("i");
-                System.out.println(i);
                 System.out.println(layers.getJSONObject(i));
                 SnapshotLayer<T> layer = slc.fromJson(layers.getJSONObject(i));
                 snapshot.add(layer);
             }
-        }
-        else {
-            throw new ParseException(null, 0);
+        } else {
+            throw new ParseException("Exception while parsing JSON file", 0);
         }
 
         return snapshot;

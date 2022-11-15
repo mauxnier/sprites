@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.SQLOutput;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -134,27 +135,29 @@ public class ActionsHandler {
                     JavaFXImage javaFXImage = (JavaFXImage) file;
                     imageCanvas.getGraphicsContext2D().drawImage(javaFXImage.getImage(), 0, 0, 350, 350);
                     break;
-                //case "json":
-                case "org.json.JSONObject": //TODO erreur lors du click sur un json
+                case "org.json.JSONObject":
                     groupTextArea.setVisible(false);
                     groupCanvas.setVisible(true);
 
                     JSONObject json = (JSONObject) file;
-                    System.out.println("JSON : ");
-                    System.out.println(json);
-                    System.out.println("item : ");
-                    System.out.println(item);
+                    System.out.println("json : " + json);
+
                     if (item.contains("snapshot")) {
-                        SnapshotConverter snapshotConverter = new SnapshotConverter();
-                        Snapshot snapshot = snapshotConverter.fromJson(json); // passe pas
+                        Map<String, JavaFXImage> imgCollection = new HashMap<>(); //TODO mettre les images du zip dans la collection (à remplir)
+                        SnapshotConverter<JavaFXImage> snapshotConverter = new SnapshotConverter<>(imgCollection);
+                        System.out.println("json" + json);
+                        Snapshot snapshot = snapshotConverter.fromJson(json);
                         snapshot.draw(imageCanvas);
+                    } else {
+                        groupTextArea.setVisible(true);
+                        groupCanvas.setVisible(false);
+                        textArea.setText("Le type du fichier JSON n'est pas pris en charge.\n\n" + directory.getFile(item).toString());
                     }
                     break;
                 default:
-                    System.out.println(name);
                     groupCanvas.setVisible(false);
                     groupTextArea.setVisible(true);
-                    textArea.setText(directory.getFile(item).toString());
+                    textArea.setText("L'extension de fichier " + name + " n'est pas prise en charge.\n\n" + directory.getFile(item).toString());
                     break;
             }
         } else {
