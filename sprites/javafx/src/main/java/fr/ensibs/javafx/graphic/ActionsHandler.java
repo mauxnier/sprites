@@ -25,6 +25,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.json.JSONObject;
+import fr.ensibs.util.io.SnapshotConverter;
+
 
 /**
  * Definitions of methods executed in reaction to user actions
@@ -122,6 +124,8 @@ public class ActionsHandler {
             imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight());
             Object file = directory.getFile(item);
             String name = file.getClass().getName();
+            System.out.println("NAME");
+            System.out.println(name);
 
             switch (name) {
                 case "fr.ensibs.javafx.graphic.JavaFXImage":
@@ -130,15 +134,19 @@ public class ActionsHandler {
                     JavaFXImage javaFXImage = (JavaFXImage) file;
                     imageCanvas.getGraphicsContext2D().drawImage(javaFXImage.getImage(), 0, 0, 350, 350);
                     break;
-                case "json":
+                //case "json":
                 case "org.json.JSONObject": //TODO erreur lors du click sur un json
                     groupTextArea.setVisible(false);
                     groupCanvas.setVisible(true);
-                    JSONObject json = (JSONObject) file;
 
-                    if (json.get(name).equals("snapshot")) {
+                    JSONObject json = (JSONObject) file;
+                    System.out.println("JSON : ");
+                    System.out.println(json);
+                    System.out.println("item : ");
+                    System.out.println(item);
+                    if (item.contains("snapshot")) {
                         SnapshotConverter snapshotConverter = new SnapshotConverter();
-                        Snapshot snapshot = snapshotConverter.fromJson(json);
+                        Snapshot snapshot = snapshotConverter.fromJson(json); // passe pas
                         snapshot.draw(imageCanvas);
                     }
                     break;

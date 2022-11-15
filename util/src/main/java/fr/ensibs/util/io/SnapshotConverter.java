@@ -24,12 +24,15 @@ public class SnapshotConverter<T extends IImage> implements IJsonConverter<Snaps
 
     @Override
     public Snapshot<T> fromJson(JSONObject obj) throws ParseException {
-        JSONArray layers = obj.optJSONArray("layers");
+        JSONArray layers = obj.getJSONArray("layers");
         SnapshotLayerConverter<T> slc = new SnapshotLayerConverter<T>(this.images);
         Snapshot<T> snapshot = new Snapshot<T>();
 
         if (layers != null) {
             for (int i = 0; i < layers.length(); i++) {
+                System.out.println("i");
+                System.out.println(i);
+                System.out.println(layers.getJSONObject(i));
                 SnapshotLayer<T> layer = slc.fromJson(layers.getJSONObject(i));
                 snapshot.add(layer);
             }
