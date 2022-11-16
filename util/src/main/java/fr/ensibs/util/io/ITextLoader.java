@@ -1,6 +1,5 @@
 package fr.ensibs.util.io;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -10,7 +9,7 @@ import java.io.OutputStream;
  *
  * @author Pascale Launay
  */
-public interface ITextLoader
+public interface ITextLoader extends ILoader<String>
 {
     /**
      * Read a text from an input stream.

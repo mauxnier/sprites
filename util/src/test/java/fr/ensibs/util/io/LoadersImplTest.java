@@ -108,7 +108,6 @@ public class LoadersImplTest
     @BeforeEach
     public void initialize()
     {
-        // TODO initialize the instances to be tested
         JsonLoader jsonLoader = new JsonLoader();
         TextLoader textLoader = new TextLoader();
         this.instance = new ZipLoader(jsonLoader, textLoader);

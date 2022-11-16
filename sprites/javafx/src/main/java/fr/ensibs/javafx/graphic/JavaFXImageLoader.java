@@ -4,12 +4,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import fr.ensibs.util.io.ILoader;
+
+import fr.ensibs.util.io.IImageLoader;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javax.imageio.ImageIO;
 
-public class JavaFXImageLoader implements ILoader<JavaFXImage> {
+public class JavaFXImageLoader implements IImageLoader<JavaFXImage> {
 
     @Override
     public JavaFXImage load(InputStream in) {

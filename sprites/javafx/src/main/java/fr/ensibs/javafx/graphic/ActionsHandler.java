@@ -66,9 +66,9 @@ public class ActionsHandler {
 
     private final JsonLoader jsonLoader = new JsonLoader();
     private final TextLoader textLoader = new TextLoader();
-    private final JavaFXImageLoader imgLoader = new JavaFXImageLoader();
+    private final JavaFXImageLoader imageLoader = new JavaFXImageLoader();
 
-    private final ZipLoader<JavaFXImage> zipLoader = new ZipLoader<>(jsonLoader, textLoader, imgLoader);
+    private final ZipLoader<JavaFXImage> zipLoader = new ZipLoader<>(jsonLoader, textLoader, imageLoader);
 
     /**
      * Method called after the application has been displayed and the components
@@ -208,7 +208,7 @@ public class ActionsHandler {
                 case "png":
                 case "jpg":
                 case "jpeg":
-                    loader = this.imgLoader;
+                    loader = this.imageLoader;
                     break;
                 case "json":
                     loader = (ILoader<JSONObject>) this.jsonLoader;

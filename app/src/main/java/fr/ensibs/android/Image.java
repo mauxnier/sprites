@@ -1,25 +1,27 @@
-package fr.ensibs.javafx.graphic;
+package fr.ensibs.android;
+import android.graphics.Bitmap;
 
 import fr.ensibs.util.graphic.IImage;
-import javafx.scene.image.Image;
 
-public class JavaFXImage implements IImage<Image> {
-
-    private Image img;
+public class Image implements IImage<Bitmap> {
+    private Bitmap img;
     private String name;
 
-    JavaFXImage(Image img, String name) {
+    Image(Bitmap img, String name) {
         this.img = img;
         this.name = name;
     }
 
-    @Override
-    public Image getImage() {
+    public Bitmap getImage(){
         return this.img;
     }
 
     @Override
-    public void setImage(Image image) {
+    public void setImage(javafx.scene.image.Image image) {
+
+    }
+
+    public void setImage(Bitmap image) {
         this.img = image;
     }
 

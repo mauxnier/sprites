@@ -1,6 +1,7 @@
 package fr.ensibs.util.graphic;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
 
 import java.util.*;
 
@@ -44,7 +45,7 @@ public class Snapshot<I extends IImage> implements ISnapshot<I> {
     public void draw(Canvas imageCanvas) {
         for (ISnapshotLayer<I> layer : this.snapshotList) {
             I javaFXImage = layer.getImage();
-            imageCanvas.getGraphicsContext2D().drawImage(javaFXImage.getImage(), 0, 0, 350, 350);
+            imageCanvas.getGraphicsContext2D().drawImage((Image) javaFXImage.getImage(), 0, 0, 350, 350);
         }
     }
 }
