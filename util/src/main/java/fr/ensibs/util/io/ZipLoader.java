@@ -1,8 +1,8 @@
 package fr.ensibs.util.io;
 
-import fr.ensibs.util.graphic.IImage;
 import org.json.JSONObject;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,17 +10,23 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-public class ZipLoader<I extends IImage> implements IZipLoader {
+public class ZipLoader implements IZipLoader {
 
-    private final ILoader<JSONObject> jsonLoader;
-    private final ILoader<String> textLoader;
-    private final ILoader<I> imageLoader;
+    private ILoader<JSONObject> jsonloader;
+    private ILoader<String> textloader;
+    private ILoader<Image> imageILoader;
 
-    public ZipLoader(ILoader<JSONObject> jsonLoader, ILoader<String> textLoader, ILoader<I> imageLoader)
+    public ZipLoader(ILoader<JSONObject> jsonloader, ILoader<String> textloader)
     {
-        this.jsonLoader = jsonLoader;
-        this.textLoader = textLoader;
-        this.imageLoader = imageLoader;
+        this.jsonloader = jsonloader;
+        this.textloader = textloader;
+    }
+
+    public ZipLoader(ILoader<JSONObject> jsonloader, ILoader<String> textloader, ILoader<Image> imageILoader)
+    {
+        this.jsonloader = jsonloader;
+        this.textloader = textloader;
+        this.imageILoader = imageILoader;
     }
 
     /**
@@ -34,30 +40,24 @@ public class ZipLoader<I extends IImage> implements IZipLoader {
      */
     @Override
     public Map<String, Object> load(ZipInputStream in) throws Exception {
-        Map<String, Object> res = new HashMap<>();
+        Map<String,Object> res = new HashMap<>();
         ZipEntry entry;
         String name, type;
         while ((entry = in.getNextEntry()) != null) {
             name = entry.getName();
+            // Check what is the file type
+            System.out.println("Call to getExtensionFileName");
             type = getExtensionFromFileName(name);
-
-            switch (type) {
-                case "json":
-                    JSONObject jsonObj = jsonLoader.load(in);
-                    res.put(name, jsonObj);
-                    break;
-                case "txt":
-                    String text = textLoader.load(in);
-                    res.put(name, text);
-                    break;
-                case "jpg":
-                case "jpeg":
-                case "png":
-                    I img = imageLoader.load(in);
-                    res.put(name, img);
-                    break;
-                default:
-                    throw new IOException("ZipLoaderException: unrecognized format " + type);
+            if (type.equals("json"))
+            { // call to Json ILoader
+                JSONObject jsonObj = jsonloader.load(in);
+                res.put(name,jsonObj);
+            }else if (type.equals("txt"))
+            { // call to Text ILoader
+                String text = textloader.load(in);
+                res.put(name,text);
+            }else{ // in case we can't recognize the format used
+                throw new IOException("ZipILoaderException : unrecognized format");
             }
             in.closeEntry(); // close the input stream
         }
@@ -73,6 +73,7 @@ public class ZipLoader<I extends IImage> implements IZipLoader {
      *
      * @param resources the resources to be written to the output stream
      * @param out the output stream
+     * @return 
      * @throws IOException if an error occurs while writing to the output stream
      */
     @Override
@@ -89,18 +90,18 @@ public class ZipLoader<I extends IImage> implements IZipLoader {
 
             switch (type) {
                 case "json":
-                    jsonLoader.save((JSONObject) entryValue, out);
+                    jsonloader.save((JSONObject) entryValue, out);
                     break;
                 case "txt":
-                    textLoader.save((String) entryValue, out);
+                    textloader.save((String) entryValue, out);
                     break;
                 case "jpg":
                 case "jpeg":
                 case "png":
-                    imageLoader.save((I) entryValue, out);
+                    imageILoader.save((Image) entryValue, out);
                     break;
                 default:
-                    throw new IOException("ZipLoaderException: file type unknown " + type);
+                    throw new IOException("Error: file type unknown");
             }
 
             out.closeEntry();

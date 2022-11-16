@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="1.8">
+      <module name="Sprites.app" target="11" />
+      <module name="Sprites.sprites.javafx" target="11" />
+      <module name="Sprites.sprites.javafx.main" target="11" />
+      <module name="Sprites.sprites.javafx.test" target="11" />
+      <module name="Sprites.sprites.model" target="11" />
+      <module name="Sprites.sprites.model.main" target="11" />
+      <module name="Sprites.sprites.model.test" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

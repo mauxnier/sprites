@@ -1,18 +1,20 @@
 package fr.ensibs.javafx.graphic;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.text.ParseException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import fr.ensibs.util.graphic.Snapshot;
-import fr.ensibs.util.io.*;
+import fr.ensibs.util.io.ILoader;
+import fr.ensibs.util.io.JsonLoader;
+import fr.ensibs.util.io.TextLoader;
+import fr.ensibs.util.io.ZipLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -20,11 +22,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONObject;
-import fr.ensibs.util.io.SnapshotConverter;
-
 
 /**
  * Definitions of methods executed in reaction to user actions
@@ -64,11 +63,11 @@ public class ActionsHandler {
      */
     private Directory directory;
 
-    private final JsonLoader jsonloader = new JsonLoader();
-    private final TextLoader textloader = new TextLoader();
-    private final JavaFXImageLoader imgLoader = new JavaFXImageLoader();
+    private JsonLoader jsonloader = new JsonLoader();
 
-    private final ZipLoader<JavaFXImage> zipLoader = new ZipLoader<>(jsonloader, textloader, imgLoader);
+    private TextLoader textloader = new TextLoader();
+
+    private ZipLoader zipLoader = new ZipLoader(jsonloader, textloader);
 
     /**
      * Method called after the application has been displayed and the components
@@ -80,22 +79,19 @@ public class ActionsHandler {
         listView.getItems().addAll(directory.getFiles().keySet());
     }
 
-    /**
-     * Action load de la toolbar.
-     * @param ignoredActionEvent event
-     */
     @FXML
-    public void handleLoadFile(ActionEvent ignoredActionEvent) {
+    public void handleLoadFile(ActionEvent actionEvent) {
         try {
+            System.out.println("Yepa");
             InputStream is = new FileInputStream(FileExplorer.chooseFile());
             ZipInputStream zis = new ZipInputStream(is);
 
+            System.out.println("Loading file...");
+
             Map<String, Object> content = this.zipLoader.load(zis);
 
-            // Ajout des fichiers dans le directory
             directory.reset();
             directory.addAllFile(content);
-
             listView.getItems().clear();
             listView.getItems().addAll(content.keySet());
         } catch (Exception e) {
@@ -103,12 +99,8 @@ public class ActionsHandler {
         }
     }
 
-    /**
-     * Action save de la toolbar.
-     * @param ignoredActionEvent event
-     */
     @FXML
-    public void handleSaveFile(ActionEvent ignoredActionEvent) {
+    public void handleSaveFile(ActionEvent actionEvent) {
         try {
             OutputStream is = new FileOutputStream(FileExplorer.saveFileChooser());
             ZipOutputStream zis = new ZipOutputStream(is);
@@ -119,89 +111,51 @@ public class ActionsHandler {
     }
 
     /**
-     * Manages actions to perform on an item in the list.
+     * Displays the name selected in the list
      *
-     * @param ignoredMouseEvent the event that triggered this action
+     * @param mouseEvent the event that triggered this action
      *
      * @post the textArea content matches the selected item in the list
      */
     @FXML
-    public void handleListClicked(MouseEvent ignoredMouseEvent) throws ParseException {
+    public void handleListClicked(MouseEvent mouseEvent) {
         String item = listView.getSelectionModel().getSelectedItem();
         if (item != null) {
-            imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight()); // clear le canvas
             Object file = directory.getFile(item);
-            String name = file.getClass().getName();
 
-            switch (name) {
-                case "fr.ensibs.javafx.graphic.JavaFXImage":
-                    groupTextArea.setVisible(false);
-                    groupCanvas.setVisible(true);
-                    JavaFXImage javaFXImage = (JavaFXImage) file;
-                    imageCanvas.getGraphicsContext2D().drawImage(javaFXImage.getImage(), 0, 0, 350, 350);
-                    break;
-                case "org.json.JSONObject":
-                    groupTextArea.setVisible(false);
-                    groupCanvas.setVisible(true);
+            if (file.getClass().getName().equals("fr.ensibs.javafx.graphic.JavaFXImage")) {
+                groupTextArea.setVisible(false);
+                groupCanvas.setVisible(true);
 
-                    JSONObject json = (JSONObject) file;
-                    System.out.println("JSON content : " + json);
+                JavaFXImage javaFXImage = (JavaFXImage) file;
 
-                    if (item.contains("snapshot")) {
-                        Map<String, JavaFXImage> imgCollection = this.getImgFromDirectory(directory);
-                        SnapshotConverter<JavaFXImage> snapshotConverter = new SnapshotConverter<>(imgCollection);
-                        Snapshot<JavaFXImage> snapshot = snapshotConverter.fromJson(json);
-                        snapshot.draw(imageCanvas);
-                    } else {
-                        groupTextArea.setVisible(true);
-                        groupCanvas.setVisible(false);
-                        textArea.setText("Le type du fichier JSON n'est pas pris en charge.\n\n" + directory.getFile(item).toString());
-                    }
-                    break;
-                default:
-                    groupCanvas.setVisible(false);
-                    groupTextArea.setVisible(true);
-                    textArea.setText("L'extension de fichier " + name + " n'est pas prise en charge.\n\n" + directory.getFile(item).toString());
-                    break;
+                imageCanvas.getGraphicsContext2D().drawImage(javaFXImage.getImage(), 0, 0, 350, 350);
+            } else {
+                groupCanvas.setVisible(false);
+                groupTextArea.setVisible(true);
+                textArea.setText(directory.getFile(item).toString());
             }
+
         } else {
             textArea.setText("");
         }
     }
 
     /**
-     * Récupère les images depuis le dossier contenant les fichiers.
-     * @param directory le dossier contenant les fichiers
-     * @return une collection d'images
-     */
-    private Map<String, JavaFXImage> getImgFromDirectory(@NotNull Directory directory) {
-        Map<String, Object> collection = directory.getFiles(); // le dossier contenant tout les fichiers chargés
-        Map<String, JavaFXImage> imgCollection = new HashMap<>(); // la collection d'images à renvoyer après remplissage
-
-        for (Map.Entry<String, Object> entry : collection.entrySet()) { // parcours de la liste des fichiers du dossier
-            String name = entry.getValue().getClass().getName();
-            if (name.equals(JavaFXImage.class.getName())) {
-                imgCollection.put(entry.getKey(), (JavaFXImage) entry.getValue()); // si un fichier est une image alors on l'ajoute à la nouvelle collection
-            }
-        }
-        return imgCollection;
-    }
-
-    /**
      * Ask the user for a new name to be added to the list
      *
-     * @param ignoredActionEvent the event that triggered this action
+     * @param actionEvent the event that triggered this action
      * @post the name entered by the user, if any, is displayed in the list
      */
     @FXML
-    public void handleAddItem(ActionEvent ignoredActionEvent) {
+    public void handleAddItem(ActionEvent actionEvent) {
 
         try {
             File file = FileExplorer.chooseFile();
             String fileName = file.getName();
             String extension = fileName.substring(fileName.indexOf(".") + 1).toLowerCase();
 
-            ILoader<?> loader;
+            ILoader loader;
 
             switch (extension) {
                 case "png":
@@ -222,6 +176,10 @@ public class ActionsHandler {
             directory.addFile(fileName, content);
             listView.getItems().add(fileName);
 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

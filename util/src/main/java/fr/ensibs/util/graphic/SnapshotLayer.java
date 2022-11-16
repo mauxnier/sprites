@@ -28,12 +28,12 @@ public class SnapshotLayer<T extends IImage> implements ISnapshotLayer<T> {
     }
 
     @Override
-    public double getWidth() {
+    public int getWidth() {
         return img.getWidth();
     }
 
     @Override
-    public double getHeight() {
+    public int getHeight() {
         return img.getHeight();
     }
 

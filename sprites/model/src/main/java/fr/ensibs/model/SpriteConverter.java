@@ -25,7 +25,7 @@ public class SpriteConverter implements IJsonConverter<Sprite<IImage>> {
         int y = obj.getInt("y");
         boolean visible = obj.getBoolean("visible");
         JSONArray jsonArray = obj.getJSONArray("images");
-        Sprite s = new Sprite(name, x, y, duration, 0, visible);
+        Sprite s = new Sprite(name,x,y,duration,0,visible);
         for (int i = 0; i < jsonArray.length(); i ++)
         {
             s.add(this.map.get(jsonArray.getString(i)));
