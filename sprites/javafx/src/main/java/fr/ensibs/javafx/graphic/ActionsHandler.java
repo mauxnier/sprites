@@ -64,11 +64,11 @@ public class ActionsHandler {
      */
     private Directory directory;
 
-    private final JsonLoader jsonloader = new JsonLoader();
-    private final TextLoader textloader = new TextLoader();
+    private final JsonLoader jsonLoader = new JsonLoader();
+    private final TextLoader textLoader = new TextLoader();
     private final JavaFXImageLoader imgLoader = new JavaFXImageLoader();
 
-    private final ZipLoader<JavaFXImage> zipLoader = new ZipLoader<>(jsonloader, textloader, imgLoader);
+    private final ZipLoader<JavaFXImage> zipLoader = new ZipLoader<>(jsonLoader, textLoader, imgLoader);
 
     /**
      * Method called after the application has been displayed and the components
@@ -193,6 +193,7 @@ public class ActionsHandler {
      * @param ignoredActionEvent the event that triggered this action
      * @post the name entered by the user, if any, is displayed in the list
      */
+    @SuppressWarnings("unchecked")
     @FXML
     public void handleAddItem(ActionEvent ignoredActionEvent) {
 
@@ -207,13 +208,13 @@ public class ActionsHandler {
                 case "png":
                 case "jpg":
                 case "jpeg":
-                    loader = new JavaFXImageLoader();
+                    loader = this.imgLoader;
                     break;
                 case "json":
-                    loader = new JsonLoader();
+                    loader = (ILoader<JSONObject>) this.jsonLoader;
                     break;
                 default:
-                    loader = new TextLoader();
+                    loader = (ILoader<String>) this.textLoader;
                     break;
             }
 

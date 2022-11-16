@@ -37,7 +37,8 @@ public class Directory
     /**
      * Add a new file to the directory
      *
-     * @param file the new file
+     * @param fileName the name
+     * @param content the content
      *
      * @pre file != null
      */
@@ -49,7 +50,7 @@ public class Directory
     /**
      * Add a new file to the directory
      *
-     * @param file the new file
+     * @param filesList list of files
      *
      * @pre file != null
      */

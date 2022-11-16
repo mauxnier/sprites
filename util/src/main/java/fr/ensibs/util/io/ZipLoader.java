@@ -12,11 +12,11 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipLoader<I extends IImage> implements IZipLoader {
 
-    private final ILoader<JSONObject> jsonLoader;
-    private final ILoader<String> textLoader;
+    private final IJsonLoader jsonLoader;
+    private final ITextLoader textLoader;
     private final ILoader<I> imageLoader;
 
-    public ZipLoader(ILoader<JSONObject> jsonLoader, ILoader<String> textLoader, ILoader<I> imageLoader)
+    public ZipLoader(IJsonLoader jsonLoader, ITextLoader textLoader, ILoader<I> imageLoader)
     {
         this.jsonLoader = jsonLoader;
         this.textLoader = textLoader;
@@ -75,6 +75,7 @@ public class ZipLoader<I extends IImage> implements IZipLoader {
      * @param out the output stream
      * @throws IOException if an error occurs while writing to the output stream
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void save(Map<String, Object> resources, ZipOutputStream out) throws Exception {
         for (Map.Entry<String, Object> entry : resources.entrySet()) {
