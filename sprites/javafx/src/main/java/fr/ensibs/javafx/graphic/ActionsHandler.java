@@ -1,13 +1,10 @@
 package fr.ensibs.javafx.graphic;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,8 +20,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import fr.ensibs.util.io.SnapshotConverter;
 
@@ -67,11 +64,11 @@ public class ActionsHandler {
      */
     private Directory directory;
 
-    private JsonLoader jsonloader = new JsonLoader();
-    private TextLoader textloader = new TextLoader();
-    private JavaFXImageLoader imgLoader = new JavaFXImageLoader();
+    private final JsonLoader jsonloader = new JsonLoader();
+    private final TextLoader textloader = new TextLoader();
+    private final JavaFXImageLoader imgLoader = new JavaFXImageLoader();
 
-    private ZipLoader zipLoader = new ZipLoader(jsonloader, textloader, imgLoader);
+    private final ZipLoader<JavaFXImage> zipLoader = new ZipLoader<>(jsonloader, textloader, imgLoader);
 
     /**
      * Method called after the application has been displayed and the components
@@ -83,6 +80,10 @@ public class ActionsHandler {
         listView.getItems().addAll(directory.getFiles().keySet());
     }
 
+    /**
+     * Action load de la toolbar.
+     * @param actionEvent event
+     */
     @FXML
     public void handleLoadFile(ActionEvent actionEvent) {
         try {
@@ -91,8 +92,10 @@ public class ActionsHandler {
 
             Map<String, Object> content = this.zipLoader.load(zis);
 
+            // Ajout des fichiers dans le directory
             directory.reset();
             directory.addAllFile(content);
+
             listView.getItems().clear();
             listView.getItems().addAll(content.keySet());
         } catch (Exception e) {
@@ -100,6 +103,10 @@ public class ActionsHandler {
         }
     }
 
+    /**
+     * Action save de la toolbar.
+     * @param actionEvent event
+     */
     @FXML
     public void handleSaveFile(ActionEvent actionEvent) {
         try {
@@ -122,11 +129,9 @@ public class ActionsHandler {
     public void handleListClicked(MouseEvent mouseEvent) throws ParseException {
         String item = listView.getSelectionModel().getSelectedItem();
         if (item != null) {
-            imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight());
+            imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight()); // clear le canvas
             Object file = directory.getFile(item);
             String name = file.getClass().getName();
-            System.out.println("NAME");
-            System.out.println(name);
 
             switch (name) {
                 case "fr.ensibs.javafx.graphic.JavaFXImage":
@@ -140,13 +145,13 @@ public class ActionsHandler {
                     groupCanvas.setVisible(true);
 
                     JSONObject json = (JSONObject) file;
-                    System.out.println("json : " + json);
+                    System.out.println("JSON content : " + json);
 
                     if (item.contains("snapshot")) {
-                        Map<String, JavaFXImage> imgCollection = new HashMap<>(); //TODO mettre les images du zip dans la collection (à remplir)
+                        Map<String, JavaFXImage> imgCollection = this.getImgFromDirectory(directory);
                         SnapshotConverter<JavaFXImage> snapshotConverter = new SnapshotConverter<>(imgCollection);
                         System.out.println("json" + json);
-                        Snapshot snapshot = snapshotConverter.fromJson(json);
+                        Snapshot<JavaFXImage> snapshot = snapshotConverter.fromJson(json);
                         snapshot.draw(imageCanvas);
                     } else {
                         groupTextArea.setVisible(true);
@@ -163,6 +168,24 @@ public class ActionsHandler {
         } else {
             textArea.setText("");
         }
+    }
+
+    /**
+     * Récupère les images depuis le dossier contenant les fichiers.
+     * @param directory le dossier contenant les fichiers
+     * @return une collection d'images
+     */
+    private Map<String, JavaFXImage> getImgFromDirectory(@NotNull Directory directory) {
+        Map<String, Object> collection = directory.getFiles(); // le dossier contenant tout les fichiers chargés
+        Map<String, JavaFXImage> imgCollection = new HashMap<>(); // la collection d'images à renvoyer après remplissage
+
+        for (Map.Entry<String, Object> entry : collection.entrySet()) { // parcours de la liste des fichiers du dossier
+            String name = entry.getValue().getClass().getName();
+            if (name.equals(JavaFXImage.class.getName())) {
+                imgCollection.put(entry.getKey(), (JavaFXImage) entry.getValue()); // si un fichier est une image alors on l'ajoute à la nouvelle collection
+            }
+        }
+        return imgCollection;
     }
 
     /**
@@ -200,10 +223,6 @@ public class ActionsHandler {
             directory.addFile(fileName, content);
             listView.getItems().add(fileName);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

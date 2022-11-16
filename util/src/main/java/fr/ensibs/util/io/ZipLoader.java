@@ -3,7 +3,6 @@ package fr.ensibs.util.io;
 import fr.ensibs.util.graphic.IImage;
 import org.json.JSONObject;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,9 +12,9 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipLoader<I extends IImage> implements IZipLoader {
 
-    private ILoader<JSONObject> jsonLoader;
-    private ILoader<String> textLoader;
-    private ILoader<I> imageLoader;
+    private final ILoader<JSONObject> jsonLoader;
+    private final ILoader<String> textLoader;
+    private final ILoader<I> imageLoader;
 
     public ZipLoader(ILoader<JSONObject> jsonLoader, ILoader<String> textLoader, ILoader<I> imageLoader)
     {
@@ -35,7 +34,7 @@ public class ZipLoader<I extends IImage> implements IZipLoader {
      */
     @Override
     public Map<String, Object> load(ZipInputStream in) throws Exception {
-        Map<String,Object> res = new HashMap<>();
+        Map<String, Object> res = new HashMap<>();
         ZipEntry entry;
         String name, type;
         while ((entry = in.getNextEntry()) != null) {
@@ -74,7 +73,6 @@ public class ZipLoader<I extends IImage> implements IZipLoader {
      *
      * @param resources the resources to be written to the output stream
      * @param out the output stream
-     * @return 
      * @throws IOException if an error occurs while writing to the output stream
      */
     @Override
