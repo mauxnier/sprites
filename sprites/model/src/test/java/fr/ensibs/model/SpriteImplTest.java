@@ -2,6 +2,7 @@ package fr.ensibs.model;
 
 import fr.ensibs.util.graphic.IImage;
 
+import javafx.scene.image.Image;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,9 +61,7 @@ public class SpriteImplTest
     public void initialize()
     {
         this.instance = new Sprite<>("sprite", 0, 0, 1000, 250, true);
-        for (ImageMock image : IMAGES) {
-            this.instance.add(image);
-        }
+        this.instance.addAll(IMAGES);
     }
 
     //------------------------------------------------------------------------
@@ -115,6 +114,8 @@ class ImageMock implements IImage {
      */
     private String name;
 
+    private Image img;
+
     @Override
     public String getName()
     {
@@ -128,14 +129,24 @@ class ImageMock implements IImage {
     }
 
     @Override
-    public int getWidth()
+    public double getWidth()
     {
         return 100;
     }
 
     @Override
-    public int getHeight()
+    public double getHeight()
     {
         return 100;
+    }
+
+    @Override
+    public Image getImage() {
+        return this.img;
+    }
+
+    @Override
+    public void setImage(Image image) {
+        this.img = image;
     }
 }

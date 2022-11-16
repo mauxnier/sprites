@@ -1,6 +1,7 @@
 package fr.ensibs.util.graphic.json;
 
 import fr.ensibs.util.graphic.IImage;
+import javafx.scene.image.Image;
 
 /**
  * A class that implements the {@link IImage} interface for testing purposes
@@ -13,6 +14,8 @@ public class ImageMock implements IImage
      * The image name
      */
     private String name;
+
+    private Image img;
 
     @Override
     public String getName()
@@ -27,15 +30,25 @@ public class ImageMock implements IImage
     }
 
     @Override
-    public int getWidth()
+    public double getWidth()
     {
         return 100;
     }
 
     @Override
-    public int getHeight()
+    public double getHeight()
     {
         return 100;
+    }
+
+    @Override
+    public Image getImage() {
+        return this.img;
+    }
+
+    @Override
+    public void setImage(Image image) {
+        this.img = image;
     }
 }
 

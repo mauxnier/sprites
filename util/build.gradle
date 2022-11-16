@@ -19,6 +19,7 @@ targetCompatibility = '8'
 dependencies {
     // JSON library dependency
     api 'org.json:json:20220924'
+    implementation 'org.jetbrains:annotations:20.1.0'
     // JUnit and JSONassert library dependencies for unit testing
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
     testImplementation 'org.skyscreamer:jsonassert:1.5.1'

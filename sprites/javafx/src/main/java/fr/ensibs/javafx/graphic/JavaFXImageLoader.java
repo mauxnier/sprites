@@ -14,7 +14,7 @@ public class JavaFXImageLoader implements ILoader<JavaFXImage> {
     @Override
     public JavaFXImage load(InputStream in) {
         Image img = new Image(in);
-        return new JavaFXImage(img);
+        return new JavaFXImage(img, img.getUrl());
     }
 
     @Override

@@ -29,14 +29,28 @@ public interface IImage
      *
      * @return the width of the image
      */
-    int getWidth();
+    double getWidth();
 
     /**
      * Give the height of the image in pixels.
      *
      * @return the height of the image
      */
-    int getHeight();
+    double getHeight();
+
+    /**
+     * Give the graphic image.
+     *
+     * @return the image
+     */
+    Image getImage();
+
+    /**
+     * Set the image.
+     *
+     * @param image the new image
+     */
+    void setImage(Image image);
 }
 
 

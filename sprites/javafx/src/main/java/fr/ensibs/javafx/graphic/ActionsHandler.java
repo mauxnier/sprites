@@ -82,10 +82,10 @@ public class ActionsHandler {
 
     /**
      * Action load de la toolbar.
-     * @param actionEvent event
+     * @param ignoredActionEvent event
      */
     @FXML
-    public void handleLoadFile(ActionEvent actionEvent) {
+    public void handleLoadFile(ActionEvent ignoredActionEvent) {
         try {
             InputStream is = new FileInputStream(FileExplorer.chooseFile());
             ZipInputStream zis = new ZipInputStream(is);
@@ -105,10 +105,10 @@ public class ActionsHandler {
 
     /**
      * Action save de la toolbar.
-     * @param actionEvent event
+     * @param ignoredActionEvent event
      */
     @FXML
-    public void handleSaveFile(ActionEvent actionEvent) {
+    public void handleSaveFile(ActionEvent ignoredActionEvent) {
         try {
             OutputStream is = new FileOutputStream(FileExplorer.saveFileChooser());
             ZipOutputStream zis = new ZipOutputStream(is);
@@ -121,12 +121,12 @@ public class ActionsHandler {
     /**
      * Manages actions to perform on an item in the list.
      *
-     * @param mouseEvent the event that triggered this action
+     * @param ignoredMouseEvent the event that triggered this action
      *
      * @post the textArea content matches the selected item in the list
      */
     @FXML
-    public void handleListClicked(MouseEvent mouseEvent) throws ParseException {
+    public void handleListClicked(MouseEvent ignoredMouseEvent) throws ParseException {
         String item = listView.getSelectionModel().getSelectedItem();
         if (item != null) {
             imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight()); // clear le canvas
@@ -150,7 +150,6 @@ public class ActionsHandler {
                     if (item.contains("snapshot")) {
                         Map<String, JavaFXImage> imgCollection = this.getImgFromDirectory(directory);
                         SnapshotConverter<JavaFXImage> snapshotConverter = new SnapshotConverter<>(imgCollection);
-                        System.out.println("json" + json);
                         Snapshot<JavaFXImage> snapshot = snapshotConverter.fromJson(json);
                         snapshot.draw(imageCanvas);
                     } else {
@@ -191,18 +190,18 @@ public class ActionsHandler {
     /**
      * Ask the user for a new name to be added to the list
      *
-     * @param actionEvent the event that triggered this action
+     * @param ignoredActionEvent the event that triggered this action
      * @post the name entered by the user, if any, is displayed in the list
      */
     @FXML
-    public void handleAddItem(ActionEvent actionEvent) {
+    public void handleAddItem(ActionEvent ignoredActionEvent) {
 
         try {
             File file = FileExplorer.chooseFile();
             String fileName = file.getName();
             String extension = fileName.substring(fileName.indexOf(".") + 1).toLowerCase();
 
-            ILoader loader;
+            ILoader<?> loader;
 
             switch (extension) {
                 case "png":

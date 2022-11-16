@@ -6,14 +6,21 @@ import javafx.scene.image.Image;
 public class JavaFXImage implements IImage {
 
     private Image img;
+    private String name;
 
-    JavaFXImage(Image img)
-    {
+    JavaFXImage(Image img, String name) {
         this.img = img;
+        this.name = name;
     }
 
+    @Override
     public Image getImage(){
         return this.img;
+    }
+
+    @Override
+    public void setImage(Image image) {
+        this.img = image;
     }
 
     /**
@@ -23,7 +30,7 @@ public class JavaFXImage implements IImage {
      */
     @Override
     public String getName() {
-        return this.getName();
+        return this.name;
     }
 
     /**
@@ -33,7 +40,7 @@ public class JavaFXImage implements IImage {
      */
     @Override
     public void setName(String name) {
-
+        this.name = name;
     }
 
     /**
@@ -41,9 +48,8 @@ public class JavaFXImage implements IImage {
      *
      * @return the width of the image
      */
-    @Override
-    public int getWidth() {
-        return this.getWidth();
+    public double getWidth() {
+        return this.img.getWidth();
     }
 
     /**
@@ -51,8 +57,7 @@ public class JavaFXImage implements IImage {
      *
      * @return the height of the image
      */
-    @Override
-    public int getHeight() {
-        return this.getHeight();
+    public double getHeight() {
+        return this.img.getHeight();
     }
 }
