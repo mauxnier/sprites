@@ -12,7 +12,7 @@ import java.text.ParseException;
  *
  * @author Pascale Launay
  */
-public interface IJsonLoader
+public interface IJsonLoader extends ILoader<JSONObject>
 {
     /**
      * Read an object from an input stream.

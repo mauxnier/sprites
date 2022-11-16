@@ -10,13 +10,20 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-public class ZipLoader<I extends IImage> implements IZipLoader {
+public class ZipLoader<T extends IImage> implements IZipLoader {
 
     private final IJsonLoader jsonLoader;
     private final ITextLoader textLoader;
-    private final ILoader<I> imageLoader;
+    private final IImageLoader<T> imageLoader;
 
-    public ZipLoader(IJsonLoader jsonLoader, ITextLoader textLoader, ILoader<I> imageLoader)
+    public ZipLoader(IJsonLoader jsonLoader, ITextLoader textLoader)
+    {
+        this.jsonLoader = jsonLoader;
+        this.textLoader = textLoader;
+        this.imageLoader = null;
+    }
+
+    public ZipLoader(IJsonLoader jsonLoader, ITextLoader textLoader, IImageLoader<T> imageLoader)
     {
         this.jsonLoader = jsonLoader;
         this.textLoader = textLoader;
@@ -53,7 +60,7 @@ public class ZipLoader<I extends IImage> implements IZipLoader {
                 case "jpg":
                 case "jpeg":
                 case "png":
-                    I img = imageLoader.load(in);
+                    T img = imageLoader.load(in);
                     res.put(name, img);
                     break;
                 default:
@@ -98,7 +105,7 @@ public class ZipLoader<I extends IImage> implements IZipLoader {
                 case "jpg":
                 case "jpeg":
                 case "png":
-                    imageLoader.save((I) entryValue, out);
+                    imageLoader.save((T) entryValue, out);
                     break;
                 default:
                     throw new IOException("ZipLoaderException: file type unknown " + type);

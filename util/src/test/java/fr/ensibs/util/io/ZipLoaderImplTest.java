@@ -224,12 +224,12 @@ public class ZipLoaderImplTest
 //----------------------------------------------------------------------------
 
 /**
- * A class that implements the {@link JsonLoader} interface for tests purposes
+ * A class that implements the {@link IJsonLoader} interface for tests purposes
  * and returns arbitrary results
  *
  * @author Pascale Launay
  */
-class JsonLoaderMock implements ILoader
+class JsonLoaderMock implements IJsonLoader
 {
     @Override
     public JSONObject load(InputStream in)
@@ -238,18 +238,18 @@ class JsonLoaderMock implements ILoader
     }
 
     @Override
-    public void save(Object obj, OutputStream out) throws Exception {
+    public void save(JSONObject obj, OutputStream out) throws IOException {
         out.write("{}".getBytes());
     }
 }
 
 /**
- * A class that implements the {@link TextLoader} interface for tests purposes
+ * A class that implements the {@link ITextLoader} interface for tests purposes
  * and returns arbitrary results
  *
  * @author Pascale Launay
  */
-class TextLoaderMock implements ILoader
+class TextLoaderMock implements ITextLoader
 {
     @Override
     public String load(InputStream in) throws IOException
@@ -258,7 +258,7 @@ class TextLoaderMock implements ILoader
     }
 
     @Override
-    public void save(Object obj, OutputStream out) throws Exception {
+    public void save(String text, OutputStream out) throws IOException {
         out.write("mockText".getBytes());
     }
 }
