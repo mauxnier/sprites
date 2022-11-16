@@ -108,7 +108,7 @@ public class SpriteImplTest
  *
  * @author Pascale Launay
  */
-class ImageMock implements IImage {
+class ImageMock implements IImage<Image> {
     /**
      * The image name
      */
@@ -145,7 +145,6 @@ class ImageMock implements IImage {
         return this.img;
     }
 
-    @Override
     public void setImage(Image image) {
         this.img = image;
     }
