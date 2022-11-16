@@ -14,13 +14,13 @@ public class JavaFXImageLoader implements ILoader<JavaFXImage> {
     @Override
     public JavaFXImage load(InputStream in) {
         Image img = new Image(in);
-        return new JavaFXImage(img);
+        return new JavaFXImage(img, img.getUrl());
     }
 
     @Override
     public void save(JavaFXImage img, OutputStream out) throws IOException {
         Image image = img.getImage();
         BufferedImage fromFXImage = SwingFXUtils.fromFXImage(image, null);
-        ImageIO.write(fromFXImage, "jpg", out);
+        ImageIO.write(fromFXImage, "jpg", out); 
     }
 }

@@ -36,14 +36,14 @@ public interface ISnapshotLayer<I extends IImage>
      *
      * @return the width of the area used to display the image
      */
-    int getWidth();
+    double getWidth();
 
     /**
      * Give the height of the area used to display the image (in pixels).
      *
      * @return the height of the area used to display the image
      */
-    int getHeight();
+    double getHeight();
 
     public boolean equals(Object o);
 
