@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import fr.ensibs.util.io.IImageLoader;
 import fr.ensibs.util.io.ILoader;
 import fr.ensibs.util.io.JsonLoader;
 import fr.ensibs.util.io.TextLoader;
@@ -23,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private final JsonLoader jsonLoader = new JsonLoader();
     private final TextLoader textLoader = new TextLoader();
-    private final ILoader imgLoader = new ImageLoader();
+    private final IImageLoader imgLoader = new ImageLoader();
 
-    private final ZipLoader<Image> zipLoader = new ZipLoader<>(jsonLoader, textLoader, imgLoader);
+    private final ZipLoader<Image> zipLoader = new ZipLoader<Image>(jsonLoader, textLoader, imgLoader);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

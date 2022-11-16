@@ -16,11 +16,6 @@ public class Image implements IImage<Bitmap> {
         return this.img;
     }
 
-    @Override
-    public void setImage(javafx.scene.image.Image image) {
-
-    }
-
     public void setImage(Bitmap image) {
         this.img = image;
     }
