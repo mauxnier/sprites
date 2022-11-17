@@ -18,7 +18,11 @@ public class TextLoader implements ITextLoader {
         StringBuilder textBuilder = new StringBuilder();
         int c;
         while ((c = in.read()) != -1) {
-            textBuilder.append((char) c);
+            if ((char) c != '\0') {
+                textBuilder.append((char) c);
+            } else {
+                System.out.println("null");
+            }
         }
        return textBuilder.toString();
     }
