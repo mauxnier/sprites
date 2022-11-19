@@ -1,5 +1,8 @@
 package fr.ensibs.android;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -11,7 +14,8 @@ public class ImageLoader implements IImageLoader {
 
     @Override
     public IImage load(InputStream in) throws IOException {
-        return null;
+        Bitmap bitmap = BitmapFactory.decodeStream(in);
+        return new Image(bitmap, bitmap.toString());
     }
 
     @Override

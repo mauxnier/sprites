@@ -60,7 +60,10 @@ public class ZipLoader<T extends IImage> implements IZipLoader {
                 case "jpg":
                 case "jpeg":
                 case "png":
+                    System.out.println("làààààà");
+                    System.out.println(name);
                     T img = imageLoader.load(in);
+                    System.out.println(img);
                     res.put(name, img);
                     break;
                 default:
@@ -121,7 +124,6 @@ public class ZipLoader<T extends IImage> implements IZipLoader {
      * @return the extension
      */
     private String getExtensionFromFileName(String filename) {
-        System.out.println(filename.substring(filename.indexOf(".")+1));
         return filename.substring(filename.indexOf(".")+1);
     }
 }
