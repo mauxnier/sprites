@@ -2,8 +2,8 @@
 /.gradle
 /.idea
 /local.properties
-*/build/
-*/bin/
+**/build/
+**/bin/
 /captures
 .DS_Store
 .externalNativeBuild
