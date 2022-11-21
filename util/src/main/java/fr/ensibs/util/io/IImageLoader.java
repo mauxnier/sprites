@@ -9,7 +9,7 @@ import java.io.OutputStream;
 /**
  * Interface used to load/save image from/to input streams.
  */
-public interface IImageLoader<T extends IImage> extends ILoader<T>
+public interface IImageLoader<T extends IImage<?>> extends ILoader<T>
 {
     /**
      * Read an image from an input stream.

@@ -5,8 +5,6 @@ import fr.ensibs.util.io.IJsonConverter;
 import javafx.scene.image.Image;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Map;
 
