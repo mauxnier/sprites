@@ -1,19 +1,17 @@
 package fr.ensibs.model;
 
 import fr.ensibs.util.graphic.IImage;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
+public class Sprite<I extends IImage<Image>> extends ArrayList<I> implements ISprite<I>{
 
-public class Sprite<I extends IImage> extends ArrayList<I> implements ISprite<I>{
-
-    private int duration, time;
-
+    private final String name;
     private int x,y;
-
+    private final int duration;
+    private int time;
     private boolean visible;
-
-    private String name;
 
     public Sprite(String name, int x, int y, int duration, int time, boolean visible)
     {
@@ -27,8 +25,8 @@ public class Sprite<I extends IImage> extends ArrayList<I> implements ISprite<I>
 
     @Override
     public I getCurrentImage() {
-        float step = this.duration / this.size();
-        int n_sprite = (int) (this.time / step);
+        int step = this.duration / this.size();
+        int n_sprite = this.time / step;
         return this.get(n_sprite % this.size());
     }
 
