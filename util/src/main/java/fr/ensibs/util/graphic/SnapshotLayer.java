@@ -1,10 +1,12 @@
 package fr.ensibs.util.graphic;
 
+import javafx.scene.image.Image;
+
 public class SnapshotLayer<T extends IImage> implements ISnapshotLayer<T> {
 
     private int x, y;
 
-    private T img;
+    private final T img;
 
     public SnapshotLayer(int x, int y, T img) {
         this.x = x;
@@ -46,6 +48,7 @@ public class SnapshotLayer<T extends IImage> implements ISnapshotLayer<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean equals(Object o) {
         SnapshotLayer<T> obj = (SnapshotLayer<T>) o;
         return this.x == obj.x && this.y == obj.y;

@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  * @author Pascale Launay
  * @inv {@code getWidth() >= 0 && getHeight() >= 0}
  */
-public interface IImage
+public interface IImage<I>
 {
     /**
      * Give the name of the image.
@@ -43,14 +43,14 @@ public interface IImage
      *
      * @return the image
      */
-    Image getImage();
+    I getImage();
 
     /**
      * Set the image.
      *
      * @param image the new image
      */
-    void setImage(Image image);
+    void setImage(I image);
 }
 
 

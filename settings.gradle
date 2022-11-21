@@ -1,3 +1,9 @@
-rootProject.name = 'Sprites'
-
-include 'util', 'sprites:javafx', 'sprites:model'
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "Sprites"
+include 'app', 'util', 'sprites:javafx', 'sprites:model'

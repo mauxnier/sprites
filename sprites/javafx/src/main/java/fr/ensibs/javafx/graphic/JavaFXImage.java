@@ -3,7 +3,7 @@ package fr.ensibs.javafx.graphic;
 import fr.ensibs.util.graphic.IImage;
 import javafx.scene.image.Image;
 
-public class JavaFXImage implements IImage {
+public class JavaFXImage implements IImage<Image> {
 
     private Image img;
     private String name;
@@ -14,7 +14,7 @@ public class JavaFXImage implements IImage {
     }
 
     @Override
-    public Image getImage(){
+    public Image getImage() {
         return this.img;
     }
 

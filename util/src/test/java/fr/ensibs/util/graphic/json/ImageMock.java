@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  *
  * @author Pascale Launay
  */
-public class ImageMock implements IImage
+public class ImageMock implements IImage<Image>
 {
     /**
      * The image name
