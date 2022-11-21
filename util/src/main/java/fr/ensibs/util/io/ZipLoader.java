@@ -10,7 +10,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-public class ZipLoader<T extends IImage> implements IZipLoader {
+public class ZipLoader<T extends IImage<?>> implements IZipLoader {
 
     private final IJsonLoader jsonLoader;
     private final ITextLoader textLoader;
@@ -60,8 +60,7 @@ public class ZipLoader<T extends IImage> implements IZipLoader {
                 case "jpg":
                 case "jpeg":
                 case "png":
-                    System.out.println("làààààà");
-                    System.out.println(name);
+                    assert imageLoader != null;
                     T img = imageLoader.load(in);
                     System.out.println(img);
                     res.put(name, img);
@@ -108,6 +107,7 @@ public class ZipLoader<T extends IImage> implements IZipLoader {
                 case "jpg":
                 case "jpeg":
                 case "png":
+                    assert imageLoader != null;
                     imageLoader.save((T) entryValue, out);
                     break;
                 default:

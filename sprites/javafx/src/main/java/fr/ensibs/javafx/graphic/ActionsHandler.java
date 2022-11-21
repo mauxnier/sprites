@@ -73,6 +73,8 @@ public class ActionsHandler {
 
     private final ZipLoader<JavaFXImage> zipLoader = new ZipLoader<>(jsonLoader, textLoader, imageLoader);
 
+    private AnimationTimer timer;
+
     /**
      * Method called after the application has been displayed and the components
      * have
@@ -134,6 +136,7 @@ public class ActionsHandler {
     public void handleListClicked(MouseEvent ignoredMouseEvent) throws ParseException {
         String item = listView.getSelectionModel().getSelectedItem();
         if (item != null) {
+            if (this.timer != null) this.timer.stop(); // stop l'éventuel timer en cours
             imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight()); // clear le canvas
             Object file = directory.getFile(item);
             String name = file.getClass().getName();
@@ -175,7 +178,7 @@ public class ActionsHandler {
                         // - après chaque récupération d'image ajouter 1 à time
 
                         if (sprite.isVisible()) {
-                            AnimationTimer timer = new AnimationTimer() {
+                            AnimationTimer spriteTimer = new AnimationTimer() {
                                 @Override
                                 public void handle(long now) {
                                     JavaFXImage image = sprite.getCurrentImage();
@@ -184,8 +187,8 @@ public class ActionsHandler {
                                     sprite.setCurrentTime(sprite.getCurrentTime() + 1);
                                 }
                             };
-
-                            timer.start();
+                            this.timer = spriteTimer;
+                            spriteTimer.start();
                         }
                     } else {
                         groupTextArea.setVisible(true);
