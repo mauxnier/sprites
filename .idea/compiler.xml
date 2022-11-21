@@ -2,7 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
-      <module name="Sprites.app" target="17" />
+      <module name="Sprites.app" target="18" />
       <module name="Sprites.sprites.javafx" target="11" />
       <module name="Sprites.sprites.javafx.main" target="11" />
       <module name="Sprites.sprites.javafx.test" target="11" />
