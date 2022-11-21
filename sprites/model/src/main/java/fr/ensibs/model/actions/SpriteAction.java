@@ -1,35 +1,24 @@
 package fr.ensibs.model.actions;
 
 import fr.ensibs.model.ISprite;
+import fr.ensibs.model.Sprite;
 
-public class SpriteAction implements ISpriteAction{
-    public SpriteAction(){
-        // TO DO
-        return;
+public abstract class SpriteAction implements ISpriteAction{
+    private Sprite sprite;
+    private int start;
+    public SpriteAction(Sprite sprite, int start){
+        this.sprite = sprite;
+        this.start = start;
     }
 
     @Override
     public ISprite getSprite() {
-        return null;
+        return this.sprite;
     }
 
     @Override
     public int getStartTime() {
-        return 0;
+        return this.start;
     }
 
-    @Override
-    public int getEndTime() {
-        return 0;
-    }
-
-    @Override
-    public void doAction(int time) {
-
-    }
-
-    @Override
-    public boolean isDone() {
-        return false;
-    }
 }

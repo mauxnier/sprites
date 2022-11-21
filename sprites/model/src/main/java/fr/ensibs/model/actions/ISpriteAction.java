@@ -32,7 +32,6 @@ public interface ISpriteAction<I extends IImage>
      *
      * @return the action end time
      */
-    int getEndTime();
 
     /**
      * Execute the current action for the given time
@@ -41,10 +40,4 @@ public interface ISpriteAction<I extends IImage>
      */
     void doAction(int time);
 
-    /**
-     * Check whether this action is finished
-     *
-     * @return true if this action is finished
-     */
-    boolean isDone();
 }
