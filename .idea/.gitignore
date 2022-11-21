@@ -7,3 +7,6 @@ modules.xml
 workspace.xml
 navEditor.xml
 assetWizardSettings.xml
+/compiler.xml
+/gradle.xml
+/misc.xml

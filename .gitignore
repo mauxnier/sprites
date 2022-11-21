@@ -7,6 +7,3 @@
 .DS_Store
 .externalNativeBuild
 .cxx
-/compiler.xml
-/gradle.xml
-/misc.xml
