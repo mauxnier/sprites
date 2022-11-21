@@ -25,7 +25,7 @@ public class ComposeImageView extends View {
         if (snapshot != null) {
              for (ISnapshotLayer<Image> layer : snapshot.getList()) {
                  Image image = layer.getImage();
-                 canvas.drawBitmap(image.getImage(), 0, 0, null);
+                 canvas.drawBitmap(image.getImage(), layer.getX(), layer.getY(), null);
              }
         }
     }

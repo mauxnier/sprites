@@ -156,9 +156,14 @@ public class ActionsHandler {
                         SnapshotConverter<JavaFXImage> snapshotConverter = new SnapshotConverter<>(imgCollection);
                         Snapshot<JavaFXImage> snapshot = snapshotConverter.fromJson(json);
 
+                        double scale = 0.5;
+
                         for (ISnapshotLayer<JavaFXImage> layer : snapshot.getList()) {
+
                             JavaFXImage image = layer.getImage();
-                            imageCanvas.getGraphicsContext2D().drawImage(image.getImage(), 0, 0, 350, 350);
+                            imageCanvas.getGraphicsContext2D().drawImage(image.getImage(), layer.getX() * scale,
+                                    layer.getY() * scale,
+                                    (int) layer.getWidth() * scale, (int) layer.getHeight() * scale);
                         }
                     } else {
                         groupTextArea.setVisible(true);
