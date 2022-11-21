@@ -25,9 +25,7 @@ public class Sprite<I extends IImage<Image>> extends ArrayList<I> implements ISp
 
     @Override
     public I getCurrentImage() {
-        int step = this.duration / this.size();
-        int n_sprite = this.time / step;
-        return this.get(n_sprite % this.size());
+        return this.get(this.time);
     }
 
     @Override
@@ -55,8 +53,19 @@ public class Sprite<I extends IImage<Image>> extends ArrayList<I> implements ISp
         return this.visible;
     }
 
+    /**
+     * Retourne le temps actuel de l'image.
+     * @return time
+     */
+    public int getCurrentTime() {
+        return this.time;
+    }
+
     @Override
     public void setCurrentTime(int time) {
+        if (time >= this.size()) {
+            time = 0; // repart avec l'image de base
+        }
         this.time = time;
     }
 
