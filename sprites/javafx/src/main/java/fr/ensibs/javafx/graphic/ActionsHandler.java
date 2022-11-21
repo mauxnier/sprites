@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import fr.ensibs.util.graphic.ISnapshotLayer;
 import fr.ensibs.util.graphic.Snapshot;
 import fr.ensibs.util.io.*;
 import javafx.event.ActionEvent;
@@ -24,7 +25,6 @@ import javafx.scene.input.MouseEvent;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import fr.ensibs.util.io.SnapshotConverter;
-
 
 /**
  * Definitions of methods executed in reaction to user actions
@@ -82,6 +82,7 @@ public class ActionsHandler {
 
     /**
      * Action load de la toolbar.
+     * 
      * @param ignoredActionEvent event
      */
     @FXML
@@ -105,6 +106,7 @@ public class ActionsHandler {
 
     /**
      * Action save de la toolbar.
+     * 
      * @param ignoredActionEvent event
      */
     @FXML
@@ -129,7 +131,9 @@ public class ActionsHandler {
     public void handleListClicked(MouseEvent ignoredMouseEvent) throws ParseException {
         String item = listView.getSelectionModel().getSelectedItem();
         if (item != null) {
-            imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight()); // clear le canvas
+            imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight()); // clear
+                                                                                                                 // le
+                                                                                                                 // canvas
             Object file = directory.getFile(item);
             String name = file.getClass().getName();
 
@@ -151,17 +155,23 @@ public class ActionsHandler {
                         Map<String, JavaFXImage> imgCollection = this.getImgFromDirectory(directory);
                         SnapshotConverter<JavaFXImage> snapshotConverter = new SnapshotConverter<>(imgCollection);
                         Snapshot<JavaFXImage> snapshot = snapshotConverter.fromJson(json);
-                        snapshot.draw(imageCanvas);
+
+                        for (ISnapshotLayer<JavaFXImage> layer : snapshot.getList()) {
+                            JavaFXImage image = layer.getImage();
+                            imageCanvas.getGraphicsContext2D().drawImage(image.getImage(), 0, 0, 350, 350);
+                        }
                     } else {
                         groupTextArea.setVisible(true);
                         groupCanvas.setVisible(false);
-                        textArea.setText("Le type du fichier JSON n'est pas pris en charge.\n\n" + directory.getFile(item).toString());
+                        textArea.setText("Le type du fichier JSON n'est pas pris en charge.\n\n"
+                                + directory.getFile(item).toString());
                     }
                     break;
                 default:
                     groupCanvas.setVisible(false);
                     groupTextArea.setVisible(true);
-                    textArea.setText("L'extension de fichier " + name + " n'est pas prise en charge.\n\n" + directory.getFile(item).toString());
+                    textArea.setText("L'extension de fichier " + name + " n'est pas prise en charge.\n\n"
+                            + directory.getFile(item).toString());
                     break;
             }
         } else {
@@ -171,6 +181,7 @@ public class ActionsHandler {
 
     /**
      * Récupère les images depuis le dossier contenant les fichiers.
+     * 
      * @param directory le dossier contenant les fichiers
      * @return une collection d'images
      */
@@ -181,7 +192,9 @@ public class ActionsHandler {
         for (Map.Entry<String, Object> entry : collection.entrySet()) { // parcours de la liste des fichiers du dossier
             String name = entry.getValue().getClass().getName();
             if (name.equals(JavaFXImage.class.getName())) {
-                imgCollection.put(entry.getKey(), (JavaFXImage) entry.getValue()); // si un fichier est une image alors on l'ajoute à la nouvelle collection
+                imgCollection.put(entry.getKey(), (JavaFXImage) entry.getValue()); // si un fichier est une image alors
+                                                                                   // on l'ajoute à la nouvelle
+                                                                                   // collection
             }
         }
         return imgCollection;

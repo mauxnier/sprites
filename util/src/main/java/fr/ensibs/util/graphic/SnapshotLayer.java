@@ -2,7 +2,7 @@ package fr.ensibs.util.graphic;
 
 import javafx.scene.image.Image;
 
-public class SnapshotLayer<T extends IImage<Image>> implements ISnapshotLayer<T> {
+public class SnapshotLayer<T extends IImage> implements ISnapshotLayer<T> {
 
     private int x, y;
 

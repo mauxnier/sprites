@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import fr.ensibs.util.graphic.IImage;
 import fr.ensibs.util.graphic.SnapshotLayer;
 
-public class SnapshotLayerConverter<T extends IImage<Image>> implements IJsonConverter<SnapshotLayer<T>> {
+public class SnapshotLayerConverter<T extends IImage> implements IJsonConverter<SnapshotLayer<T>> {
 
     private final Map<String, T> map;
 
