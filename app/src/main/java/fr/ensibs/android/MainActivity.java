@@ -23,7 +23,6 @@ import fr.ensibs.android.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
     private final JsonLoader jsonLoader = new JsonLoader();
     private final TextLoader textLoader = new TextLoader();
     private final IImageLoader imgLoader = new ImageLoader();
@@ -34,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_main);
 
         try {
             InputStream stream = this.getAssets().open("examples.zip");
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             JSONObject json = (JSONObject) content.get("snapshot.json");
             Snapshot<Image> snapshot = snapshotConverter.fromJson(json);
 
-            ComposeImageView imageView = findViewById(R.id.image);
+            ComposeImageView imageView = findViewById(R.id.composeImage);
             imageView.setSnapshot(snapshot);
 
         } catch (Exception e) {
