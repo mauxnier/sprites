@@ -47,6 +47,7 @@ public class ZipLoader<T extends IImage<?>> implements IZipLoader {
         while ((entry = in.getNextEntry()) != null) {
             name = entry.getName();
             type = getExtensionFromFileName(name);
+            System.out.println(name);
 
             switch (type) {
                 case "json":
@@ -62,7 +63,6 @@ public class ZipLoader<T extends IImage<?>> implements IZipLoader {
                 case "png":
                     assert imageLoader != null;
                     T img = imageLoader.load(in);
-                    System.out.println(img);
                     res.put(name, img);
                     break;
                 default:

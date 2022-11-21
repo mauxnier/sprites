@@ -179,12 +179,34 @@ public class ActionsHandler {
 
                         if (sprite.isVisible()) {
                             AnimationTimer spriteTimer = new AnimationTimer() {
+                                /**
+                                 * @see <a href="https://stackoverflow.com/questions/50337303/how-do-i-change-the-speed-of-an-animationtimer-in-javafx">...</a>
+                                 */
+                                private long lastUpdate; // Last time in which `handle()` was called
+                                private double totalElapsedMilliSeconds = 0;
+
+                                @Override
+                                public void start() {
+                                    lastUpdate = System.nanoTime();
+                                    super.start();
+                                }
+
                                 @Override
                                 public void handle(long now) {
-                                    JavaFXImage image = sprite.getCurrentImage();
-                                    imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight()); // clear le canva
-                                    imageCanvas.getGraphicsContext2D().drawImage(image.getImage(), sprite.getX(), sprite.getY(), 350, 350);
-                                    sprite.setCurrentTime(sprite.getCurrentTime() + 1);
+                                    long elapsedNanoSeconds = now - lastUpdate;
+                                    double elapsedMilliSeconds = elapsedNanoSeconds / 1_000_000.0; // 1 second = 1,000,000,000 (1 billion) nanoseconds
+                                    //System.out.println(elapsedMilliSeconds);
+
+                                    if (totalElapsedMilliSeconds >= sprite.getDurationByFrame()) {
+                                        JavaFXImage image = sprite.getCurrentImage();
+                                        imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight()); // clear le canva
+                                        imageCanvas.getGraphicsContext2D().drawImage(image.getImage(), sprite.getX(), sprite.getY(), 350, 350);
+                                        sprite.setCurrentTime(sprite.getCurrentTime() + 1);
+                                        totalElapsedMilliSeconds = 0;
+                                    } else {
+                                        totalElapsedMilliSeconds = totalElapsedMilliSeconds + elapsedMilliSeconds;
+                                    }
+                                    lastUpdate = now;
                                 }
                             };
                             this.timer = spriteTimer;

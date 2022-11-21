@@ -33,6 +33,14 @@ public class Sprite<I extends IImage<Image>> extends ArrayList<I> implements ISp
         return this.duration;
     }
 
+    /**
+     * Donne le temps d'affichage par image.
+     * @return duration by frame
+     */
+    public int getDurationByFrame() {
+        return (this.getDuration() / this.size());
+    }
+
     @Override
     public String getName() {
         return this.name;
