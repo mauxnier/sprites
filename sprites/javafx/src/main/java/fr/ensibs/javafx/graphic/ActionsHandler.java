@@ -11,9 +11,12 @@ import java.util.Map;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import fr.ensibs.model.Sprite;
+import fr.ensibs.model.SpriteConverter;
 import fr.ensibs.util.graphic.ISnapshotLayer;
 import fr.ensibs.util.graphic.Snapshot;
 import fr.ensibs.util.io.*;
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -131,9 +134,7 @@ public class ActionsHandler {
     public void handleListClicked(MouseEvent ignoredMouseEvent) throws ParseException {
         String item = listView.getSelectionModel().getSelectedItem();
         if (item != null) {
-            imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight()); // clear
-                                                                                                                 // le
-                                                                                                                 // canvas
+            imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight()); // clear le canvas
             Object file = directory.getFile(item);
             String name = file.getClass().getName();
 
@@ -150,9 +151,9 @@ public class ActionsHandler {
 
                     JSONObject json = (JSONObject) file;
                     System.out.println("JSON content : " + json);
+                    Map<String, JavaFXImage> imgCollection = this.getImgFromDirectory(directory);
 
                     if (item.contains("snapshot")) {
-                        Map<String, JavaFXImage> imgCollection = this.getImgFromDirectory(directory);
                         SnapshotConverter<JavaFXImage> snapshotConverter = new SnapshotConverter<>(imgCollection);
                         Snapshot<JavaFXImage> snapshot = snapshotConverter.fromJson(json);
 
@@ -164,6 +165,27 @@ public class ActionsHandler {
                             imageCanvas.getGraphicsContext2D().drawImage(image.getImage(), layer.getX() * scale,
                                     layer.getY() * scale,
                                     (int) layer.getWidth() * scale, (int) layer.getHeight() * scale);
+                        }
+                    } else if (item.contains("sprite")) {
+                        SpriteConverter<JavaFXImage> spriteConverter = new SpriteConverter<>(imgCollection);
+                        Sprite<JavaFXImage> sprite = spriteConverter.fromJson(json);
+
+                        // Afficher à l'infinie la liste des images du sprite.
+                        // - image = getCurrentImage
+                        // - après chaque récupération d'image ajouter 1 à time
+
+                        if (sprite.isVisible()) {
+                            AnimationTimer timer = new AnimationTimer() {
+                                @Override
+                                public void handle(long now) {
+                                    JavaFXImage image = sprite.getCurrentImage();
+                                    imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight()); // clear le canva
+                                    imageCanvas.getGraphicsContext2D().drawImage(image.getImage(), sprite.getX(), sprite.getY(), 350, 350);
+                                    sprite.setCurrentTime(sprite.getCurrentTime() + 1);
+                                }
+                            };
+
+                            timer.start();
                         }
                     } else {
                         groupTextArea.setVisible(true);
@@ -211,7 +233,6 @@ public class ActionsHandler {
      * @param ignoredActionEvent the event that triggered this action
      * @post the name entered by the user, if any, is displayed in the list
      */
-    @SuppressWarnings("unchecked")
     @FXML
     public void handleAddItem(ActionEvent ignoredActionEvent) {
 
@@ -229,10 +250,10 @@ public class ActionsHandler {
                     loader = this.imageLoader;
                     break;
                 case "json":
-                    loader = (ILoader<JSONObject>) this.jsonLoader;
+                    loader = this.jsonLoader;
                     break;
                 default:
-                    loader = (ILoader<String>) this.textLoader;
+                    loader = this.textLoader;
                     break;
             }
 

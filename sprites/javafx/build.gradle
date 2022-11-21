@@ -14,6 +14,7 @@ targetCompatibility = '11'
 dependencies {
     implementation project(':util')
     implementation 'org.jetbrains:annotations:20.1.0'
+    implementation project(path: ':sprites:model')
 }
 
 // javafx modules
