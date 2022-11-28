@@ -16,7 +16,7 @@ public class SpriteActionMotion extends SpriteAction {
     }
 
     @Override
-    public void doAction() {
+    public void doAction(int time) {
 
     }
 }
