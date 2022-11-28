@@ -2,7 +2,6 @@ package fr.ensibs.model;
 
 import fr.ensibs.util.graphic.IImage;
 import fr.ensibs.util.io.IJsonConverter;
-import javafx.scene.image.Image;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class SpriteConverter<T extends IImage<?>> implements IJsonConverter<Spri
         Sprite<T> spriteObj = new Sprite<>(name, x, y, duration, 0, visible);
 
         // Parsing des images composant le sprite
-        for (int i = 0; i < jsonArray.length(); i ++) {
+        for (int i = 0; i < jsonArray.length(); i++) {
             spriteObj.add(this.map.get(jsonArray.getString(i)));
         }
 
@@ -39,7 +38,7 @@ public class SpriteConverter<T extends IImage<?>> implements IJsonConverter<Spri
         ArrayList<String> img_names = new ArrayList<>();
 
         // Ajout des noms des images à la liste
-        for (int i = 0; i < obj.size(); i ++) {
+        for (int i = 0; i < obj.size(); i++) {
             img_names.add(obj.getName());
         }
 

@@ -1,7 +1,6 @@
 package fr.ensibs.model;
 
 import fr.ensibs.util.graphic.IImage;
-import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 

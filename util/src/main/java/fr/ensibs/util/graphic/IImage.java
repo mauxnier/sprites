@@ -1,15 +1,12 @@
 package fr.ensibs.util.graphic;
 
-import javafx.scene.image.Image;
-
 /**
  * An image representation for any graphic system.
  *
  * @author Pascale Launay
  * @inv {@code getWidth() >= 0 && getHeight() >= 0}
  */
-public interface IImage<I>
-{
+public interface IImage<I> {
     /**
      * Give the name of the image.
      *
@@ -52,5 +49,3 @@ public interface IImage<I>
      */
     void setImage(I image);
 }
-
-

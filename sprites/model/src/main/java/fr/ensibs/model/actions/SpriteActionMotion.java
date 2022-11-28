@@ -1,27 +1,37 @@
 package fr.ensibs.model.actions;
 
-import fr.ensibs.model.Sprite;
+import fr.ensibs.util.graphic.IImage;
 
-public class SpriteActionMotion extends SpriteAction {
+public class SpriteActionMotion<T extends IImage<?>> extends SpriteAction<T> {
 
     private final int end;
-    private final int end_Y;
-    private final int end_X;
+    private final int endX;
+    private final int endY;
 
-    public SpriteActionMotion(Sprite sprite, int start, int end, int end_X, int end_Y) {
-        super(sprite, start);
+    public SpriteActionMotion(int start, int end, int endX, int endY) {
+        super(start);
         this.end = end;
-        this.end_Y = end_Y;
-        this.end_X = end_X;
+        this.endX = endX;
+        this.endY = endY;
     }
 
-    public int getEndTime(){
-       return this.end;
+    public int getEndTime() {
+        return this.end;
+    }
+
+    public int getEndX() {
+        return this.endX;
+    }
+
+    public int getEndY() {
+        return this.endY;
     }
 
     @Override
     public void doAction(int time) {
-        if (time > end) {return;}
+        if (time > end) {
+            return;
+        }
         int time_diff = this.end - time;
         int x_dist = this.getSprite().getX() - this.end_X;
         int y_dist = this.getSprite().getY() - this.end_Y;

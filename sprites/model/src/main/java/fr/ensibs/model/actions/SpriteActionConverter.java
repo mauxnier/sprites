@@ -1,26 +1,34 @@
 package fr.ensibs.model.actions;
 
-import fr.ensibs.model.Sprite;
 import fr.ensibs.util.graphic.IImage;
 import fr.ensibs.util.io.IJsonConverter;
-import javafx.scene.image.Image;
 import org.json.JSONObject;
 
-public class SpriteActionConverter<T extends IImage<?>> implements IJsonConverter<Sprite<T>> {
+public class SpriteActionConverter<T extends IImage<?>> implements IJsonConverter<SpriteAction<T>> {
 
-    public Sprite<T> fromJson(JSONObject obj) {
+    public SpriteAction<T> fromJson(JSONObject obj) {
         /* Visibility or Motion */
         if (obj.has("visibility")) {
-
+            return new SpriteActionVisibility<T>(obj.getInt("time"), obj.getBoolean("visible"));
+        } else {
+            return new SpriteActionMotion<T>(obj.getInt("time"), obj.getInt("endTime"), obj.getInt("endX"),
+                    obj.getInt("endY"));
         }
-
-        return null;
     }
 
     @Override
-    public JSONObject toJson(Sprite<T> obj) {
+    public JSONObject toJson(SpriteAction<T> obj) {
+        JSONObject jsonObject = new JSONObject();
 
-        return null;
+        if (obj instanceof SpriteActionVisibility) {
+            jsonObject.put("time", obj.getStartTime());
+            jsonObject.put("visible", ((SpriteActionVisibility<T>) obj).isVisible());
+        } else {
+            jsonObject.put("time", obj.getStartTime());
+            jsonObject.put("endTime", ((SpriteActionMotion<T>) obj).getEndTime());
+            jsonObject.put("endX", ((SpriteActionMotion<T>) obj).getEndX());
+            jsonObject.put("endY", ((SpriteActionMotion<T>) obj).getEndY());
+        }
+        return jsonObject;
     }
-
 }
