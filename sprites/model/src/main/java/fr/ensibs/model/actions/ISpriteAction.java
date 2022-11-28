@@ -11,8 +11,7 @@ import fr.ensibs.util.graphic.IImage;
  * @inv {@code getStartTime() >= 0}
  * @inv {@code getEndTime() >= getStartTime()}
  */
-public interface ISpriteAction<I extends IImage>
-{
+public interface ISpriteAction<I extends IImage> {
     /**
      * Give the sprite this action is related to
      *
