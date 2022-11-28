@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.List;
 
 import fr.ensibs.util.graphic.ISnapshotLayer;
-import javafx.scene.image.Image;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import fr.ensibs.util.graphic.IImage;
@@ -57,5 +56,5 @@ public class SnapshotConverter<T extends IImage> implements IJsonConverter<Snaps
         jsonObject.put("layers", jsonLayers);
         return jsonObject;
     }
-    
+
 }

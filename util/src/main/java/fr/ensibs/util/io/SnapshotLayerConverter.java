@@ -3,7 +3,6 @@ package fr.ensibs.util.io;
 import java.text.ParseException;
 import java.util.Map;
 
-import javafx.scene.image.Image;
 import org.json.JSONObject;
 import fr.ensibs.util.graphic.IImage;
 import fr.ensibs.util.graphic.SnapshotLayer;
@@ -20,7 +19,8 @@ public class SnapshotLayerConverter<T extends IImage> implements IJsonConverter<
     public SnapshotLayer<T> fromJson(JSONObject obj) throws ParseException {
         try {
             T image = this.map.get(obj.getString("image"));
-            if (image == null) throw new ParseException(null, 0);
+            if (image == null)
+                throw new ParseException(null, 0);
             return new SnapshotLayer<>(obj.getInt("x"), obj.getInt("y"), image);
         } catch (Exception e) {
             throw new ParseException(null, 0);
@@ -38,5 +38,5 @@ public class SnapshotLayerConverter<T extends IImage> implements IJsonConverter<
 
         return jsonObject;
     }
-    
+
 }
