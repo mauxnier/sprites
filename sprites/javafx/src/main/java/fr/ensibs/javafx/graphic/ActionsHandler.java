@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import fr.ensibs.model.JsonConverterFactory;
 import fr.ensibs.model.Sprite;
 import fr.ensibs.model.SpriteConverter;
 import fr.ensibs.util.graphic.Graphic;
@@ -75,6 +76,8 @@ public class ActionsHandler {
     private final ZipLoader<JavaFXImage> zipLoader = new ZipLoader<>(jsonLoader, textLoader, imageLoader);
 
     private final Graphic<JavaFXImage> graphic = new Graphic<>(this.imageCanvas);
+
+    private final JsonConverterFactory<JavaFXImage> jsonConverterFactory = new JsonConverterFactory<>();
 
     private AnimationTimer timer;
 
@@ -156,12 +159,12 @@ public class ActionsHandler {
                     groupCanvas.setVisible(true);
 
                     JSONObject json = (JSONObject) file;
-                    System.out.println("JSON content : " + json);
                     Map<String, JavaFXImage> imgCollection = this.getImgFromDirectory(directory);
 
+                    IJsonConverter<?> converter = jsonConverterFactory.makeConverter(json, imgCollection);
+
                     if (item.contains("snapshot")) {
-                        SnapshotConverter<JavaFXImage> snapshotConverter = new SnapshotConverter<>(imgCollection);
-                        Snapshot<JavaFXImage> snapshot = snapshotConverter.fromJson(json);
+                        Snapshot<JavaFXImage> snapshot = (Snapshot<JavaFXImage>) converter.fromJson(json);
                         graphic.drawSnapshot(snapshot);
 
                     } else if (item.contains("sprite")) {
