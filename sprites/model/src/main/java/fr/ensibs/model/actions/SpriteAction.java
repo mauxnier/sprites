@@ -5,7 +5,7 @@ import fr.ensibs.model.Sprite;
 import fr.ensibs.util.graphic.IImage;
 import javafx.scene.image.Image;
 
-public abstract class SpriteAction<T extends IImage<Image>> implements ISpriteAction<T> {
+public abstract class SpriteAction<T extends IImage<?>> implements ISpriteAction<T> {
     private final Sprite<T> sprite;
     private final int start;
 

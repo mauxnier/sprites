@@ -6,7 +6,7 @@ import fr.ensibs.util.io.IJsonConverter;
 import javafx.scene.image.Image;
 import org.json.JSONObject;
 
-public class SpriteActionConverter<T extends IImage<Image>> implements IJsonConverter<Sprite<T>> {
+public class SpriteActionConverter<T extends IImage<?>> implements IJsonConverter<Sprite<T>> {
 
     public Sprite<T> fromJson(JSONObject obj) {
         /* Visibility or Motion */

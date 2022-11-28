@@ -3,12 +3,11 @@ package fr.ensibs.model;
 import fr.ensibs.util.graphic.IImage;
 import fr.ensibs.util.io.IJsonConverter;
 import fr.ensibs.util.io.SnapshotConverter;
-import javafx.scene.image.Image;
 import org.json.JSONObject;
 
 import java.util.Map;
 
-public class JsonConverterFactory<T extends IImage<Image>> {
+public class JsonConverterFactory<T extends IImage<?>> {
 
     public JsonConverterFactory() {
 

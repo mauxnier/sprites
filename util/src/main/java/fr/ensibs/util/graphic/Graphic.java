@@ -1,9 +1,17 @@
 package fr.ensibs.util.graphic;
 
-public class Graphic<T extends IImage<?>> implements IGraphic<T> {
+import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
 
-    public Graphic() {
+/**
+ * Classe Graphic pour le système JavaFx.
+ * @param <T> JavaFxImage
+ */
+public class Graphic<T extends IImage<Image>> implements IGraphic<T> {
+    Canvas imageCanvas;
 
+    public Graphic(Canvas imageCanvas) {
+        this.imageCanvas = imageCanvas;
     }
 
     @Override
@@ -17,17 +25,25 @@ public class Graphic<T extends IImage<?>> implements IGraphic<T> {
     }
 
     @Override
-    public void drawImage(T image) {
+    public void clear() {
+        imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight());
+    }
 
+    @Override
+    public void drawImage(T image) {
+        this.imageCanvas.getGraphicsContext2D().drawImage(image.getImage(), 0, 0, 350, 350);
     }
 
     @Override
     public void drawSnapshot(Snapshot<T> snapshot) {
+        double scale = 0.5;
 
-    }
+        for (ISnapshotLayer<T> layer : snapshot.getList()) {
 
-    @Override
-    public void clear() {
-
+            T image = layer.getImage();
+            imageCanvas.getGraphicsContext2D().drawImage(image.getImage(), layer.getX() * scale,
+                    layer.getY() * scale,
+                    (int) layer.getWidth() * scale, (int) layer.getHeight() * scale);
+        }
     }
 }
