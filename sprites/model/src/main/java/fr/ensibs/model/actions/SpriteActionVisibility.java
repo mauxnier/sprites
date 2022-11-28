@@ -1,18 +1,22 @@
 package fr.ensibs.model.actions;
 
-import fr.ensibs.model.Sprite;
+import fr.ensibs.util.graphic.IImage;
 
-public class SpriteActionVisibility extends SpriteAction {
+public class SpriteActionVisibility<T extends IImage> extends SpriteAction<T> {
 
     private final boolean visible;
 
-    public SpriteActionVisibility(Sprite sprite, int start, boolean visible) {
-        super(sprite, start);
+    public SpriteActionVisibility(int start, boolean visible) {
+        super(start);
         this.visible = visible;
     }
 
     @Override
-    public void doAction() {
+    public void doAction(int time) {
         this.getSprite().setVisible(visible);
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 }

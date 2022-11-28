@@ -2,8 +2,6 @@ package fr.ensibs.model;
 
 import fr.ensibs.util.graphic.IImage;
 
-import java.util.List;
-
 /**
  * A scene having a background image and composed of sprites. The size of the
  * scene is the same as the size of its background
@@ -12,8 +10,7 @@ import java.util.List;
  * @author Pascale Launay
  * @inv {@code getBackground() != null}
  */
-public interface IScene<I extends IImage> extends List<ISprite<IImage>>, IPlayable<I>
-{
+public interface IScene<I extends IImage> extends IPlayable<I> {
     /**
      * Give the background of the scene.
      *

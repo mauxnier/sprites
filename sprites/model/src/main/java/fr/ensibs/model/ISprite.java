@@ -6,8 +6,10 @@ import java.util.List;
 
 /**
  * A sprite composed of a list of images and characterized by a duration. The
- * sprite can be played by displaying the images one after the other in a cyclic way.
- * The duration represents the time needed to display all the images in the list once.
+ * sprite can be played by displaying the images one after the other in a cyclic
+ * way.
+ * The duration represents the time needed to display all the images in the list
+ * once.
  *
  * @param <I> the type of images that compose the sprite
  * @author Pascale Launay
@@ -15,8 +17,7 @@ import java.util.List;
  * @inv {@code getName() != null}
  * @inv {@code getDuration() >= 0}
  */
-public interface ISprite<I extends IImage> extends List<I>
-{
+public interface ISprite<I extends IImage> extends List<I> {
     /**
      * Give the image corresponding to the current time.
      *

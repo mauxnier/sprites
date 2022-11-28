@@ -1,11 +1,10 @@
 package fr.ensibs.model;
 
 import fr.ensibs.util.graphic.IImage;
-import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
-public class Sprite<I extends IImage<Image>> extends ArrayList<I> implements ISprite<I> {
+public class Sprite<I extends IImage> extends ArrayList<I> implements ISprite<I> {
 
     private final String name;
     private int x, y;
