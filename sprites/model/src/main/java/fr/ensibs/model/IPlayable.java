@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @param <I> the type of images that compose the snapshots
  */
-public interface IPlayable<I extends IImage>
+public interface IPlayable<I extends IImage<?>>
 {
     /**
      * Give the snapshot corresponding to the current time.

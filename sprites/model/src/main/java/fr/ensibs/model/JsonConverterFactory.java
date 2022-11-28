@@ -3,7 +3,6 @@ package fr.ensibs.model;
 import fr.ensibs.util.graphic.IImage;
 import fr.ensibs.util.io.IJsonConverter;
 import fr.ensibs.util.io.SnapshotConverter;
-import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -13,13 +12,15 @@ public class JsonConverterFactory<T extends IImage<?>> {
 
     }
 
-    public IJsonConverter<?> makeConverter(JSONObject jsonObject, Map<String, T> imgCollection) {
-        IJsonConverter<?> converter = null;
+    public IJsonConverter<?> makeConverter(String filename, Map<String, T> imgCollection) throws Exception {
+        IJsonConverter<?> converter;
 
-        if (jsonObject.has("snapshot")) {
+        if (filename.contains("snapshot")) {
             converter = new SnapshotConverter<>(imgCollection);
-        } else if (jsonObject.has("sprite")) {
+        } else if (filename.contains("sprite")) {
             converter = new SpriteConverter<>(imgCollection);
+        } else {
+            throw new Exception("Could not make appropriate JsonConverter");
         }
 
         return converter;

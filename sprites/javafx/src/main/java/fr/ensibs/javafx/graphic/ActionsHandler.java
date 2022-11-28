@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.ZipInputStream;
@@ -15,7 +14,6 @@ import fr.ensibs.model.JsonConverterFactory;
 import fr.ensibs.model.Sprite;
 import fr.ensibs.model.SpriteConverter;
 import fr.ensibs.util.graphic.Graphic;
-import fr.ensibs.util.graphic.ISnapshotLayer;
 import fr.ensibs.util.graphic.Snapshot;
 import fr.ensibs.util.io.*;
 import javafx.animation.AnimationTimer;
@@ -29,7 +27,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
-import fr.ensibs.util.io.SnapshotConverter;
 
 /**
  * Definitions of methods executed in reaction to user actions
@@ -75,9 +72,9 @@ public class ActionsHandler {
 
     private final ZipLoader<JavaFXImage> zipLoader = new ZipLoader<>(jsonLoader, textLoader, imageLoader);
 
-    private final Graphic<JavaFXImage> graphic = new Graphic<>(this.imageCanvas);
-
     private final JsonConverterFactory<JavaFXImage> jsonConverterFactory = new JsonConverterFactory<>();
+
+    private Graphic<JavaFXImage> graphic;
 
     private AnimationTimer timer;
 
@@ -89,6 +86,7 @@ public class ActionsHandler {
     public void initialize() {
         directory = new Directory();
         listView.getItems().addAll(directory.getFiles().keySet());
+        this.graphic = new Graphic<>(this.imageCanvas);
     }
 
     /**
@@ -138,8 +136,9 @@ public class ActionsHandler {
      *
      * @post the textArea content matches the selected item in the list
      */
+    @SuppressWarnings("unchecked")
     @FXML
-    public void handleListClicked(MouseEvent ignoredMouseEvent) throws ParseException {
+    public void handleListClicked(MouseEvent ignoredMouseEvent) throws Exception {
         String item = listView.getSelectionModel().getSelectedItem();
         if (item != null) {
             if (this.timer != null) this.timer.stop(); // stop l'éventuel timer en cours
@@ -160,10 +159,10 @@ public class ActionsHandler {
 
                     JSONObject json = (JSONObject) file;
                     Map<String, JavaFXImage> imgCollection = this.getImgFromDirectory(directory);
-
-                    IJsonConverter<?> converter = jsonConverterFactory.makeConverter(json, imgCollection);
+                    IJsonConverter<?> converter = jsonConverterFactory.makeConverter(item, imgCollection);
 
                     if (item.contains("snapshot")) {
+
                         Snapshot<JavaFXImage> snapshot = (Snapshot<JavaFXImage>) converter.fromJson(json);
                         graphic.drawSnapshot(snapshot);
 
