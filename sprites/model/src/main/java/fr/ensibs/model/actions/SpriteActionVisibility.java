@@ -12,7 +12,9 @@ public class SpriteActionVisibility extends SpriteAction {
     }
 
     @Override
-    public void doAction() {
-        this.getSprite().setVisible(visible);
+    public void doAction(int time) {
+        if (time == this.getStartTime()) {
+            this.getSprite().setVisible(visible);
+        }
     }
 }
