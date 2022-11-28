@@ -37,6 +37,6 @@ public interface ISpriteAction<I extends IImage> {
      *
      * @param time the time when the action has to be done
      */
-    void doAction(int time);
+    void doAction();
 
 }
