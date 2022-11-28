@@ -2,7 +2,7 @@ package fr.ensibs.model.actions;
 
 import fr.ensibs.util.graphic.IImage;
 
-public class SpriteActionVisibility<T extends IImage> extends SpriteAction<T> {
+public class SpriteActionVisibility<T extends IImage<?>> extends SpriteAction<T> {
 
     private final boolean visible;
 
