@@ -83,13 +83,13 @@ public class SpriteImplTest
     @Test
     public void testGetCurrentImage400()
     {
-        testGetCurrentImage(400, IMAGES.get(1));
+        testGetCurrentImage(400, IMAGES.get(0));
     }
 
     @Test
     public void testGetCurrentImage999()
     {
-        testGetCurrentImage(998, IMAGES.get(2));
+        testGetCurrentImage(999, IMAGES.get(0));
     }
 
     private void testGetCurrentImage(int time, ImageMock expected)

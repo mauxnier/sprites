@@ -8,7 +8,8 @@ import javafx.scene.image.Image;
 public abstract class SpriteAction<T extends IImage<Image>> implements ISpriteAction<T> {
     private final Sprite<T> sprite;
     private final int start;
-    public SpriteAction(Sprite<T> sprite, int start){
+
+    public SpriteAction(Sprite<T> sprite, int start) {
         this.sprite = sprite;
         this.start = start;
     }

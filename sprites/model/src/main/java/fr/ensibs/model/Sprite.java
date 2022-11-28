@@ -5,16 +5,15 @@ import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
-public class Sprite<I extends IImage<Image>> extends ArrayList<I> implements ISprite<I>{
+public class Sprite<I extends IImage<Image>> extends ArrayList<I> implements ISprite<I> {
 
     private final String name;
-    private int x,y;
+    private int x, y;
     private final int duration;
     private int time;
     private boolean visible;
 
-    public Sprite(String name, int x, int y, int duration, int time, boolean visible)
-    {
+    public Sprite(String name, int x, int y, int duration, int time, boolean visible) {
         this.name = name;
         this.x = x;
         this.y = y;
@@ -35,6 +34,7 @@ public class Sprite<I extends IImage<Image>> extends ArrayList<I> implements ISp
 
     /**
      * Donne le temps d'affichage par image.
+     * 
      * @return duration by frame
      */
     public int getDurationByFrame() {
@@ -63,6 +63,7 @@ public class Sprite<I extends IImage<Image>> extends ArrayList<I> implements ISp
 
     /**
      * Retourne le temps actuel de l'image.
+     * 
      * @return time
      */
     public int getCurrentTime() {
