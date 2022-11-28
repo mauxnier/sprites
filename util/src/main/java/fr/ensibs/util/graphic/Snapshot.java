@@ -2,7 +2,7 @@ package fr.ensibs.util.graphic;
 
 import java.util.*;
 
-public class Snapshot<I extends IImage> implements ISnapshot<I> {
+public class Snapshot<I extends IImage<?>> implements ISnapshot<I> {
     private final List<ISnapshotLayer<I>> snapshotList;
 
     public Snapshot() {

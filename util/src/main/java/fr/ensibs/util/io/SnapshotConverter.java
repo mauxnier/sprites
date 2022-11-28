@@ -5,13 +5,14 @@ import java.util.Map;
 import java.util.List;
 
 import fr.ensibs.util.graphic.ISnapshotLayer;
+import javafx.scene.image.Image;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import fr.ensibs.util.graphic.IImage;
 import fr.ensibs.util.graphic.Snapshot;
 import fr.ensibs.util.graphic.SnapshotLayer;
 
-public class SnapshotConverter<T extends IImage> implements IJsonConverter<Snapshot<T>> {
+public class SnapshotConverter<T extends IImage<?>> implements IJsonConverter<Snapshot<T>> {
 
     private final Map<String, T> images;
 

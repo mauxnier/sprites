@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class SpriteConverter<T extends IImage> implements IJsonConverter<Sprite<T>> {
+public class SpriteConverter<T extends IImage<?>> implements IJsonConverter<Sprite<T>> {
 
     private final Map<String, T> map;
 

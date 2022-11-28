@@ -11,8 +11,10 @@ import java.util.Map;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import fr.ensibs.model.JsonConverterFactory;
 import fr.ensibs.model.Sprite;
 import fr.ensibs.model.SpriteConverter;
+import fr.ensibs.util.graphic.Graphic;
 import fr.ensibs.util.graphic.ISnapshotLayer;
 import fr.ensibs.util.graphic.Snapshot;
 import fr.ensibs.util.io.*;
@@ -73,6 +75,10 @@ public class ActionsHandler {
 
     private final ZipLoader<JavaFXImage> zipLoader = new ZipLoader<>(jsonLoader, textLoader, imageLoader);
 
+    private final Graphic<JavaFXImage> graphic = new Graphic<>(this.imageCanvas);
+
+    private final JsonConverterFactory<JavaFXImage> jsonConverterFactory = new JsonConverterFactory<>();
+
     private AnimationTimer timer;
 
     /**
@@ -87,7 +93,7 @@ public class ActionsHandler {
 
     /**
      * Action load de la toolbar.
-     * 
+     *
      * @param ignoredActionEvent event
      */
     @FXML
@@ -111,7 +117,7 @@ public class ActionsHandler {
 
     /**
      * Action save de la toolbar.
-     * 
+     *
      * @param ignoredActionEvent event
      */
     @FXML
@@ -137,7 +143,7 @@ public class ActionsHandler {
         String item = listView.getSelectionModel().getSelectedItem();
         if (item != null) {
             if (this.timer != null) this.timer.stop(); // stop l'éventuel timer en cours
-            imageCanvas.getGraphicsContext2D().clearRect(0, 0, imageCanvas.getWidth(), imageCanvas.getHeight()); // clear le canvas
+            graphic.clear(); // clear le canvas
             Object file = directory.getFile(item);
             String name = file.getClass().getName();
 
@@ -145,37 +151,25 @@ public class ActionsHandler {
                 case "fr.ensibs.javafx.graphic.JavaFXImage":
                     groupTextArea.setVisible(false);
                     groupCanvas.setVisible(true);
-                    JavaFXImage javaFXImage = (JavaFXImage) file;
-                    imageCanvas.getGraphicsContext2D().drawImage(javaFXImage.getImage(), 0, 0, 350, 350);
+                    JavaFXImage image = (JavaFXImage) file;
+                    graphic.drawImage(image);
                     break;
                 case "org.json.JSONObject":
                     groupTextArea.setVisible(false);
                     groupCanvas.setVisible(true);
 
                     JSONObject json = (JSONObject) file;
-                    System.out.println("JSON content : " + json);
                     Map<String, JavaFXImage> imgCollection = this.getImgFromDirectory(directory);
 
+                    IJsonConverter<?> converter = jsonConverterFactory.makeConverter(json, imgCollection);
+
                     if (item.contains("snapshot")) {
-                        SnapshotConverter<JavaFXImage> snapshotConverter = new SnapshotConverter<>(imgCollection);
-                        Snapshot<JavaFXImage> snapshot = snapshotConverter.fromJson(json);
+                        Snapshot<JavaFXImage> snapshot = (Snapshot<JavaFXImage>) converter.fromJson(json);
+                        graphic.drawSnapshot(snapshot);
 
-                        double scale = 0.5;
-
-                        for (ISnapshotLayer<JavaFXImage> layer : snapshot.getList()) {
-
-                            JavaFXImage image = layer.getImage();
-                            imageCanvas.getGraphicsContext2D().drawImage(image.getImage(), layer.getX() * scale,
-                                    layer.getY() * scale,
-                                    (int) layer.getWidth() * scale, (int) layer.getHeight() * scale);
-                        }
                     } else if (item.contains("sprite")) {
                         SpriteConverter<JavaFXImage> spriteConverter = new SpriteConverter<>(imgCollection);
                         Sprite<JavaFXImage> sprite = spriteConverter.fromJson(json);
-
-                        // Afficher à l'infinie la liste des images du sprite.
-                        // - image = getCurrentImage
-                        // - après chaque récupération d'image ajouter 1 à time
 
                         if (sprite.isVisible()) {
                             AnimationTimer spriteTimer = new AnimationTimer() {
@@ -233,7 +227,7 @@ public class ActionsHandler {
 
     /**
      * Récupère les images depuis le dossier contenant les fichiers.
-     * 
+     *
      * @param directory le dossier contenant les fichiers
      * @return une collection d'images
      */

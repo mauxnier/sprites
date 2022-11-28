@@ -4,7 +4,7 @@ import fr.ensibs.util.graphic.IImage;
 import fr.ensibs.util.io.IJsonConverter;
 import org.json.JSONObject;
 
-public class SpriteActionConverter<T extends IImage> implements IJsonConverter<SpriteAction<T>> {
+public class SpriteActionConverter<T extends IImage<?>> implements IJsonConverter<SpriteAction<T>> {
 
     public SpriteAction<T> fromJson(JSONObject obj) {
         /* Visibility or Motion */

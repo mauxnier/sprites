@@ -4,7 +4,7 @@ import fr.ensibs.model.ISprite;
 import fr.ensibs.model.Sprite;
 import fr.ensibs.util.graphic.IImage;
 
-public abstract class SpriteAction<T extends IImage> implements ISpriteAction<T> {
+public abstract class SpriteAction<T extends IImage<?>> implements ISpriteAction<T> {
     private Sprite<T> sprite;
     private final int start;
 

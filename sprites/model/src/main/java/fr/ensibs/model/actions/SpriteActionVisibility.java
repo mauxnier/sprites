@@ -13,7 +13,9 @@ public class SpriteActionVisibility<T extends IImage> extends SpriteAction<T> {
 
     @Override
     public void doAction(int time) {
-        this.getSprite().setVisible(visible);
+        if (time == this.getStartTime()) {
+            this.getSprite().setVisible(visible);
+        }
     }
 
     public boolean isVisible() {
