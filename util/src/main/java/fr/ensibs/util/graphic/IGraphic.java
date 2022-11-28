@@ -7,7 +7,7 @@ package fr.ensibs.util.graphic;
  * @author Pascale Launay
  * @inv {@code getWidth() >= 0 && getHeight() >= 0}
  */
-public interface Graphic<I extends IImage>
+public interface IGraphic<I extends IImage<?>>
 {
     /**
      * Give the width of the graphic area in pixels.
