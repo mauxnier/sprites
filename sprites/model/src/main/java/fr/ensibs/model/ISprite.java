@@ -17,7 +17,7 @@ import java.util.List;
  * @inv {@code getName() != null}
  * @inv {@code getDuration() >= 0}
  */
-public interface ISprite<I extends IImage> extends List<I> {
+public interface ISprite<I extends IImage<?>> extends List<I> {
     /**
      * Give the image corresponding to the current time.
      *

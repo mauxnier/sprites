@@ -15,8 +15,7 @@ import java.util.List;
  * @inv {@code getDuration() >= 0}
  * @inv {@code getActions() != null}
  */
-public interface ISequence<I extends IImage<?>> extends IScene<I>
-{
+public interface ISequence<I extends IImage<?>> extends IScene<I> {
     /**
      * Give the sequence total duration (in ms)
      *

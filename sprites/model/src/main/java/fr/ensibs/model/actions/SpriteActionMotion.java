@@ -32,11 +32,11 @@ public class SpriteActionMotion<T extends IImage<?>> extends SpriteAction<T> {
         if (time > end) {
             return;
         }
-        int time_diff = this.end - time;
-        int x_dist = this.getSprite().getX() - this.end_X;
-        int y_dist = this.getSprite().getY() - this.end_Y;
-        int x_step = x_dist / time_diff;
-        int y_step = y_dist / time_diff;
-        this.getSprite().setLocation(x_step, y_step);
+        int timeDiff = this.end - time;
+        int xDist = this.getSprite().getX() - this.endX;
+        int yDist = this.getSprite().getY() - this.endY;
+        int xStep = xDist / timeDiff;
+        int yStep = yDist / timeDiff;
+        this.getSprite().setLocation(xStep, yStep);
     }
 }

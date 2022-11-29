@@ -8,18 +8,18 @@ import fr.ensibs.util.graphic.IImage;
 import fr.ensibs.util.graphic.Snapshot;
 import fr.ensibs.util.graphic.SnapshotLayer;
 
-public class Scene<I extends IImage> extends ArrayList<ISprite<I>> implements IScene {
+public class Scene<I extends IImage<?>> extends ArrayList<ISprite<I>> implements IScene<I> {
 
-    private IImage background;
+    private I background;
 
-    public Scene(IImage background) {
+    public Scene(I background) {
         this.background = background;
     }
 
     @Override
     public Snapshot<I> getCurrentSnapshot() {
         Snapshot<I> snapshot = new Snapshot<>();
-        for (ISprite sprite : this) {
+        for (ISprite<I> sprite : this) {
             if (sprite.isVisible()) {
                 snapshot.add(new SnapshotLayer<I>(sprite.getX(), sprite.getY(), (I) sprite.getCurrentImage()));
             }
@@ -30,7 +30,7 @@ public class Scene<I extends IImage> extends ArrayList<ISprite<I>> implements IS
 
     @Override
     public void setCurrentTime(int time) {
-        for (ISprite sprite : this) {
+        for (ISprite<I> sprite : this) {
             sprite.setCurrentTime(time);
         }
     }
@@ -47,7 +47,7 @@ public class Scene<I extends IImage> extends ArrayList<ISprite<I>> implements IS
     }
 
     @Override
-    public IImage getBackground() {
+    public I getBackground() {
         return this.background;
     }
 

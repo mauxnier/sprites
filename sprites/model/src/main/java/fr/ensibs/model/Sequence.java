@@ -7,14 +7,12 @@ import fr.ensibs.model.actions.ISpriteAction;
 import fr.ensibs.util.graphic.IImage;
 import fr.ensibs.util.graphic.Snapshot;
 
-public class Sequence<I extends IImage> implements ISequence<I> {
+public class Sequence<I extends IImage<?>> implements ISequence<I> {
 
-    private final List<IScene<I>> scenes;
     private final List<ISpriteAction<I>> actions;
     private final I background;
 
-    public Sequence(List<IScene<I>> scenes, List<ISpriteAction<I>> actions, I background) {
-        this.scenes = scenes;
+    public Sequence(List<ISpriteAction<I>> actions, I background) {
         this.actions = actions;
         this.background = background;
     }
@@ -25,7 +23,7 @@ public class Sequence<I extends IImage> implements ISequence<I> {
     }
 
     @Override
-    public Snapshot getCurrentSnapshot() {
+    public Snapshot<I> getCurrentSnapshot() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -37,7 +35,7 @@ public class Sequence<I extends IImage> implements ISequence<I> {
     }
 
     @Override
-    public Map getImages() {
+    public Map<String, I> getImages() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -49,7 +47,7 @@ public class Sequence<I extends IImage> implements ISequence<I> {
     }
 
     @Override
-    public List getActions() {
+    public List<ISpriteAction<I>> getActions() {
         return this.actions;
     }
 

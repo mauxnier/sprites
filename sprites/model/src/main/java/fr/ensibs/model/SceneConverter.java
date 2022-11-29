@@ -9,21 +9,21 @@ import org.json.JSONObject;
 import fr.ensibs.util.graphic.IImage;
 import fr.ensibs.util.io.IJsonConverter;
 
-public class SceneConverter<T extends IImage> implements IJsonConverter<Scene<T>> {
+public class SceneConverter<I extends IImage<?>> implements IJsonConverter<Scene<I>> {
 
-    private final Map<String, T> map;
+    private final Map<String, I> map;
 
-    public SceneConverter(Map<String, T> map) {
+    public SceneConverter(Map<String, I> map) {
         this.map = map;
     }
 
     @Override
-    public Scene<T> fromJson(JSONObject obj) throws ParseException {
-        T image = this.map.get(obj.getString("background"));
-        Scene<T> scene = new Scene<T>(image);
+    public Scene<I> fromJson(JSONObject obj) throws ParseException {
+        I image = this.map.get(obj.getString("background"));
+        Scene<I> scene = new Scene<I>(image);
 
         JSONArray sprites = obj.getJSONArray("sprites");
-        SpriteConverter<T> spriteConverter = new SpriteConverter<T>(this.map);
+        SpriteConverter<I> spriteConverter = new SpriteConverter<I>(this.map);
 
         for (int i = 0; i < sprites.length(); i++) {
             scene.add(spriteConverter.fromJson(sprites.getJSONObject(i)));
@@ -33,14 +33,14 @@ public class SceneConverter<T extends IImage> implements IJsonConverter<Scene<T>
     }
 
     @Override
-    public JSONObject toJson(Scene<T> obj) {
+    public JSONObject toJson(Scene<I> obj) {
         JSONObject jsonObject = new JSONObject();
 
         JSONArray sprites = new JSONArray();
-        SpriteConverter<T> spriteConverter = new SpriteConverter<T>(this.map);
+        SpriteConverter<I> spriteConverter = new SpriteConverter<I>(this.map);
 
         for (int i = 0; i < obj.size(); i++) {
-            sprites.put(spriteConverter.toJson((Sprite<T>) obj.get(i)));
+            sprites.put(spriteConverter.toJson((Sprite<I>) obj.get(i)));
         }
 
         jsonObject.put("background", obj.getBackground().getName());
