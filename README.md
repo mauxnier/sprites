@@ -1,4 +1,4 @@
-# Sprites 🐦
+# Sprites 🐤
 
 The Sprites project is composed of Java FX and Android applications: 
 
